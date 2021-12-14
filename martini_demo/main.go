@@ -57,6 +57,7 @@ func main() {
 			ExString: "global " + time.Now().Format("2006-01-02 15:04:05"),
 			Req:      req,
 		}
+		// ShareForAllRequest是所有request共享的，而且每接收一个请求都会new一个新的实例
 		c.Map(reqC)
 	})
 
