@@ -10,6 +10,8 @@ import (
 	"martini_demo/controllers"
 	"martini_demo/middleware"
 	"martini_demo/models"
+	"net/http"
+	"time"
 )
 
 func readEnv(key string) string {
@@ -50,13 +52,25 @@ func main() {
 	m.Use(gzip.All())
 	m.Use(render.Renderer())
 	m.Use(middleware.BackchannelAuth("test"))
+	m.Use(func(req *http.Request, c martini.Context) {
+		reqC := &controllers.ShareForAllRequest{
+			ExString: "global " + time.Now().Format("2006-01-02 15:04:05"),
+			Req:      req,
+		}
+		c.Map(reqC)
+	})
 
 	// Inject the database
 	m.Map(db)
 
 	// Map the URL routes
 	m.Get("/", HandleIndex)
-	m.Get("/api/v1/users/current.json", controllers.HandleGetCurrentUser)
+	m.Group("/api", func(r martini.Router) {
+		r.Get("/users", controllers.HandleGetCurrentUser)
+		r.Get("/test1", controllers.MyHandle1, controllers.MyDo)
+		r.Get("/test2", controllers.MyHandle2)
+		r.Get("/test3", controllers.MyHandle3)
+	})
 	m.NotFound(HandleNotFound)
 
 	m.RunOnAddr(readEnv("API_URL"))
