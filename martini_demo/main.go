@@ -55,7 +55,7 @@ func main() {
 	m.Use(func(req *http.Request, c martini.Context) {
 		reqC := &controllers.ShareForAllRequest{
 			ExString: "global " + time.Now().Format("2006-01-02 15:04:05"),
-			Req:      req,
+			Gid:      controllers.GetGoroutineId(),
 		}
 		// ShareForAllRequest是所有request共享的，而且每接收一个请求都会new一个新的实例
 		c.Map(reqC)

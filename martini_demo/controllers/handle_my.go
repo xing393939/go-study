@@ -1,29 +1,45 @@
 package controllers
 
 import (
+	"bytes"
+	"github.com/codegangsta/martini-contrib/render"
 	"github.com/go-martini/martini"
-	"net/http"
+	"runtime"
+	"strconv"
 	"time"
 )
 
 type ShareForPerRequest struct {
 	ExString string
-	Req      *http.Request
+	Gid      uint64
 }
 
 type ShareForAllRequest struct {
 	ExString string
-	Req      *http.Request
+	Gid      uint64
 }
 
-func MyDo(perCtx *ShareForPerRequest, global *ShareForAllRequest) string {
-	return perCtx.ExString + "\n<br>" + global.ExString
+func GetGoroutineId() uint64 {
+	b := make([]byte, 64)
+	b = b[:runtime.Stack(b, false)]
+	b = bytes.TrimPrefix(b, []byte("goroutine "))
+	b = b[:bytes.IndexByte(b, ' ')]
+	n, _ := strconv.ParseUint(string(b), 10, 64)
+	return n
 }
 
-func MyHandle1(req *http.Request, c martini.Context) {
+func MyDo(perCtx *ShareForPerRequest, global *ShareForAllRequest, r render.Render) {
+	r.JSON(200, map[string]interface{}{
+		"myGid":  GetGoroutineId(),
+		"per":    perCtx,
+		"global": global,
+	})
+}
+
+func MyHandle1(c martini.Context) {
 	reqC := &ShareForPerRequest{
 		ExString: "perRequest " + time.Now().Format("2006-01-02 15:04:05"),
-		Req:      req,
+		Gid:      GetGoroutineId(),
 	}
 	c.Map(reqC)
 }
@@ -32,6 +48,9 @@ func MyHandle2(reqCtx *ShareForPerRequest) string {
 	return reqCtx.ExString
 }
 
-func MyHandle3(reqCtx *ShareForAllRequest) string {
-	return reqCtx.ExString
+func MyHandle3(global *ShareForAllRequest, r render.Render) {
+	r.JSON(200, map[string]interface{}{
+		"myGid":  GetGoroutineId(),
+		"global": global,
+	})
 }
