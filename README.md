@@ -20,7 +20,7 @@
 
 #### Go源码
 * [Go语言高级编程](https://book.douban.com/subject/34442131/)，柴树杉-蚂蚁金服、曹春晖-滴滴
-* [Go 语言设计与实现](https://draveness.me/golang/)，有纸质书，面向信仰编程博主
+* [Go 语言设计与实现](https://draveness.me/golang/)，有纸质书，面向信仰编程博主，左书祺
 * [Go夜读-Go源码阅读](https://bytemode.github.io/reading/)
 * [《Go 学习笔记》](https://github.com/qyuhen/book)，有纸质书，雨痕
 * [Go调用汇编和C](https://docs.kilvn.com/go-internals/03.1.html)
