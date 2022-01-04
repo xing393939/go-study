@@ -13,10 +13,11 @@
 * [Go夜读-期刊作者](https://github.com/talkgo/night/)
 * [潘少、潮汕人](https://strikefreedom.top/reading-list)
 * [峰云就她了](http://xiaorui.cc/)
-* [码农桃花源](https://www.qcrao.com/)
-* [曹大](https://xargin.com/readings/)
+* [码农桃花源-饶全成](https://www.qcrao.com/)
+* [曹大-曹春晖](https://xargin.com/readings/)
 * [Go夜读-欧长坤](https://blog.changkun.de/)
 * [Go夜读-煎鱼](https://eddycjy.com/posts/)
+* [茶歇驿站-杨文](https://maiyang.me/)
 
 #### Go源码
 * [Go语言高级编程](https://book.douban.com/subject/34442131/)，柴树杉-蚂蚁金服、曹春晖-滴滴
