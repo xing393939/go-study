@@ -1,8 +1,7 @@
 ### Go学习
 
 #### Go论坛
-* [Go语言中文网](https://studygolang.com/)
-* [Go夜读](https://talkgo.org/)
+* [Go夜读](https://talkgo.org/latest)
 * [GoCN](https://gocn.vip/topics)
 
 #### Go的GPM模型
