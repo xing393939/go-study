@@ -1,6 +1,8 @@
 ### Go学习
 
 #### Go论坛
+* [公众号每日推荐](https://studygolang.com/go/godaily)
+* [Go周刊](https://studygolang.com/go/weekly)
 * [Go夜读](https://talkgo.org/latest)
 * [GoCN](https://gocn.vip/topics)
 
@@ -9,6 +11,8 @@
 * [Go夜读-第78期 Go Scheduler 源码阅读](https://talkgo.org/t/topic/97)
 
 #### Go博客
+* [学习路线图、文章、规范](https://github.com/yongxinz/gopher)
+* [Go导航](https://www.topgoer.cn/navigation)
 * [Go夜读-期刊作者](https://github.com/talkgo/night/)
 * [潘少、潮汕人](https://strikefreedom.top/reading-list)
 * [峰云就她了](http://xiaorui.cc/)
