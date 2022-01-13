@@ -12,6 +12,8 @@
 
 #### Go博客
 * [学习路线图、文章、规范](https://github.com/yongxinz/gopher)
+* [Gopher Reading List](https://github.com/qichengzx/gopher-reading-list-zh_CN)
+* [GoFrame导航](https://goframe.org/pages/viewpage.action?pageId=3672756)
 * [Go导航](https://www.topgoer.cn/navigation)
 * [Go夜读-期刊作者](https://github.com/talkgo/night/)
 * [潘少、潮汕人](https://strikefreedom.top/reading-list)
