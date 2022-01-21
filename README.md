@@ -6,6 +6,10 @@
 * [Go夜读](https://talkgo.org/latest)
 * [GoCN](https://gocn.vip/topics)
 
+#### 框架源码
+* [第三代微服务架构：基于 Go 的博客微服务实战案例](https://learnku.com/articles/64204)
+* [带你十天轻松搞定 Go 微服务系列](https://learnku.com/articles/64566)
+
 #### Go的GPM模型
 * [调度器实现分析](https://learn.gocn.vip/column/18/doc/67)
 * [Go夜读-第78期 Go Scheduler 源码阅读](https://talkgo.org/t/topic/97)
