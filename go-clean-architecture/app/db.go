@@ -8,7 +8,7 @@ import (
 
 func InitDB() *gorm.DB {
 	//dsn := "root:123456@tcp(127.0.0.1:3306)?charset=utf8mb4&parseTime=True&loc=Local"
-	dsn := "../sqlite.db"
+	dsn := "file:sqlite.db?cache=shared&mode=memory"
 	db, err := gorm.Open(sqlite.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatal(err)
