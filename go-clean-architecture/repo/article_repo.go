@@ -19,6 +19,11 @@ func NewMysqlArticleRepository(DB *gorm.DB) IArticleRepo {
 func (m *mysqlArticleRepository) Fetch(ctx context.Context, createdDate time.Time,
 	num int) (res []models.Article, err error) {
 
+	// 使用的内存数据库，先初始化表
+	tmp := models.Article{ID: 1}
+	_ = m.DB.AutoMigrate(&tmp)
+	m.DB.Create(&tmp)
+
 	err = m.DB.WithContext(ctx).Model(&models.Article{}).
 		Select("id").
 		Limit(num).Find(&res).Error
