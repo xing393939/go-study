@@ -28,6 +28,7 @@
 * [Go夜读-煎鱼](https://eddycjy.com/posts/)
 * [茶歇驿站-杨文](https://maiyang.me/)
 * [luozhiyun-腾讯](https://www.luozhiyun.com/)
+* [蒙卓-腾讯](https://mzh.io/)，go源码贡献者
 
 #### Go源码
 * [Go语言高级编程](https://book.douban.com/subject/34442131/)，柴树杉-蚂蚁金服、曹春晖-滴滴
