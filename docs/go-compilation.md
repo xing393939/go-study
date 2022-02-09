@@ -5,11 +5,12 @@
 
 ```
 //数据copy
-MOVQ $123, AX  //AX=123
-MOVB $1, DI    // 1 byte
-MOVW $0x10, BX // 2bytes
-MOVD $1, DX    // 4 bytes
-MOVQ $-10, AX  // 8 bytes
+LEAQ 5(AX*2), BX //BX=AX*2+5
+MOVQ $123, AX    //AX=123
+MOVB $1, DI      // 1 byte
+MOVW $0x10, BX   // 2bytes
+MOVD $1, DX      // 4 bytes
+MOVQ $-10, AX    // 8 bytes
 
 //计算指令
 ADDQ AX, BX  // BX += AX
