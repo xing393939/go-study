@@ -30,6 +30,13 @@ JLS 0x0185 // 如果SI<CX，则跳转到0x0185
 SUBQ $0x18, SP // 对SP做减法，为函数分配函数栈帧
 ADDQ $0x18, SP // 对SP做加法，清除函数栈帧
 
+//定义函数
+TEXT fun·Swap(SB),NOSPLIT,$0-32 
+//fun是包名
+//Swap是方法名
+//若不指定NOSPLIT，arguments size必须指定
+//$0-32表示stack frame size + arguments size
+
 //参考https://golang.design/under-the-hood/zh-cn/part1basic/ch01basic/asm/
 //FUNCDATA 和 PCDATA 指令包含了由垃圾回收器使用的信息，他们由编译器引入。
 DATA divtab<>+0x00(SB)/4, $0xf4f8fcff  // 表示的是divtab<>在0偏移处有一个4字节大小的值0xf4f8fcff
