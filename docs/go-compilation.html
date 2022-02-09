@@ -194,11 +194,12 @@
 <li><a href="https://studygolang.com/articles/33163" target="_blank">&#x809D;&#x4E86;&#x4E00;&#x4E0A;&#x5348;golang&#x4E4B;plan9&#x5165;&#x95E8;</a></li>
 </ul>
 <pre><code>//&#x6570;&#x636E;copy
-MOVQ $123, AX  //AX=123
-MOVB $1, DI    // 1 byte
-MOVW $0x10, BX // 2bytes
-MOVD $1, DX    // 4 bytes
-MOVQ $-10, AX  // 8 bytes
+LEAQ 5(AX*2), BX //BX=AX*2+5
+MOVQ $123, AX    //AX=123
+MOVB $1, DI      // 1 byte
+MOVW $0x10, BX   // 2bytes
+MOVD $1, DX      // 4 bytes
+MOVQ $-10, AX    // 8 bytes
 
 //&#x8BA1;&#x7B97;&#x6307;&#x4EE4;
 ADDQ AX, BX  // BX += AX
@@ -262,7 +263,7 @@ ADDQ $0x18, SP // &#x5BF9;SP&#x505A;&#x52A0;&#x6CD5;&#xFF0C;&#x6E05;&#x9664;&#x5
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Go 汇编相关","level":"1.2","depth":1,"next":{"title":"Go 语言从入门到实战","level":"1.3","depth":1,"path":"docs/go-from-entry-to-practice.md","ref":"docs/go-from-entry-to-practice.md","articles":[]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-compilation.md","mtime":"2022-02-09T09:51:44.054Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-02-09T09:52:17.657Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Go 汇编相关","level":"1.2","depth":1,"next":{"title":"Go 语言从入门到实战","level":"1.3","depth":1,"path":"docs/go-from-entry-to-practice.md","ref":"docs/go-from-entry-to-practice.md","articles":[]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-compilation.md","mtime":"2022-02-09T10:07:19.392Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-02-09T10:07:43.475Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
