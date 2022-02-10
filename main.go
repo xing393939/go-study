@@ -12,8 +12,7 @@ func main() {
 
 	println(registers.Output(987654321))
 
-	a, b := swap.Swap(1, 2)
-	println(a, b)
+	println(swap.Swap(1, 2))
 
 	println(math.Add(10, 11))
 	println(math.Sub(99, 15))

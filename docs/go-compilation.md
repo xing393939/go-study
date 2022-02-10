@@ -6,6 +6,7 @@
 //数据copy
 LEAQ 5(AX*2), BX // BX=AX*2+5
 MOVQ $123, AX    // AX=123
+MOVQ $0x123, AX  // AX=291
 MOVB $1, DI      // 1 byte
 MOVW $0x10, BX   // 2 bytes
 MOVD $1, DX      // 4 bytes
@@ -33,8 +34,8 @@ ADDQ $0x18, SP // 对SP做加法，清除函数栈帧
 TEXT fun·Swap(SB),NOSPLIT,$0-32 
 //fun是包名
 //Swap是方法名
-//若不指定NOSPLIT，arguments size必须指定
-//$0-32表示stack frame size + arguments size
+//若不指定NOSPLIT，argsize必须指定
+//$0-32表示framesize和argsize
 
 //参考https://golang.design/under-the-hood/zh-cn/part1basic/ch01basic/asm/
 //FUNCDATA 和 PCDATA 指令包含了由垃圾回收器使用的信息，他们由编译器引入。
@@ -47,7 +48,7 @@ GLOBL divtab<>(SB), RODATA, $64        // 给变量divtab<>加上RODATA只读标
 #### 四个伪寄存器[plan9 汇编入门](https://github.com/cch123/golang-notes/blob/master/assembly.md#%E4%BC%AA%E5%AF%84%E5%AD%98%E5%99%A8)
 * SB: Static base pointer(全局静态基指针)，一般用来声明函数或全局变量
 * PC: Program counter(PC 寄存器)
-* FP: Frame pointer，用来标识传参、返回值。arg0+0(FP)表示第一个传参
+* FP: Frame pointer(帧指针)，用来标识传参、返回值。arg0+0(FP)表示第一个传参
 * SP: Stack pointer(栈指针)
   * 伪SP：指向当前栈帧的局部变量的开始位置。var0-8(SP)表示第一个局部变量(var0占8B)
   * 硬件SP：函数栈真实栈顶地址
@@ -57,10 +58,63 @@ GLOBL divtab<>(SB), RODATA, $64        // 给变量divtab<>加上RODATA只读标
   * 如果是手写plan9，且如果是symbol+offset(SP)形式，则表示伪SP。如果是offset(SP)则表示硬件SP。
   * 如果是go tool objdump/go tool compile -S，看到的都是硬件SP。
 
+##### Go语言的编译指示[Go 语言编译器](https://segmentfault.com/a/1190000016743220)
+* //go:noinline：不要内联。例如"new" + word：
+  * 不加此提示，编译器会吧appendStr函数直接搬过来，这是编译器默认做的优化
+  * 加了此提示，则是call appendStr
+* //go:nosplit：跳过栈溢出检查。加上此提示可提高性能，但是可能会stack overflow
+* //go:noescape：禁止逃逸  
 
+##### argsize和framesize计算规则[plan9 汇编入门](https://github.com/cch123/golang-notes/blob/master/assembly.md#argsize-%E5%92%8C-framesize-%E8%AE%A1%E7%AE%97%E8%A7%84%E5%88%99)
 
+```
+/*
+argsize
+1. Go 在函数调用时，参数和返回值都需要由 caller 在其栈帧上备好空间。callee 在声明时仍然需要知道这个 argsize。
+2. argsize = 参数大小求和 + 返回值。但需要考虑内存对齐
+*/
 
-
+/*
+framesize
+1. 需要计算局部变量及其每个变量的size
+2. 如果还调用了其他函数，需要计算callee的参数、返回值，但是不需要考虑return address(8字节)
+*/
+                                                                                                                    
+                                       caller                                                                           
+                                 +------------------+                                                                   
+                                 |                  |                                                                   
+       +---------------------->  --------------------                                                                   
+       |                         | caller parent BP |                                                                   
+       |           BP(pseudo SP) --------------------                                                                   
+       |                         |   Local Var0     |                                                                   
+       |                         --------------------                                                                   
+       |                         |   .......        |                                                                   
+       |                         --------------------                                                                   
+       |                         |   Local VarN     |                                                                   
+                                 --------------------                                                                   
+ caller stack frame              |                  |                                                                   
+                                 |   callee arg2    |                                                                   
+       |                         |------------------|                                                                   
+       |                         |   callee arg1    |                                                                   
+       |                         |------------------|                                                                   
+       |                         |   callee arg0    |                                                                   
+       |                         ----------------------------------------------+   FP(virtual register)                 
+       |                         |   return addr    |  parent return address   |                                        
+       +---------------------->  +------------------+---------------------------    <-------------------------+         
+                                                    |     caller BP            |                              |         
+                                     BP(pseudo SP)  ----------------------------                              |         
+                                                    |     Local Var0           |                              |         
+                                                    ----------------------------                              |         
+                                                    |     Local Var1           |                                        
+                                                    ----------------------------                      callee stack frame
+                                                    |       .....              |                                        
+                                                    ----------------------------                              |         
+                                                    |     Local VarN           |                              |         
+                                  SP(Real Register) ----------------------------                              |         
+                                                    |                          |                              |         
+                                                    +--------------------------+    <-------------------------+         
+                                                              callee
+```
 
 
 
