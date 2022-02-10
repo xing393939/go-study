@@ -2,6 +2,7 @@ package main
 
 import (
 	"go-study/plan9/math"
+	"go-study/plan9/registers"
 	"go-study/plan9/swap"
 	"go-study/plan9/test"
 )
@@ -9,8 +10,9 @@ import (
 func main() {
 	println(test.Test())
 
-	a, b := swap.Swap(1, 2)
-	println(a, b)
+	println(registers.Output(987654321))
+
+	println(swap.Swap(1, 2))
 
 	println(math.Add(10, 11))
 	println(math.Sub(99, 15))

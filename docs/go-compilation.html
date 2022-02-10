@@ -189,15 +189,13 @@
                                 <section class="normal markdown-section">
                                 
                                 <h3 id="go-&#x6C47;&#x7F16;&#x76F8;&#x5173;">Go &#x6C47;&#x7F16;&#x76F8;&#x5173;</h3>
-<h4 id="&#x5E38;&#x7528;&#x6307;&#x4EE4;">&#x5E38;&#x7528;&#x6307;&#x4EE4;</h4>
-<ul>
-<li><a href="https://studygolang.com/articles/33163" target="_blank">&#x809D;&#x4E86;&#x4E00;&#x4E0A;&#x5348;golang&#x4E4B;plan9&#x5165;&#x95E8;</a></li>
-</ul>
+<h4 id="&#x5E38;&#x7528;&#x6307;&#x4EE4;&#x809D;&#x4E86;&#x4E00;&#x4E0A;&#x5348;golang&#x4E4B;plan9&#x5165;&#x95E8;">&#x5E38;&#x7528;&#x6307;&#x4EE4;<a href="https://studygolang.com/articles/33163" target="_blank">&#x809D;&#x4E86;&#x4E00;&#x4E0A;&#x5348;golang&#x4E4B;plan9&#x5165;&#x95E8;</a></h4>
 <pre><code>//&#x6570;&#x636E;copy
-LEAQ 5(AX*2), BX //BX=AX*2+5
-MOVQ $123, AX    //AX=123
+LEAQ 5(AX*2), BX // BX=AX*2+5
+MOVQ $123, AX    // AX=123
+MOVQ $0x123, AX  // AX=291
 MOVB $1, DI      // 1 byte
-MOVW $0x10, BX   // 2bytes
+MOVW $0x10, BX   // 2 bytes
 MOVD $1, DX      // 4 bytes
 MOVQ $-10, AX    // 8 bytes
 
@@ -219,12 +217,94 @@ JLS 0x0185 // &#x5982;&#x679C;SI&lt;CX&#xFF0C;&#x5219;&#x8DF3;&#x8F6C;&#x5230;0x
 SUBQ $0x18, SP // &#x5BF9;SP&#x505A;&#x51CF;&#x6CD5;&#xFF0C;&#x4E3A;&#x51FD;&#x6570;&#x5206;&#x914D;&#x51FD;&#x6570;&#x6808;&#x5E27;
 ADDQ $0x18, SP // &#x5BF9;SP&#x505A;&#x52A0;&#x6CD5;&#xFF0C;&#x6E05;&#x9664;&#x51FD;&#x6570;&#x6808;&#x5E27;
 
+//&#x5B9A;&#x4E49;&#x51FD;&#x6570;
+TEXT fun&#xB7;Swap(SB),NOSPLIT,$0-32 
+//fun&#x662F;&#x5305;&#x540D;
+//Swap&#x662F;&#x65B9;&#x6CD5;&#x540D;
+//&#x82E5;&#x4E0D;&#x6307;&#x5B9A;NOSPLIT&#xFF0C;argsize&#x5FC5;&#x987B;&#x6307;&#x5B9A;
+//$0-32&#x8868;&#x793A;framesize&#x548C;argsize
+
 //&#x53C2;&#x8003;https://golang.design/under-the-hood/zh-cn/part1basic/ch01basic/asm/
 //FUNCDATA &#x548C; PCDATA &#x6307;&#x4EE4;&#x5305;&#x542B;&#x4E86;&#x7531;&#x5783;&#x573E;&#x56DE;&#x6536;&#x5668;&#x4F7F;&#x7528;&#x7684;&#x4FE1;&#x606F;&#xFF0C;&#x4ED6;&#x4EEC;&#x7531;&#x7F16;&#x8BD1;&#x5668;&#x5F15;&#x5165;&#x3002;
 DATA divtab&lt;&gt;+0x00(SB)/4, $0xf4f8fcff  // &#x8868;&#x793A;&#x7684;&#x662F;divtab&lt;&gt;&#x5728;0&#x504F;&#x79FB;&#x5904;&#x6709;&#x4E00;&#x4E2A;4&#x5B57;&#x8282;&#x5927;&#x5C0F;&#x7684;&#x503C;0xf4f8fcff
 ...
 DATA divtab&lt;&gt;+0x3c(SB)/4, $0x81828384
 GLOBL divtab&lt;&gt;(SB), RODATA, $64        // &#x7ED9;&#x53D8;&#x91CF;divtab&lt;&gt;&#x52A0;&#x4E0A;RODATA&#x53EA;&#x8BFB;&#x6807;&#x8BC6;&#xFF0C;&#x5E76;&#x58F0;&#x660E;&#x5360;&#x7528;64&#x5B57;&#x8282;&#xFF08;3c+4=64&#xFF09;
+</code></pre><h4 id="&#x56DB;&#x4E2A;&#x4F2A;&#x5BC4;&#x5B58;&#x5668;plan9-&#x6C47;&#x7F16;&#x5165;&#x95E8;">&#x56DB;&#x4E2A;&#x4F2A;&#x5BC4;&#x5B58;&#x5668;<a href="https://github.com/cch123/golang-notes/blob/master/assembly.md#%E4%BC%AA%E5%AF%84%E5%AD%98%E5%99%A8" target="_blank">plan9 &#x6C47;&#x7F16;&#x5165;&#x95E8;</a></h4>
+<ul>
+<li>SB: Static base pointer(&#x5168;&#x5C40;&#x9759;&#x6001;&#x57FA;&#x6307;&#x9488;)&#xFF0C;&#x4E00;&#x822C;&#x7528;&#x6765;&#x58F0;&#x660E;&#x51FD;&#x6570;&#x6216;&#x5168;&#x5C40;&#x53D8;&#x91CF;</li>
+<li>PC: Program counter(PC &#x5BC4;&#x5B58;&#x5668;)</li>
+<li>FP: Frame pointer(&#x5E27;&#x6307;&#x9488;)&#xFF0C;&#x7528;&#x6765;&#x6807;&#x8BC6;&#x4F20;&#x53C2;&#x3001;&#x8FD4;&#x56DE;&#x503C;&#x3002;arg0+0(FP)&#x8868;&#x793A;&#x7B2C;&#x4E00;&#x4E2A;&#x4F20;&#x53C2;</li>
+<li>SP: Stack pointer(&#x6808;&#x6307;&#x9488;)<ul>
+<li>&#x4F2A;SP&#xFF1A;&#x6307;&#x5411;&#x5F53;&#x524D;&#x6808;&#x5E27;&#x7684;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x7684;&#x5F00;&#x59CB;&#x4F4D;&#x7F6E;&#x3002;var0-8(SP)&#x8868;&#x793A;&#x7B2C;&#x4E00;&#x4E2A;&#x5C40;&#x90E8;&#x53D8;&#x91CF;(var0&#x5360;8B)</li>
+<li>&#x786C;&#x4EF6;SP&#xFF1A;&#x51FD;&#x6570;&#x6808;&#x771F;&#x5B9E;&#x6808;&#x9876;&#x5730;&#x5740;</li>
+</ul>
+</li>
+<li>&#x4F2A;SP&#x548C;&#x786C;&#x4EF6;SP&#x7684;&#x5173;&#x7CFB;&#xFF1A;<ul>
+<li>&#x82E5;&#x6CA1;&#x6709;&#x672C;&#x5730;&#x53D8;&#x91CF;&#xFF1A;&#x4F2A;SP=&#x786C;&#x4EF6;SP+8</li>
+<li>&#x82E5;&#x6709;&#x672C;&#x5730;&#x53D8;&#x91CF;&#xFF1A;&#x4F2A;SP=&#x786C;&#x4EF6;SP+16+&#x672C;&#x5730;&#x53D8;&#x91CF;&#x7A7A;&#x95F4;&#x5927;&#x5C0F;</li>
+<li>&#x5982;&#x679C;&#x662F;&#x624B;&#x5199;plan9&#xFF0C;&#x4E14;&#x5982;&#x679C;&#x662F;symbol+offset(SP)&#x5F62;&#x5F0F;&#xFF0C;&#x5219;&#x8868;&#x793A;&#x4F2A;SP&#x3002;&#x5982;&#x679C;&#x662F;offset(SP)&#x5219;&#x8868;&#x793A;&#x786C;&#x4EF6;SP&#x3002;</li>
+<li>&#x5982;&#x679C;&#x662F;go tool objdump/go tool compile -S&#xFF0C;&#x770B;&#x5230;&#x7684;&#x90FD;&#x662F;&#x786C;&#x4EF6;SP&#x3002;</li>
+</ul>
+</li>
+</ul>
+<h5 id="go&#x8BED;&#x8A00;&#x7684;&#x7F16;&#x8BD1;&#x6307;&#x793A;go-&#x8BED;&#x8A00;&#x7F16;&#x8BD1;&#x5668;">Go&#x8BED;&#x8A00;&#x7684;&#x7F16;&#x8BD1;&#x6307;&#x793A;<a href="https://segmentfault.com/a/1190000016743220" target="_blank">Go &#x8BED;&#x8A00;&#x7F16;&#x8BD1;&#x5668;</a></h5>
+<ul>
+<li>//go:noinline&#xFF1A;&#x4E0D;&#x8981;&#x5185;&#x8054;&#x3002;&#x4F8B;&#x5982;&quot;new&quot; + word&#xFF1A;<ul>
+<li>&#x4E0D;&#x52A0;&#x6B64;&#x63D0;&#x793A;&#xFF0C;&#x7F16;&#x8BD1;&#x5668;&#x4F1A;&#x5427;appendStr&#x51FD;&#x6570;&#x76F4;&#x63A5;&#x642C;&#x8FC7;&#x6765;&#xFF0C;&#x8FD9;&#x662F;&#x7F16;&#x8BD1;&#x5668;&#x9ED8;&#x8BA4;&#x505A;&#x7684;&#x4F18;&#x5316;</li>
+<li>&#x52A0;&#x4E86;&#x6B64;&#x63D0;&#x793A;&#xFF0C;&#x5219;&#x662F;call appendStr</li>
+</ul>
+</li>
+<li>//go:nosplit&#xFF1A;&#x8DF3;&#x8FC7;&#x6808;&#x6EA2;&#x51FA;&#x68C0;&#x67E5;&#x3002;&#x52A0;&#x4E0A;&#x6B64;&#x63D0;&#x793A;&#x53EF;&#x63D0;&#x9AD8;&#x6027;&#x80FD;&#xFF0C;&#x4F46;&#x662F;&#x53EF;&#x80FD;&#x4F1A;stack overflow</li>
+<li>//go:noescape&#xFF1A;&#x7981;&#x6B62;&#x9003;&#x9038;  </li>
+</ul>
+<h5 id="argsize&#x548C;framesize&#x8BA1;&#x7B97;&#x89C4;&#x5219;plan9-&#x6C47;&#x7F16;&#x5165;&#x95E8;">argsize&#x548C;framesize&#x8BA1;&#x7B97;&#x89C4;&#x5219;<a href="https://github.com/cch123/golang-notes/blob/master/assembly.md#argsize-%E5%92%8C-framesize-%E8%AE%A1%E7%AE%97%E8%A7%84%E5%88%99" target="_blank">plan9 &#x6C47;&#x7F16;&#x5165;&#x95E8;</a></h5>
+<pre><code>/*
+argsize
+1. Go &#x5728;&#x51FD;&#x6570;&#x8C03;&#x7528;&#x65F6;&#xFF0C;&#x53C2;&#x6570;&#x548C;&#x8FD4;&#x56DE;&#x503C;&#x90FD;&#x9700;&#x8981;&#x7531; caller &#x5728;&#x5176;&#x6808;&#x5E27;&#x4E0A;&#x5907;&#x597D;&#x7A7A;&#x95F4;&#x3002;callee &#x5728;&#x58F0;&#x660E;&#x65F6;&#x4ECD;&#x7136;&#x9700;&#x8981;&#x77E5;&#x9053;&#x8FD9;&#x4E2A; argsize&#x3002;
+2. argsize = &#x53C2;&#x6570;&#x5927;&#x5C0F;&#x6C42;&#x548C; + &#x8FD4;&#x56DE;&#x503C;&#x3002;&#x4F46;&#x9700;&#x8981;&#x8003;&#x8651;&#x5185;&#x5B58;&#x5BF9;&#x9F50;
+*/
+
+/*
+framesize
+1. &#x9700;&#x8981;&#x8BA1;&#x7B97;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x53CA;&#x5176;&#x6BCF;&#x4E2A;&#x53D8;&#x91CF;&#x7684;size
+2. &#x5982;&#x679C;&#x8FD8;&#x8C03;&#x7528;&#x4E86;&#x5176;&#x4ED6;&#x51FD;&#x6570;&#xFF0C;&#x9700;&#x8981;&#x8BA1;&#x7B97;callee&#x7684;&#x53C2;&#x6570;&#x3001;&#x8FD4;&#x56DE;&#x503C;&#xFF0C;&#x4F46;&#x662F;&#x4E0D;&#x9700;&#x8981;&#x8003;&#x8651;return address(8&#x5B57;&#x8282;)
+*/
+
+                                       caller                                                                           
+                                 +------------------+                                                                   
+                                 |                  |                                                                   
+       +----------------------&gt;  --------------------                                                                   
+       |                         | caller parent BP |                                                                   
+       |           BP(pseudo SP) --------------------                                                                   
+       |                         |   Local Var0     |                                                                   
+       |                         --------------------                                                                   
+       |                         |   .......        |                                                                   
+       |                         --------------------                                                                   
+       |                         |   Local VarN     |                                                                   
+                                 --------------------                                                                   
+ caller stack frame              |                  |                                                                   
+                                 |   callee arg2    |                                                                   
+       |                         |------------------|                                                                   
+       |                         |   callee arg1    |                                                                   
+       |                         |------------------|                                                                   
+       |                         |   callee arg0    |                                                                   
+       |                         ----------------------------------------------+   FP(virtual register)                 
+       |                         |   return addr    |  parent return address   |                                        
+       +----------------------&gt;  +------------------+---------------------------    &lt;-------------------------+         
+                                                    |     caller BP            |                              |         
+                                     BP(pseudo SP)  ----------------------------                              |         
+                                                    |     Local Var0           |                              |         
+                                                    ----------------------------                              |         
+                                                    |     Local Var1           |                                        
+                                                    ----------------------------                      callee stack frame
+                                                    |       .....              |                                        
+                                                    ----------------------------                              |         
+                                                    |     Local VarN           |                              |         
+                                  SP(Real Register) ----------------------------                              |         
+                                                    |                          |                              |         
+                                                    +--------------------------+    &lt;-------------------------+         
+                                                              callee
 </code></pre>
                                 
                                 </section>
@@ -268,7 +348,7 @@ GLOBL divtab&lt;&gt;(SB), RODATA, $64        // &#x7ED9;&#x53D8;&#x91CF;divtab&l
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Go 汇编相关","level":"1.2","depth":1,"next":{"title":"Go 语言从入门到实战","level":"1.3","depth":1,"path":"docs/go-from-entry-to-practice.md","ref":"docs/go-from-entry-to-practice.md","articles":[]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-compilation.md","mtime":"2022-02-09T10:21:45.251Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-02-09T10:22:08.968Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Go 汇编相关","level":"1.2","depth":1,"next":{"title":"Go 语言从入门到实战","level":"1.3","depth":1,"path":"docs/go-from-entry-to-practice.md","ref":"docs/go-from-entry-to-practice.md","articles":[]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-compilation.md","mtime":"2022-02-10T03:22:02.022Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-02-10T03:22:36.605Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
