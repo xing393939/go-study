@@ -58,14 +58,14 @@ GLOBL divtab<>(SB), RODATA, $64        // 给变量divtab<>加上RODATA只读标
   * 如果是手写plan9，且如果是symbol+offset(SP)形式，则表示伪SP。如果是offset(SP)则表示硬件SP。
   * 如果是go tool objdump/go tool compile -S，看到的都是硬件SP。
 
-##### Go语言的编译指示[Go 语言编译器](https://segmentfault.com/a/1190000016743220)
+#### Go语言的编译指示[Go 语言编译器](https://segmentfault.com/a/1190000016743220)
 * //go:noinline：不要内联。例如"new" + word：
   * 不加此提示，编译器会吧appendStr函数直接搬过来，这是编译器默认做的优化
   * 加了此提示，则是call appendStr
 * //go:nosplit：跳过栈溢出检查。加上此提示可提高性能，但是可能会stack overflow
 * //go:noescape：禁止逃逸  
 
-##### argsize和framesize计算规则[plan9 汇编入门](https://github.com/cch123/golang-notes/blob/master/assembly.md#argsize-%E5%92%8C-framesize-%E8%AE%A1%E7%AE%97%E8%A7%84%E5%88%99)
+#### argsize和framesize计算规则[plan9 汇编入门](https://github.com/cch123/golang-notes/blob/master/assembly.md#argsize-%E5%92%8C-framesize-%E8%AE%A1%E7%AE%97%E8%A7%84%E5%88%99)
 
 ```
 /*
@@ -79,41 +79,40 @@ framesize
 1. 需要计算局部变量及其每个变量的size
 2. 如果还调用了其他函数，需要计算callee的参数、返回值，但是不需要考虑return address(8字节)
 */
-                                                                                                                    
-                                       caller                                                                           
-                                 +------------------+                                                                   
-                                 |                  |                                                                   
-       +---------------------->  --------------------                                                                   
-       |                         | caller parent BP |                                                                   
-       |           BP(pseudo SP) --------------------                                                                   
-       |                         |   Local Var0     |                                                                   
-       |                         --------------------                                                                   
-       |                         |   .......        |                                                                   
-       |                         --------------------                                                                   
-       |                         |   Local VarN     |                                                                   
-                                 --------------------                                                                   
- caller stack frame              |                  |                                                                   
-                                 |   callee arg2    |                                                                   
-       |                         |------------------|                                                                   
-       |                         |   callee arg1    |                                                                   
-       |                         |------------------|                                                                   
-       |                         |   callee arg0    |                                                                   
-       |                         ----------------------------------------------+   FP(virtual register)                 
-       |                         |   return addr    |  parent return address   |                                        
-       +---------------------->  +------------------+---------------------------    <-------------------------+         
-                                                    |     caller BP            |                              |         
-                                     BP(pseudo SP)  ----------------------------                              |         
-                                                    |     Local Var0           |                              |         
-                                                    ----------------------------                              |         
-                                                    |     Local Var1           |                                        
-                                                    ----------------------------                      callee stack frame
-                                                    |       .....              |                                        
-                                                    ----------------------------                              |         
-                                                    |     Local VarN           |                              |         
-                                  SP(Real Register) ----------------------------                              |         
-                                                    |                          |                              |         
-                                                    +--------------------------+    <-------------------------+         
-                                                              callee
+                                  caller                                                                           
+                            +------------------+                                                                   
+                            |                  |                                                                   
+      +------------------>  --------------------                                                                   
+      |                     | caller parent BP |                                                                   
+      |       BP(pseudo SP) --------------------                                                                   
+      |                     |   Local Var0     |                                                                   
+      |                     --------------------                                                                   
+      |                     |   .......        |                                                                   
+      |                     --------------------                                                                   
+      |                     |   Local VarN     |                                                                   
+                            --------------------                                                                   
+caller stack frame          |                  |                                                                   
+                            |   callee arg2    |                                                                   
+      |                     |------------------|                                                                   
+      |                     |   callee arg1    |                                                                   
+      |                     |------------------|                                                                   
+      |                     |   callee arg0    |                                                                   
+      |                     ----------------------------------------------+   FP(virtual register)                 
+      |                     |   return addr    |  parent return address   |                                        
+      +------------------>  +------------------+---------------------------    <-----------------+         
+                                               |     caller BP            |                      |         
+                                BP(pseudo SP)  ----------------------------                      |         
+                                               |     Local Var0           |                      |         
+                                               ----------------------------                      |         
+                                               |     Local Var1           |                                
+                                               ----------------------------              callee stack frame
+                                               |       .....              |                                
+                                               ----------------------------                      |         
+                                               |     Local VarN           |                      |         
+                             SP(Real Register) ----------------------------                      |         
+                                               |                          |                      |         
+                                               +--------------------------+    <-----------------+         
+                                                         callee
 ```
 
 
