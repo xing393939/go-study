@@ -1,6 +1,7 @@
 package main
 
 import (
+	"go-study/plan9/callgofunction"
 	"go-study/plan9/math"
 	"go-study/plan9/registers"
 	"go-study/plan9/swap"
@@ -11,6 +12,8 @@ func main() {
 	println(test.Test())
 
 	println(registers.Output(987654321))
+
+	println(callgofunction.Output(2, 3))
 
 	println(swap.Swap(1, 2))
 
