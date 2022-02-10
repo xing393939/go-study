@@ -2,12 +2,15 @@ package main
 
 import (
 	"go-study/plan9/math"
+	"go-study/plan9/registers"
 	"go-study/plan9/swap"
 	"go-study/plan9/test"
 )
 
 func main() {
 	println(test.Test())
+
+	println(registers.Output(987654321))
 
 	a, b := swap.Swap(1, 2)
 	println(a, b)
