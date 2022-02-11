@@ -1,6 +1,6 @@
 ### Go 汇编相关
 
-#### 常用指令[肝了一上午golang之plan9入门](https://studygolang.com/articles/33163)
+#### 常用指令，[肝了一上午golang之plan9入门](https://studygolang.com/articles/33163)
 
 ```
 //数据copy
@@ -45,7 +45,7 @@ DATA divtab<>+0x3c(SB)/4, $0x81828384
 GLOBL divtab<>(SB), RODATA, $64        // 给变量divtab<>加上RODATA只读标识，并声明占用64字节（3c+4=64）
 ```
 
-#### 四个伪寄存器[plan9 汇编入门](https://github.com/cch123/golang-notes/blob/master/assembly.md#%E4%BC%AA%E5%AF%84%E5%AD%98%E5%99%A8)
+#### 四个伪寄存器，[plan9 汇编入门](https://github.com/cch123/golang-notes/blob/master/assembly.md#%E4%BC%AA%E5%AF%84%E5%AD%98%E5%99%A8)
 * SB: Static base pointer(全局静态基指针)，一般用来声明函数或全局变量
 * PC: Program counter(PC 寄存器)
 * FP: Frame pointer(帧指针)，用来标识传参、返回值。arg0+0(FP)表示第一个传参
@@ -58,14 +58,14 @@ GLOBL divtab<>(SB), RODATA, $64        // 给变量divtab<>加上RODATA只读标
   * 如果是手写plan9，且如果是symbol+offset(SP)形式，则表示伪SP。如果是offset(SP)则表示硬件SP。
   * 如果是go tool objdump/go tool compile -S，看到的都是硬件SP。
 
-#### Go语言的编译指示[Go 语言编译器](https://segmentfault.com/a/1190000016743220)
+#### Go语言的编译指示，[Go 语言编译器](https://segmentfault.com/a/1190000016743220)
 * //go:noinline：不要内联。例如"new" + word：
   * 不加此提示，编译器会吧appendStr函数直接搬过来，这是编译器默认做的优化
   * 加了此提示，则是call appendStr
 * //go:nosplit：跳过栈溢出检查。加上此提示可提高性能，但是可能会stack overflow
 * //go:noescape：禁止逃逸  
 
-#### argsize和framesize计算规则[plan9 汇编入门](https://github.com/cch123/golang-notes/blob/master/assembly.md#argsize-%E5%92%8C-framesize-%E8%AE%A1%E7%AE%97%E8%A7%84%E5%88%99)
+#### argsize和framesize计算规则，[plan9 汇编入门](https://github.com/cch123/golang-notes/blob/master/assembly.md#argsize-%E5%92%8C-framesize-%E8%AE%A1%E7%AE%97%E8%A7%84%E5%88%99)
 
 ```
 /*
@@ -99,7 +99,7 @@ caller stack frame          |                  |
       |                     |   callee arg1    |                                                                   
       |                     |------------------|                                                                   
       |                     |   callee arg0    |                                                                   
-      |                     ----------------------------------------------+  FP(virtual register)                 
+      |                     ----------------------------------------------+ FP(virtual register)                 
       |                     |   return addr    |  parent return address   |                                        
       +------------------>  +------------------+---------------------------  <-----------------+         
                                                |     caller BP            |                    |         
@@ -117,7 +117,7 @@ caller stack frame          |                  |
                                                          callee
 ```
 
-#### 数据结构[plan9 汇编入门](https://github.com/cch123/golang-notes/blob/master/assembly.md#argsize-%E5%92%8C-framesize-%E8%AE%A1%E7%AE%97%E8%A7%84%E5%88%99)
+#### 数据结构，[plan9 汇编入门](https://github.com/cch123/golang-notes/blob/master/assembly.md#argsize-%E5%92%8C-framesize-%E8%AE%A1%E7%AE%97%E8%A7%84%E5%88%99)
 * 数值类型：int/int8/int16/int32/int64、uint/uint8/uint16/uint32/uint64、float32/float64、byte/rune、uintptr、bool
 * array和slice，[深入剖析slice和array](https://blog.thinkeridea.com/201901/go/shen_ru_pou_xi_slice_he_array.html)
   * array：和C语言一样是连续分配的内存，函数传参是值传递
