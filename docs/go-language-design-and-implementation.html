@@ -206,6 +206,26 @@
 </ul>
 </li>
 </ul>
+<h4 id="&#x7B2C;&#x4E09;&#x7AE0;-&#x6570;&#x636E;&#x7ED3;&#x6784;">&#x7B2C;&#x4E09;&#x7AE0; &#x6570;&#x636E;&#x7ED3;&#x6784;</h4>
+<ol>
+<li>&#x6570;&#x7EC4;&#xFF1A;&#x4E00;&#x5757;&#x8FDE;&#x7EED;&#x7684;&#x5185;&#x5B58;</li>
+<li>&#x5207;&#x7247;&#xFF1A;24&#x5B57;&#x8282;&#xFF0C;uintptr&#x3001;len&#x3001;cap</li>
+<li>&#x54C8;&#x5E0C;&#x8868;&#xFF1A;count(&#x5143;&#x7D20;&#x4E2A;&#x6570;)&#x3001;B(&#x6876;&#x6570;&#x91CF;)&#x3001;hash0(&#x54C8;&#x5E0C;&#x79CD;&#x5B50;)&#x3001;buckets(&#x6876;&#x6570;&#x7EC4;)&#x3001;oldbuckets(&#x4E4B;&#x524D;&#x7684;&#x6876;&#x6570;&#x7EC4;)</li>
+<li>&#x5B57;&#x7B26;&#x4E32;&#xFF1A;16&#x5B57;&#x8282;&#xFF0C;uintptr&#x3001;len&#x3002;&#x6BCF;&#x4E00;&#x6B21;&#x5199;&#x64CD;&#x4F5C;&#x90FD;&#x662F;&#x5F00;&#x8F9F;&#x65B0;&#x7684;&#x7A7A;&#x95F4;&#x3002;</li>
+</ol>
+<pre><code>// arr := []int{1,2,3} &#x7684;&#x6C47;&#x7F16;&#xFF0C;&#x8FD9;&#x91CC;&#x7684;SP&#x662F;&#x786C;&#x4EF6;SP
+    0x0014 00020 (hello.go:4)    MOVQ    $0, &quot;&quot;..autotmp_2+8(SP)  //arr[0]=0
+    0x001d 00029 (hello.go:4)    LEAQ    &quot;&quot;..autotmp_2+16(SP), AX 
+    0x0022 00034 (hello.go:4)    MOVUPS    X15, (AX)                //arr[1]=0&#x548C;arr[2]=0
+    0x0026 00038 (hello.go:4)    MOVQ    $1, &quot;&quot;..autotmp_2+8(SP)  //arr[0]=1
+    0x002f 00047 (hello.go:4)    MOVQ    $2, &quot;&quot;..autotmp_2+16(SP) //arr[1]=2
+    0x0038 00056 (hello.go:4)    MOVQ    $3, &quot;&quot;..autotmp_2+24(SP) //arr[2]=3
+    0x0041 00065 (hello.go:4)    LEAQ    &quot;&quot;..autotmp_2+8(SP), AX  
+    0x0046 00070 (hello.go:4)    MOVQ    AX, &quot;&quot;.arr+32(SP)        //sliceHeader.data=&amp;arr  
+    0x004b 00075 (hello.go:4)    MOVQ    $3, &quot;&quot;.arr+40(SP)        //sliceHeader.len=3
+    0x0054 00084 (hello.go:4)    MOVQ    $3, &quot;&quot;.arr+48(SP)        //sliceHeader.cap=3
+</code></pre><p><img src="../images/go-map-struct.jpg" alt="Map"></p>
+<h4 id="&#x7B2C;&#x56DB;&#x7AE0;-&#x8BED;&#x8A00;&#x7279;&#x6027;">&#x7B2C;&#x56DB;&#x7AE0; &#x8BED;&#x8A00;&#x7279;&#x6027;</h4>
 
                                 
                                 </section>
@@ -245,7 +265,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Go 语言设计与实现","level":"1.4","depth":1,"previous":{"title":"Go 语言从入门到实战","level":"1.3","depth":1,"path":"docs/go-from-entry-to-practice.md","ref":"docs/go-from-entry-to-practice.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-language-design-and-implementation.md","mtime":"2022-02-11T03:47:44.556Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-02-11T03:48:11.613Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Go 语言设计与实现","level":"1.4","depth":1,"previous":{"title":"Go 语言从入门到实战","level":"1.3","depth":1,"path":"docs/go-from-entry-to-practice.md","ref":"docs/go-from-entry-to-practice.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-language-design-and-implementation.md","mtime":"2022-02-13T09:53:01.996Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-02-13T09:53:34.851Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
