@@ -12,6 +12,10 @@ MOVW $0x10, BX   // 2 bytes
 MOVD $1, DX      // 4 bytes
 MOVQ $-10, AX    // 8 bytes
 
+//SIMD
+movups: 把(16B)4个不对准的单精度值传送到xmm寄存器或者内存
+movaps: 把(16B)4个对准的单精度值传送到xmm寄存器或者内存
+
 //计算指令
 ADDQ AX, BX  // BX += AX
 SUBQ AX, BX  // BX -= AX
