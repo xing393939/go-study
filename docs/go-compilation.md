@@ -98,7 +98,9 @@ framesize
       |                     |   Local VarN     |                                                                   
                             --------------------                                                                   
 caller stack frame          |                  |                                                                   
-                            |   callee arg2    |                                                                   
+                            |   callee ret1    |                                                                   
+      |                     |------------------|                                                                   
+      |                     |   callee ret0    |                                                                   
       |                     |------------------|                                                                   
       |                     |   callee arg1    |                                                                   
       |                     |------------------|                                                                   

@@ -16,14 +16,14 @@
 #### 第三章 数据结构
 1. 数组：一块连续的内存
 1. 切片：24字节，uintptr、len、cap
-1. 哈希表：count(元素个数)、B(桶数量)、hash0(哈希种子)、buckets(桶数组)、oldbuckets(之前的桶数组)
+1. 哈希表：count(元素个数)、B(桶数量)、hash0(哈希种子)、buckets(桶数组)、oldbuckets(旧的桶数组)
 1. 字符串：16字节，uintptr、len。每一次写操作都是开辟新的空间。
 
 ```
 // arr := []int{1,2,3} 的汇编，这里的SP是硬件SP
 	0x0014 00020 (hello.go:4)	MOVQ	$0, ""..autotmp_2+8(SP)  //arr[0]=0
 	0x001d 00029 (hello.go:4)	LEAQ	""..autotmp_2+16(SP), AX 
-	0x0022 00034 (hello.go:4)	MOVUPS	X15, (AX)                //arr[1]=0和arr[2]=0
+	0x0022 00034 (hello.go:4)	MOVUPS	X15, (AX)              //arr[1]=0和arr[2]=0
 	0x0026 00038 (hello.go:4)	MOVQ	$1, ""..autotmp_2+8(SP)  //arr[0]=1
 	0x002f 00047 (hello.go:4)	MOVQ	$2, ""..autotmp_2+16(SP) //arr[1]=2
 	0x0038 00056 (hello.go:4)	MOVQ	$3, ""..autotmp_2+24(SP) //arr[2]=3
@@ -36,3 +36,11 @@
 ![Map](../images/go-map-struct.jpg)
 
 #### 第四章 语言特性
+* 函数调用：
+  * 通过栈传递参数和返回值，内存地址高~低依次是：ret1、ret0、arg1、arg0
+  * 调用函数都是值传递
+
+
+
+
+
