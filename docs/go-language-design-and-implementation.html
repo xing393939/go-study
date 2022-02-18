@@ -232,6 +232,22 @@
 <li>&#x8C03;&#x7528;&#x51FD;&#x6570;&#x90FD;&#x662F;&#x503C;&#x4F20;&#x9012;</li>
 </ul>
 </li>
+<li>&#x63A5;&#x53E3;&#x5206;&#x4E3A;eface&#x63A5;&#x53E3;&#x548C;iface&#x63A5;&#x53E3;</li>
+<li>eface&#x63A5;&#x53E3;</li>
+<li>iface&#x63A5;&#x53E3;&#xFF0C;&#x4F8B;&#x5982;Duck&#x63A5;&#x53E3;&#xFF0C;Cat&#x7ED3;&#x6784;&#x4F53;&#x5B9E;&#x73B0;&#x4E86;Duck&#x7684;&#x65B9;&#x6CD5;&#xFF1A;func (c Cat) Quack() {}<ul>
+<li>&#x5982;&#x679C;&#x65B9;&#x6CD5;&#x7684;&#x63A5;&#x6536;&#x8005;&#x662F;&#x7ED3;&#x6784;&#x4F53;&#xFF0C;&#x5219;&#xFF1A;<ul>
+<li>var a1 Duck = Cat{} //&#x6B63;&#x5E38;&#x7F16;&#x8BD1;&#x8FD0;&#x884C;</li>
+<li>var a2 Duck = &amp;Cat{} //&#x6B63;&#x5E38;&#x7F16;&#x8BD1;&#x8FD0;&#x884C;</li>
+</ul>
+</li>
+<li>&#x5982;&#x679C;&#x65B9;&#x6CD5;&#x7684;&#x63A5;&#x6536;&#x8005;&#x662F;&#x7ED3;&#x6784;&#x4F53;&#x6307;&#x9488;&#xFF0C;&#x5219;&#xFF1A;<ul>
+<li>var a1 Duck = Cat{} //&#x7F16;&#x8BD1;&#x62A5;&#x9519;</li>
+<li>var a2 Duck = &amp;Cat{} //&#x6B63;&#x5E38;&#x7F16;&#x8BD1;&#x8FD0;&#x884C;</li>
+<li>a1 := Cat{} //&#x53EF;&#x6B63;&#x5E38;&#x8C03;&#x7528;a1.Quack()</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
                                 
@@ -272,7 +288,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Go 语言设计与实现","level":"1.4","depth":1,"previous":{"title":"Go 语言从入门到实战","level":"1.3","depth":1,"path":"docs/go-from-entry-to-practice.md","ref":"docs/go-from-entry-to-practice.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-language-design-and-implementation.md","mtime":"2022-02-14T03:41:40.838Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-02-14T03:42:09.379Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Go 语言设计与实现","level":"1.4","depth":1,"previous":{"title":"Go 语言从入门到实战","level":"1.3","depth":1,"path":"docs/go-from-entry-to-practice.md","ref":"docs/go-from-entry-to-practice.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-language-design-and-implementation.md","mtime":"2022-02-18T03:21:42.225Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-02-18T03:22:11.497Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
