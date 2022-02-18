@@ -1,0 +1,318 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Go dlv调试 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="go-compilation.html" />
+    
+    
+    <link rel="prev" href="../" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">目录</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2" data-path="go-dlv.html">
+            
+                <a href="go-dlv.html">
+            
+                    
+                    Go dlv调试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="go-compilation.html">
+            
+                <a href="go-compilation.html">
+            
+                    
+                    Go 汇编相关
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="go-from-entry-to-practice.html">
+            
+                <a href="go-from-entry-to-practice.html">
+            
+                    
+                    Go 语言从入门到实战
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="go-language-design-and-implementation.html">
+            
+                <a href="go-language-design-and-implementation.html">
+            
+                    
+                    Go 语言设计与实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Go dlv调试</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h3 id="go-dlv&#x8C03;&#x8BD5;">Go dlv&#x8C03;&#x8BD5;</h3>
+<h4 id="dlv&#x7528;&#x6CD5;">dlv&#x7528;&#x6CD5;</h4>
+<pre><code>// &#x7F16;&#x8BD1;&#x5E76;&#x8FDB;&#x5165;&#x8C03;&#x8BD5;&#x6A21;&#x5F0F;
+go build -gcflags=all=&quot;-N -l&quot; hello.go
+dlv exec ./hello
+b main.main
+c
+
+// &#x5E38;&#x7528;&#x547D;&#x4EE4;
+n                          &#x6267;&#x884C;go&#x4EE3;&#x7801;&#x7684;&#x4E0B;&#x4E00;&#x884C;&#x4EE3;&#x7801;
+regs                       &#x6253;&#x5370;&#x6240;&#x6709;&#x5BC4;&#x5B58;&#x5668;&#x7684;&#x503C;
+help regs                  &#x83B7;&#x53D6;regs&#x547D;&#x4EE4;&#x7684;&#x5E2E;&#x52A9;&#x8BF4;&#x660E;
+p var0                     &#x6253;&#x5370;var0
+x -count 24 -size 8 0x10a0 &#x6253;&#x5370;0x10a0&#x5730;&#x5740;&#x7684;&#x503C;&#xFF0C;8&#x5B57;&#x8282;&#x4E00;&#x7EC4;&#xFF0C;&#x5171;24&#x7EC4;
+</code></pre><h4 id="dlv&#x5E38;&#x7528;&#x547D;&#x4EE4;">dlv&#x5E38;&#x7528;&#x547D;&#x4EE4;</h4>
+<p><img src="../images/dlv.jpg" alt="dlv"></p>
+<h4 id="slice&#x548C;map&#x7684;&#x5185;&#x5B58;&#x7ED3;&#x6784;">slice&#x548C;map&#x7684;&#x5185;&#x5B58;&#x7ED3;&#x6784;</h4>
+<pre><code>func main() {
+    hash := make([]int, 9, 98)
+    hash[0] = 1
+    hash[1] = 2
+    hash[2] = 3
+    say(hash)
+}
+//go:noinline
+func say(hash2 []int) {
+    hash2[3] = 4
+    _ = hash2
+}
+// &#x7F16;&#x8BD1;&#x5E76;&#x8FDB;&#x5165;&#x8C03;&#x8BD5;&#x6A21;&#x5F0F;&#x540E;&#x6267;&#x884C;
+b main.say
+c
+n
+x -count 16 -size 8 %rsp
+// &#x7ED3;&#x679C;&#xFF1A;&#x7B2C;0~3&#x7684;8B&#x4E0D;&#x7BA1;&#xFF0C;&#x7B2C;4~6&#x7684;8B&#x662F;slice&#x7684;&#x7ED3;&#x6784;&#xFF0C;&#x7B2C;7~9&#x662F;array&#x6570;&#x636E;
+</code></pre>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../" class="navigation navigation-prev " aria-label="Previous page: Introduction">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="go-compilation.html" class="navigation navigation-next " aria-label="Next page: Go 汇编相关">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Go dlv调试","level":"1.2","depth":1,"next":{"title":"Go 汇编相关","level":"1.3","depth":1,"path":"docs/go-compilation.md","ref":"docs/go-compilation.md","articles":[]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-dlv.md","mtime":"2022-02-18T10:11:06.967Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-02-18T10:11:43.189Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
