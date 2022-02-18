@@ -55,12 +55,12 @@ GLOBL divtab<>(SB), RODATA, $64        // 给变量divtab<>加上RODATA只读标
 * FP: Frame pointer(帧指针)，用来标识传参、返回值。arg0+0(FP)表示第一个传参
 * SP: Stack pointer(栈指针)
   * 伪SP：指向当前栈帧的局部变量的开始位置。var0-8(SP)表示第一个局部变量(var0占8B)
-  * 硬件SP：函数栈真实栈顶地址
+  * 硬件SP：函数栈真实栈顶地址。var0+0(SP)表示第一个局部变量
 * 伪SP和硬件SP的关系：
   * 若没有本地变量：伪SP=硬件SP+8
   * 若有本地变量：伪SP=硬件SP+16+本地变量空间大小
   * 如果是手写plan9，且如果是symbol+offset(SP)形式，则表示伪SP。如果是offset(SP)则表示硬件SP。
-  * 如果是go tool objdump/go tool compile -S，看到的都是硬件SP。
+  * 如果是go tool objdump/go tool compile -S -N -l，看到的都是硬件SP。
 
 #### Go语言的编译指示，[Go 语言编译器](https://segmentfault.com/a/1190000016743220)
 * //go:noinline：不要内联。例如"new" + word：
@@ -68,6 +68,7 @@ GLOBL divtab<>(SB), RODATA, $64        // 给变量divtab<>加上RODATA只读标
   * 加了此提示，则是call appendStr
 * //go:nosplit：跳过栈溢出检查。加上此提示可提高性能，但是可能会stack overflow
 * //go:noescape：禁止逃逸  
+* go tool compile -S -N -l //-l是禁止内联 -N是禁止优化 -S是输出汇编代码
 
 #### argsize和framesize计算规则，[plan9 汇编入门](https://github.com/cch123/golang-notes/blob/master/assembly.md#argsize-%E5%92%8C-framesize-%E8%AE%A1%E7%AE%97%E8%A7%84%E5%88%99)
 
@@ -137,7 +138,9 @@ caller stack frame          |                  |
 * channel
 * func
 * interface
-
+* 类型转换和类型断言：
+  * 类型转换针对非接口类型，例如int和float64可以相互转换
+  * 类型断言针对接口类型
 
 
 
