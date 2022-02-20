@@ -233,11 +233,7 @@ func say(hash2 []int) {
 // &#x7F16;&#x8BD1;&#x5E76;&#x8FDB;&#x5165;&#x8C03;&#x8BD5;&#x6A21;&#x5F0F;&#x540E;&#x6267;&#x884C;
 b main.say
 c
-n
-x -count 16 -size 8 %rsp
-// &#x7ED3;&#x679C;&#xFF1A;&#x7B2C;0~3&#x7684;8B&#x4E0D;&#x7BA1;&#xFF0C;&#x7B2C;4~6&#x7684;8B&#x662F;slice&#x7684;&#x7ED3;&#x6784;&#xFF0C;&#x7B2C;7~9&#x662F;array&#x6570;&#x636E;
-0xc00003c410:   0x0000000000410eed   0x000000c00005e000   0x000000c00003c770   0x0000000000459aba   0x000000c00003c448   0x0000000000000009   0x0000000000000062   0x0000000000000001   
-0xc00003c450:   0x0000000000000002   0x0000000000000003   0x0000000000000000   0x0000000000000000   0x0000000000000000   0x0000000000000000   0x0000000000000000   0x0000000000000000
+// &#x6B64;&#x65F6;&#x5BC4;&#x5B58;&#x5668;rax=&amp;hash2.data&#x3001;rbx=hash2.len&#x3001;rcx=hash2.cap
 </code></pre><h4 id="map&#x7684;&#x5185;&#x5B58;&#x7ED3;&#x6784;">map&#x7684;&#x5185;&#x5B58;&#x7ED3;&#x6784;</h4>
 <pre><code>func main() {
     hash := make(map[string]int, 24)
@@ -320,7 +316,7 @@ x -count 6 -size 8 0x000000c000074150
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Go dlv调试","level":"1.2","depth":1,"next":{"title":"Go 汇编相关","level":"1.3","depth":1,"path":"docs/go-compilation.md","ref":"docs/go-compilation.md","articles":[]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-dlv.md","mtime":"2022-02-18T13:06:09.723Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-02-18T13:06:39.530Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Go dlv调试","level":"1.2","depth":1,"next":{"title":"Go 汇编相关","level":"1.3","depth":1,"path":"docs/go-compilation.md","ref":"docs/go-compilation.md","articles":[]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-dlv.md","mtime":"2022-02-20T06:18:16.312Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-02-20T06:18:44.929Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
