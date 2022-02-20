@@ -1,15 +1,19 @@
 package main
 
-func main() {
-	hash := make([]int, 9, 98)
-	hash[0] = 1
-	hash[1] = 2
-	hash[2] = 3
-	say(hash)
+type Duck interface {
+	Say()
 }
 
-//go:noinline
-func say(hash2 []int) {
-	hash2[3] = 4
-	println(hash2)
+type Dog struct{}
+
+func (c *Dog) Say() {}
+
+type Cat struct{}
+
+func (c Cat) Say() {}
+
+func main() {
+	var a Duck = &Cat{}
+	var b Duck = &Cat{}
+	println(a == b)
 }

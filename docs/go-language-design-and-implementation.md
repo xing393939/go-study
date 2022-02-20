@@ -40,7 +40,7 @@
   * 通过栈传递参数和返回值，内存地址高~低依次是：ret1、ret0、arg1、arg0
   * 调用函数都是值传递
 * 接口分为eface接口和iface接口
-* eface接口
+* eface接口，不带任何方法
 * iface接口，例如Duck接口，Cat结构体实现了Duck的方法：func (c Cat) Quack() {}
   * 如果方法的接收者是结构体，则：
     * var a1 Duck = Cat{} //正常编译运行
@@ -49,7 +49,10 @@
     * var a1 Duck = Cat{} //编译报错
     * var a2 Duck = &Cat{} //正常编译运行
     * a1 := Cat{} //可正常调用a1.Quack()
-
+* 接口相关的文章
+  * [深度解密Go语言之关于 interface 的10个问题](https://www.cnblogs.com/qcrao-2018/p/10766091.html)
+  * [Go 和 interface 探究](https://xargin.com/go-and-interface/)
+  * [通过汇编和源码两大神器探究 —— Go语言接口](https://blog.csdn.net/qq_31930499/article/details/102532264)
 
 
 

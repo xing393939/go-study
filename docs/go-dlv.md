@@ -2,6 +2,11 @@
 
 #### dlv用法
 ```
+// 本文的开发环境
+go version
+go version go1.17.3 linux/amd64
+// 安装dlv命令
+go get github.com/go-delve/delve/cmd/dlv
 // 编译并进入调试模式
 go build -gcflags=all="-N -l" hello.go
 dlv exec ./hello
