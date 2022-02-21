@@ -41,18 +41,30 @@
   * 调用函数都是值传递
 * 接口分为eface接口和iface接口
 * eface接口，不带任何方法
-* iface接口，例如Duck接口，Cat结构体实现了Duck的方法：func (c Cat) Quack() {}
-  * 如果方法的接收者是结构体，则：
+* iface接口，例如Duck接口，Cat结构体实现了Duck的方法：
+  * 如果方法的接收者是结构体，即func (c Cat) Quack() {}
     * var a1 Duck = Cat{} //正常编译运行
     * var a2 Duck = &Cat{} //正常编译运行
-  * 如果方法的接收者是结构体指针，则：
+  * 如果方法的接收者是结构体指针，即func (c *Cat) Quack() {}
     * var a1 Duck = Cat{} //编译报错
     * var a2 Duck = &Cat{} //正常编译运行
     * a1 := Cat{} //可正常调用a1.Quack()
+  * eface.tab包含有\*interfacetype和*_type
+    * *interfacetype表示抽象接口的信息
+    * \*_type表示具体类型的信息，它和*interfacetype._type不相等
 * 接口相关的文章
   * [深度解密Go语言之关于 interface 的10个问题](https://www.cnblogs.com/qcrao-2018/p/10766091.html)
   * [Go 和 interface 探究](https://xargin.com/go-and-interface/)
   * [通过汇编和源码两大神器探究 —— Go语言接口](https://blog.csdn.net/qq_31930499/article/details/102532264)
-
-
+* 十种函数(方法)的调用形式
+  * 直接调用顶级函数：println()
+  * 直接调用一个值receiver的方法：(Cat{}).Quack()
+  * 直接调用一个指针receiver的方法：(&Cat{}).Quack()
+  * 间接调用一个interface的方法(包含有值方法的值)：var a Duck = Cat{} && a.Quack()
+  * 间接调用一个interface的方法(包含有值方法的指针)：var a Duck = &Cat{} && a.Quack()
+  * 间接调用一个interface的方法(包含有指针方法的指针)：var a Duck = &Cat{} && a.Quack()
+  * 间接调用方法值(值等于顶级方法)：a = println
+  * 间接调用方法值(值等于值方法)：a = (Cat{}).Quack
+  * 间接调用方法值(值等于指针方法)：a = (&Cat{}).Quack
+  * 间接调用方法值(值等于函数字面量)：a = func() {}
 

@@ -128,7 +128,7 @@ caller stack frame          |                  |
 * 数值类型：int/int8/int16/int32/int64、uint/uint8/uint16/uint32/uint64、float32/float64、byte/rune、uintptr、bool
 * array和slice，[深入剖析slice和array](https://blog.thinkeridea.com/201901/go/shen_ru_pou_xi_slice_he_array.html)
   * array：和C语言一样是连续分配的内存，函数传参是值传递
-  * slice：有三个元素\*Elem、len、cap。len<1024则扩容成cap\*2；len>=1024则扩容成cap*1.25
+  * slice：有三个元素*Elem、len、cap。len<1024则扩容成cap x 2；len>=1024则扩容成cap x 1.25
   * 零切片：var s = make([]int, 10) // 分配了内存，但元素都是零值
   * 空切片：var s = make([]int, 0) //未分配内存，*Elem指向zerobase这个特殊指针
   * nil切片：var s []int //未分配内存，*Elem值为nil
