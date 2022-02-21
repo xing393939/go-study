@@ -69,4 +69,7 @@
   * 间接调用方法值(值等于值方法)：a = (Cat{}).Quack
   * 间接调用方法值(值等于指针方法)：a = (&Cat{}).Quack
   * 间接调用方法值(值等于函数字面量)：a = func() {}
-
+* 反射的三大法则：
+  1. 变量->反射对象：func TypeOf(i interface{}) Type和func ValueOf(i interface{}) Value
+  1. 反射对象->变量：Value.Interface()
+  1. 要修改反射对象，其值必须可设置

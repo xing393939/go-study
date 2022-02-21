@@ -99,7 +99,8 @@ func main(){
 	mii.fun()
 }
 
-/* go tool compile -N -l -S hello.go查看itab
+/*
+go tool compile -N -l -S hello.go查看itab
 go.itab."".Myint,"".Myintinterface SRODATA dupok size=32 对应的是：
 type itab struct {
 	inter *interfacetype //对应type."".Myintinterface

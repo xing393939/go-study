@@ -1,13 +1,21 @@
 package main
 
-type Myintinterface interface {
-	fun()
-}
-type Myint int
+import (
+	"fmt"
+	"reflect"
+)
 
-func (m Myint) fun() {}
+type CustomError struct{}
+
+func (*CustomError) Error() string {
+	return ""
+}
 
 func main() {
-	var mii Myintinterface = Myint(12)
-	mii.fun()
+	typeOfError := reflect.TypeOf((*error)(nil)).Elem()
+	customErrorPtr := reflect.TypeOf(&CustomError{})
+	customError := reflect.TypeOf(CustomError{})
+
+	fmt.Println(customErrorPtr.Implements(typeOfError)) // #=> true
+	fmt.Println(customError.Implements(typeOfError))    // #=> false
 }
