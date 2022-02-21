@@ -52,6 +52,8 @@
   * eface.tab包含有\*interfacetype和*_type
     * *interfacetype表示抽象接口的信息
     * \*_type表示具体类型的信息，它和*interfacetype._type不相等
+  * eface.tab._type指向的某个内存区域的起点，该内存区域包含type(具体类型)、uncommontype、\[mcount]method
+    * type(具体类型)：普通类型则是_type类型，特殊类型各自不同，如[struct、ptr等等](https://github.com/golang/go/blob/6c64b6db6802818dd9a4789cdd564f19b70b6b4c/src/runtime/type.go#L58)
 * 接口相关的文章
   * [深度解密Go语言之关于 interface 的10个问题](https://www.cnblogs.com/qcrao-2018/p/10766091.html)
   * [Go 和 interface 探究](https://xargin.com/go-and-interface/)
