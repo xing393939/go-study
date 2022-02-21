@@ -247,16 +247,21 @@
 </li>
 <li>&#x63A5;&#x53E3;&#x5206;&#x4E3A;eface&#x63A5;&#x53E3;&#x548C;iface&#x63A5;&#x53E3;</li>
 <li>eface&#x63A5;&#x53E3;&#xFF0C;&#x4E0D;&#x5E26;&#x4EFB;&#x4F55;&#x65B9;&#x6CD5;</li>
-<li>iface&#x63A5;&#x53E3;&#xFF0C;&#x4F8B;&#x5982;Duck&#x63A5;&#x53E3;&#xFF0C;Cat&#x7ED3;&#x6784;&#x4F53;&#x5B9E;&#x73B0;&#x4E86;Duck&#x7684;&#x65B9;&#x6CD5;&#xFF1A;func (c Cat) Quack() {}<ul>
-<li>&#x5982;&#x679C;&#x65B9;&#x6CD5;&#x7684;&#x63A5;&#x6536;&#x8005;&#x662F;&#x7ED3;&#x6784;&#x4F53;&#xFF0C;&#x5219;&#xFF1A;<ul>
+<li>iface&#x63A5;&#x53E3;&#xFF0C;&#x4F8B;&#x5982;Duck&#x63A5;&#x53E3;&#xFF0C;Cat&#x7ED3;&#x6784;&#x4F53;&#x5B9E;&#x73B0;&#x4E86;Duck&#x7684;&#x65B9;&#x6CD5;&#xFF1A;<ul>
+<li>&#x5982;&#x679C;&#x65B9;&#x6CD5;&#x7684;&#x63A5;&#x6536;&#x8005;&#x662F;&#x7ED3;&#x6784;&#x4F53;&#xFF0C;&#x5373;func (c Cat) Quack() {}<ul>
 <li>var a1 Duck = Cat{} //&#x6B63;&#x5E38;&#x7F16;&#x8BD1;&#x8FD0;&#x884C;</li>
 <li>var a2 Duck = &amp;Cat{} //&#x6B63;&#x5E38;&#x7F16;&#x8BD1;&#x8FD0;&#x884C;</li>
 </ul>
 </li>
-<li>&#x5982;&#x679C;&#x65B9;&#x6CD5;&#x7684;&#x63A5;&#x6536;&#x8005;&#x662F;&#x7ED3;&#x6784;&#x4F53;&#x6307;&#x9488;&#xFF0C;&#x5219;&#xFF1A;<ul>
+<li>&#x5982;&#x679C;&#x65B9;&#x6CD5;&#x7684;&#x63A5;&#x6536;&#x8005;&#x662F;&#x7ED3;&#x6784;&#x4F53;&#x6307;&#x9488;&#xFF0C;&#x5373;func (c *Cat) Quack() {}<ul>
 <li>var a1 Duck = Cat{} //&#x7F16;&#x8BD1;&#x62A5;&#x9519;</li>
 <li>var a2 Duck = &amp;Cat{} //&#x6B63;&#x5E38;&#x7F16;&#x8BD1;&#x8FD0;&#x884C;</li>
 <li>a1 := Cat{} //&#x53EF;&#x6B63;&#x5E38;&#x8C03;&#x7528;a1.Quack()</li>
+</ul>
+</li>
+<li>eface.tab&#x5305;&#x542B;&#x6709;*interfacetype&#x548C;*_type<ul>
+<li>*interfacetype&#x8868;&#x793A;&#x62BD;&#x8C61;&#x63A5;&#x53E3;&#x7684;&#x4FE1;&#x606F;</li>
+<li>*_type&#x8868;&#x793A;&#x5177;&#x4F53;&#x7C7B;&#x578B;&#x7684;&#x4FE1;&#x606F;&#xFF0C;&#x5B83;&#x548C;*interfacetype._type&#x4E0D;&#x76F8;&#x7B49;</li>
 </ul>
 </li>
 </ul>
@@ -265,6 +270,19 @@
 <li><a href="https://www.cnblogs.com/qcrao-2018/p/10766091.html" target="_blank">&#x6DF1;&#x5EA6;&#x89E3;&#x5BC6;Go&#x8BED;&#x8A00;&#x4E4B;&#x5173;&#x4E8E; interface &#x7684;10&#x4E2A;&#x95EE;&#x9898;</a></li>
 <li><a href="https://xargin.com/go-and-interface/" target="_blank">Go &#x548C; interface &#x63A2;&#x7A76;</a></li>
 <li><a href="https://blog.csdn.net/qq_31930499/article/details/102532264" target="_blank">&#x901A;&#x8FC7;&#x6C47;&#x7F16;&#x548C;&#x6E90;&#x7801;&#x4E24;&#x5927;&#x795E;&#x5668;&#x63A2;&#x7A76; &#x2014;&#x2014; Go&#x8BED;&#x8A00;&#x63A5;&#x53E3;</a></li>
+</ul>
+</li>
+<li>&#x5341;&#x79CD;&#x51FD;&#x6570;(&#x65B9;&#x6CD5;)&#x7684;&#x8C03;&#x7528;&#x5F62;&#x5F0F;<ul>
+<li>&#x76F4;&#x63A5;&#x8C03;&#x7528;&#x9876;&#x7EA7;&#x51FD;&#x6570;&#xFF1A;println()</li>
+<li>&#x76F4;&#x63A5;&#x8C03;&#x7528;&#x4E00;&#x4E2A;&#x503C;receiver&#x7684;&#x65B9;&#x6CD5;&#xFF1A;(Cat{}).Quack()</li>
+<li>&#x76F4;&#x63A5;&#x8C03;&#x7528;&#x4E00;&#x4E2A;&#x6307;&#x9488;receiver&#x7684;&#x65B9;&#x6CD5;&#xFF1A;(&amp;Cat{}).Quack()</li>
+<li>&#x95F4;&#x63A5;&#x8C03;&#x7528;&#x4E00;&#x4E2A;interface&#x7684;&#x65B9;&#x6CD5;(&#x5305;&#x542B;&#x6709;&#x503C;&#x65B9;&#x6CD5;&#x7684;&#x503C;)&#xFF1A;var a Duck = Cat{} &amp;&amp; a.Quack()</li>
+<li>&#x95F4;&#x63A5;&#x8C03;&#x7528;&#x4E00;&#x4E2A;interface&#x7684;&#x65B9;&#x6CD5;(&#x5305;&#x542B;&#x6709;&#x503C;&#x65B9;&#x6CD5;&#x7684;&#x6307;&#x9488;)&#xFF1A;var a Duck = &amp;Cat{} &amp;&amp; a.Quack()</li>
+<li>&#x95F4;&#x63A5;&#x8C03;&#x7528;&#x4E00;&#x4E2A;interface&#x7684;&#x65B9;&#x6CD5;(&#x5305;&#x542B;&#x6709;&#x6307;&#x9488;&#x65B9;&#x6CD5;&#x7684;&#x6307;&#x9488;)&#xFF1A;var a Duck = &amp;Cat{} &amp;&amp; a.Quack()</li>
+<li>&#x95F4;&#x63A5;&#x8C03;&#x7528;&#x65B9;&#x6CD5;&#x503C;(&#x503C;&#x7B49;&#x4E8E;&#x9876;&#x7EA7;&#x65B9;&#x6CD5;)&#xFF1A;a = println</li>
+<li>&#x95F4;&#x63A5;&#x8C03;&#x7528;&#x65B9;&#x6CD5;&#x503C;(&#x503C;&#x7B49;&#x4E8E;&#x503C;&#x65B9;&#x6CD5;)&#xFF1A;a = (Cat{}).Quack</li>
+<li>&#x95F4;&#x63A5;&#x8C03;&#x7528;&#x65B9;&#x6CD5;&#x503C;(&#x503C;&#x7B49;&#x4E8E;&#x6307;&#x9488;&#x65B9;&#x6CD5;)&#xFF1A;a = (&amp;Cat{}).Quack</li>
+<li>&#x95F4;&#x63A5;&#x8C03;&#x7528;&#x65B9;&#x6CD5;&#x503C;(&#x503C;&#x7B49;&#x4E8E;&#x51FD;&#x6570;&#x5B57;&#x9762;&#x91CF;)&#xFF1A;a = func() {}</li>
 </ul>
 </li>
 </ul>
@@ -307,7 +325,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Go 语言设计与实现","level":"1.5","depth":1,"previous":{"title":"Go 语言从入门到实战","level":"1.4","depth":1,"path":"docs/go-from-entry-to-practice.md","ref":"docs/go-from-entry-to-practice.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-language-design-and-implementation.md","mtime":"2022-02-20T08:45:20.830Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-02-20T08:45:45.401Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Go 语言设计与实现","level":"1.5","depth":1,"previous":{"title":"Go 语言从入门到实战","level":"1.4","depth":1,"path":"docs/go-from-entry-to-practice.md","ref":"docs/go-from-entry-to-practice.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-language-design-and-implementation.md","mtime":"2022-02-21T03:43:05.962Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-02-21T03:43:39.212Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
