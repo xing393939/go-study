@@ -2,20 +2,24 @@ package main
 
 import (
 	"fmt"
-	"reflect"
 )
 
-type CustomError struct{}
-
-func (*CustomError) Error() string {
-	return ""
-}
-
 func main() {
-	typeOfError := reflect.TypeOf((*error)(nil)).Elem()
-	customErrorPtr := reflect.TypeOf(&CustomError{})
-	customError := reflect.TypeOf(CustomError{})
+	chanCap := 5
+	intChan1 := make(chan int, chanCap)
+	intChan2 := make(chan int, chanCap)
+	for i := 0; i < 2*chanCap; i++ {
+		select {
+		case intChan1 <- 1:
+			fmt.Println(1)
+			intChan2 <- 1
+		default:
+			fmt.Println(2)
+		}
+	}
 
-	fmt.Println(customErrorPtr.Implements(typeOfError)) // #=> true
-	fmt.Println(customError.Implements(typeOfError))    // #=> false
+	for i := 0; i < chanCap; i++ {
+		<-intChan1
+	}
+
 }
