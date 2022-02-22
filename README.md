@@ -34,7 +34,7 @@
 * [Go 语言设计与实现](https://draveness.me/golang/)，02-22开始，预计8天
 * [Go夜读-Go源码阅读](https://bytemode.github.io/reading/)，02-22开始，预计8天
 * [Go 进阶训练营大纲](https://shimo.im/docs/vX9YgCchV3XwgYTH/read)，02-22开始，20h视频
-* [Golang面试题汇总](https://www.golangroadmap.com/interview/books/questions/golang/)，[去除弹窗](javascript:document.getElementsByClassName\('v-dialog-container'\)\[0\].remove();)
+* [Golang面试题汇总](https://www.golangroadmap.com/interview/books/questions/golang/)，[去除弹窗](javascript:document.getElementsByClassName%28'v-dialog-container'%29[0].remove%28%29;)
 * [面试八股文](https://www.topgoer.cn/docs/gomianshiti/gomianshiti-1dd225t6esqld)
 * [面试专题](https://bytemode.github.io/interview/)，Go/操作系统/数据库/算法
 

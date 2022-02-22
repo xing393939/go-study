@@ -75,6 +75,27 @@
   1. 要修改反射对象，其值必须可设置
   
 #### 第五章 常用关键字
+* for k,v = range(m)：迭代前v已分配内存，每次迭代将元素值拷贝到v处
+
+```
+// map的for-range执行时的伪代码
+key := nil
+val := nil
+mapiterinit(typeOfMap, map, &hit)
+for ; hit.key != nil; mapiternext(&hit) {
+    key = *hit.key
+    val = *hit.val
+    ...
+}
+
+// chan的for-range执行时的伪代码
+temp, ok := <-chan
+for ; ok != false; temp, ok = <-chan {
+    val := temp
+    temp = nil
+    ...
+}
+```
 
 #### 第六章 并发编程
 
