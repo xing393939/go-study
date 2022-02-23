@@ -76,6 +76,13 @@
   
 #### 第五章 常用关键字
 * for k,v = range(m)：迭代前v已分配内存，每次迭代将元素值拷贝到v处
+* select如果含有default case则是非阻塞的
+* select如果没有default case则是阻塞的，有多个case发送则随机执行一个
+  * 随机生成一个轮询顺序pollOrder 并根据Channel地址生成锁定顺序lockOrder锁住所有Channel
+  * 根据pollOrder轮询每个case的channel，如果有可以处理的channel
+    * 如果有，立即处理此case
+    * 如果没有，创建runtime.sudog结构体，将当前Goroutine加入到所有相关channel的收/发队列，调用runtime.gopark休眠
+  * 当前Goroutine被唤醒，根据lockOrder遍历每个case并处理
 
 ```
 // map的for-range执行时的伪代码
