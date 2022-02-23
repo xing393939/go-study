@@ -21,10 +21,7 @@ func (c Cat) Quack() {
 }
 
 func main() {
-
 	nil.Test()
-
-	println(test.Test())
 
 	println(registers.Output(987654321))
 
@@ -35,4 +32,6 @@ func main() {
 	println(math.Add(10, 11))
 	println(math.Sub(99, 15))
 	println(math.Mul(11, 12))
+
+	println(test.Test())
 }

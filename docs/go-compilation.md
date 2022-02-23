@@ -29,6 +29,8 @@ JMP -2(PC) // 以当前置顶为基础，PC-2
 JNZ target // 如果zero flag被set过，则跳转
 CMPQ SI CX 
 JLS 0x0185 // 如果SI<CX，则跳转到0x0185
+TEST AX, BX
+JE 0x0185  // 如果AX & BX==0，则跳转到0x0185(TEST指令不会改变AX/BX)
 
 //栈扩大和缩小（没有用push、pop）
 SUBQ $0x18, SP // 对SP做减法，为函数分配函数栈帧

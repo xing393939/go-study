@@ -22,6 +22,6 @@ func SetShardCount(count uint64) Opt {
 	}
 }
 
-func main() {
+func main2() {
 	NewCache2(SetShardCount(256))
 }
