@@ -298,8 +298,17 @@
 </ul>
 <h4 id="&#x7B2C;&#x4E94;&#x7AE0;-&#x5E38;&#x7528;&#x5173;&#x952E;&#x5B57;">&#x7B2C;&#x4E94;&#x7AE0; &#x5E38;&#x7528;&#x5173;&#x952E;&#x5B57;</h4>
 <ul>
-<li>for k,v = range(m)&#xFF1A;&#x8FED;&#x4EE3;&#x524D;v&#x5DF2;&#x5206;&#x914D;&#x5185;&#x5B58;&#xFF0C;&#x6BCF;&#x6B21;&#x8FED;&#x4EE3;&#x5C06;&#x5143;&#x7D20;&#x503C;&#x62F7;&#x8D1D;&#x5230;v&#x5904;</li>
+<li>&#x524D;&#x7F6E;&#x77E5;&#x8BC6;&#xFF1A;<ul>
 <li>channel&#xFF1A;c1:=chan int &amp;&amp; c2:=c1 // &#x6700;&#x540E;&#x8981;&#x4E48;&#x662F;c1&#x8981;&#x4E48;&#x662F;c2&#x80FD;&#x6536;&#x5230;&#x6D88;&#x606F;</li>
+<li>&#x6808;&#x7684;&#x81EA;&#x52A8;&#x589E;&#x957F;&#xFF0C;<a href="http://hustcat.github.io/dive-into-stack-defer-panic-recover-in-go/" target="_blank">Dive into stack and defer</a><ul>
+<li>Go&#x7F16;&#x8BD1;&#x5668;&#x5728;&#x6BCF;&#x4E2A;&#x51FD;&#x6570;&#x7684;&#x5F00;&#x59CB;&#x63D2;&#x5165;&#x4E00;&#x6BB5;&#x68C0;&#x6D4B;&#x6808;&#x662F;&#x5426;&#x591F;&#x7528;&#x7684;&#x4EE3;&#x7801;</li>
+<li>&#x5982;&#x679C;&#x7A7A;&#x95F4;&#x4E0D;&#x591F;&#x5219;&#x8F6C;&#x5230;runtime.morestack_noctxt&#xFF0C;&#x5206;&#x914D;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x8DB3;&#x591F;&#x5927;&#x7684;&#x6808;&#x7A7A;&#x95F4;</li>
+<li>&#x518D;&#x5C06;&#x65E7;&#x6808;&#x7684;&#x5185;&#x5BB9;&#x62F7;&#x8D1D;&#x5230;&#x65B0;&#x6808;&#x4E2D;&#xFF0C;&#x7136;&#x540E;&#x518D;&#x6267;&#x884C;&#x51FD;&#x6570;&#x3002;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>for k,v = range(m)&#xFF1A;&#x8FED;&#x4EE3;&#x524D;v&#x5DF2;&#x5206;&#x914D;&#x5185;&#x5B58;&#xFF0C;&#x6BCF;&#x6B21;&#x8FED;&#x4EE3;&#x5C06;&#x5143;&#x7D20;&#x503C;&#x62F7;&#x8D1D;&#x5230;v&#x5904;</li>
 <li>select&#x5982;&#x679C;&#x542B;&#x6709;default case&#x5219;&#x662F;&#x975E;&#x963B;&#x585E;&#x7684;</li>
 <li>select&#x5982;&#x679C;&#x6CA1;&#x6709;default case&#x5219;&#x662F;&#x963B;&#x585E;&#x7684;&#xFF0C;&#x6709;&#x591A;&#x4E2A;case&#x53D1;&#x9001;&#x5219;&#x968F;&#x673A;&#x6267;&#x884C;&#x4E00;&#x4E2A;<ul>
 <li>&#x968F;&#x673A;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x8F6E;&#x8BE2;&#x987A;&#x5E8F;pollOrder &#x5E76;&#x6839;&#x636E;Channel&#x5730;&#x5740;&#x751F;&#x6210;&#x9501;&#x5B9A;&#x987A;&#x5E8F;lockOrder&#x9501;&#x4F4F;&#x6240;&#x6709;Channel</li>
@@ -312,14 +321,23 @@
 <li>&#x5F53;&#x524D;Goroutine&#x88AB;&#x5524;&#x9192;(&#x53EA;&#x4F1A;&#x88AB;&#x4E00;&#x4E2A;channel&#x5524;&#x9192;)&#xFF0C;&#x6839;&#x636E;lockOrder&#x904D;&#x5386;&#x627E;&#x5230;&#x6B64;channel&#x5BF9;&#x5E94;&#x7684;case</li>
 </ul>
 </li>
-<li>&#x5904;&#x7406;defer&#x5173;&#x952E;&#x5B57;&#x7684;&#x4E09;&#x79CD;&#x65B9;&#x6CD5;&#xFF1A;<ul>
+<li>defer&#x7684;&#x4E09;&#x79CD;&#x5904;&#x7406;&#x65B9;&#x6CD5;&#xFF1A;<ul>
 <li>1.13&#x524D;&#xFF0C;&#x5728;&#x5806;&#x4E0A;&#x5206;&#x914D;runtime._defer&#x7ED3;&#x6784;&#x4F53;&#xFF0C;defer&#x5904;&#x6267;&#x884C;runtime.deferproc&#xFF0C;&#x9000;&#x51FA;&#x51FD;&#x6570;&#x6267;&#x884C;runtime.deferreturn</li>
-<li>1.13&#x4E2D;&#xFF0C;&#x5728;&#x6808;&#x4E0A;&#x5206;&#x914D;runtime._defer&#x7ED3;&#x6784;&#x4F53;(&#x53EA;&#x6709;&#x4E00;&#x4E2A;defer)&#xFF0C;defer&#x5904;&#x6267;&#x884C;runtime.deferprocStack&#xFF0C;&#x9000;&#x51FA;&#x51FD;&#x6570;&#x6267;&#x884C;runtime.deferreturn</li>
-<li>1.14&#x4E2D;&#xFF0C;&#x5F00;&#x653E;&#x7F16;&#x7801;(&lt;=8&#x4E2A;defer&#x4E14;defer&#x4E0D;&#x5728;&#x5FAA;&#x73AF;&#x7ED3;&#x6784;&#x4E2D;)<ul>
+<li>1.13&#x4E2D;&#xFF0C;&#x5728;&#x6808;&#x4E0A;&#x5206;&#x914D;runtime._defer&#x7ED3;&#x6784;&#x4F53;(&#x51FD;&#x6570;&#x6700;&#x591A;&#x6267;&#x884C;1&#x6B21;defer)&#xFF0C;defer&#x5904;&#x6267;&#x884C;runtime.deferprocStack&#xFF0C;&#x9000;&#x51FA;&#x51FD;&#x6570;&#x6267;&#x884C;runtime.deferreturn</li>
+<li>1.14&#x4E2D;&#xFF0C;&#x5F00;&#x653E;&#x7F16;&#x7801;(&#x51FD;&#x6570;&#x6700;&#x591A;&#x6267;&#x884C;8&#x6B21;defer&#x4E14;defer&#x4E0D;&#x5728;&#x5FAA;&#x73AF;&#x7ED3;&#x6784;&#x4E2D;)<ul>
 <li>&#x901A;&#x8FC7;deferBits&#x5B58;&#x50A8;defer&#x7684;&#x76F8;&#x5173;&#x4FE1;&#x606F;</li>
 <li>&#x5982;&#x679C;defer&#x7684;&#x6267;&#x884C;&#x53EF;&#x4EE5;&#x5728;&#x7F16;&#x8BD1;&#x671F;&#x786E;&#x5B9A;&#xFF0C;&#x4F1A;&#x5728;&#x51FD;&#x6570;&#x8FD4;&#x56DE;&#x524D;&#x76F4;&#x63A5;&#x63D2;&#x5165;&#x76F8;&#x5E94;&#x7684;&#x4EE3;&#x7801;</li>
 </ul>
 </li>
+</ul>
+</li>
+<li>defer func(...args) //args&#x5982;&#x679C;&#x6709;&#x8868;&#x8FBE;&#x5F0F;&#x4F1A;&#x5728;runtime.deferproc&#x524D;&#x8BA1;&#x7B97;&#x597D;&#xFF0C;&#x53C2;&#x89C1;defer-example1</li>
+<li>panic&#x548C;recover&#xFF1A;<ul>
+<li>&#x7F16;&#x8BD1;&#x5668;&#x5C06;panic&#x548C;recover&#x8F6C;&#x6362;&#x6210;runtime.gopanic&#x548C;runtime.gorecover</li>
+<li>&#x8FD0;&#x884C;&#x65F6;&#x6267;&#x884C;runtime.gopanic&#xFF0C;&#x4F1A;&#x4ECE;Goroutine&#x7684;&#x94FE;&#x8868;&#x4F9D;&#x6B21;&#x53D6;&#x51FA;runtime._defer&#x7ED3;&#x6784;&#x4F53;&#x5E76;&#x6267;&#x884C;</li>
+<li>&#x9047;&#x5230;runtime.gorecover&#x5C31;&#x4F1A;&#x5C06;_panic.recovered&#x6807;&#x8BB0;&#x6210;true&#x5E76;&#x8FD4;&#x56DE;panic&#x7684;&#x53C2;&#x6570;&#x3002;&#x5728;&#x8FD9;&#x6B21;&#x8C03;&#x7528;&#x7ED3;&#x675F;&#x4E4B;&#x540E;&#xFF0C;runtime.gopanic&#x8FD8;&#x4F1A;&#x8C03;&#x7528;runtime.recovery</li>
+<li>&#x6CA1;&#x6709;&#x9047;&#x5230;runtime.gorecover&#x5C31;&#x4F1A;&#x4E00;&#x76F4;&#x6267;&#x884C;runtime._defer&#x7ED3;&#x6784;&#x4F53;&#xFF0C;&#x6700;&#x540E;&#x6267;&#x884C;runtime.fatalpanic</li>
+<li>(&#x5982;&#x679C;&#x6267;&#x884C;runtime._defer&#x7ED3;&#x6784;&#x4F53;&#x65F6;&#x53C8;&#x6709;panic&#xFF0C;&#x5219;&#x52A0;&#x5230;runtime._panic&#x94FE;&#x6761;&#xFF0C;runtime.fatalpanic&#x4F1A;&#x7EDF;&#x4E00;&#x6253;&#x5370;)</li>
 </ul>
 </li>
 </ul>
@@ -339,6 +357,23 @@ for ; ok != false; temp, ok = &lt;-chan {
     val := temp
     temp = nil
     ...
+}
+
+// defer-example1&#xFF1A;&#x8F93;&#x51FA;0
+func main() {
+    a := 0
+    defer println(a)
+
+    a = 1
+}
+// defer-example1&#xFF1A;&#x8F93;&#x51FA;1
+func main() {
+    a := 0
+    defer func() {
+        println(a)
+    }()
+
+    a = 1
 }
 </code></pre><h4 id="&#x7B2C;&#x516D;&#x7AE0;-&#x5E76;&#x53D1;&#x7F16;&#x7A0B;">&#x7B2C;&#x516D;&#x7AE0; &#x5E76;&#x53D1;&#x7F16;&#x7A0B;</h4>
 <h4 id="&#x7B2C;&#x4E03;&#x7AE0;-&#x5185;&#x5B58;&#x7BA1;&#x7406;">&#x7B2C;&#x4E03;&#x7AE0; &#x5185;&#x5B58;&#x7BA1;&#x7406;</h4>
@@ -381,7 +416,7 @@ for ; ok != false; temp, ok = &lt;-chan {
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Go 语言设计与实现","level":"1.5","depth":1,"previous":{"title":"Go 语言从入门到实战","level":"1.4","depth":1,"path":"docs/go-from-entry-to-practice.md","ref":"docs/go-from-entry-to-practice.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-language-design-and-implementation.md","mtime":"2022-02-23T09:32:59.944Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-02-23T09:33:28.061Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Go 语言设计与实现","level":"1.5","depth":1,"previous":{"title":"Go 语言从入门到实战","level":"1.4","depth":1,"path":"docs/go-from-entry-to-practice.md","ref":"docs/go-from-entry-to-practice.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-language-design-and-implementation.md","mtime":"2022-02-24T03:12:41.239Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-02-24T03:13:14.531Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
