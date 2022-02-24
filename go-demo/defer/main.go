@@ -1,13 +1,15 @@
-package _defer
+package main
 
-func say() {
-	defer hello(13)
-	a := 11
-	_ = a
-}
+func main() {
+	defer println("1 in main")
+	defer func() {
+		defer func() {
+			println("2")
+			panic("panic again and again")
+		}()
+		println("3")
+		panic("panic again")
+	}()
 
-//go:noinline
-func hello(c int) {
-	b := 12
-	c = b
+	panic("panic once")
 }
