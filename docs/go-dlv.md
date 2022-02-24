@@ -4,7 +4,7 @@
 ```
 // 本文的开发环境
 go version
-go version go1.17.3 linux/amd64
+go version go1.16.14 linux/amd64
 // 安装dlv命令
 go get github.com/go-delve/delve/cmd/dlv
 // 编译并进入调试模式
@@ -24,6 +24,27 @@ x -count 24 -size 8 0x10a0 打印0x10a0地址的值，8字节一组，共24组
 #### dlv常用命令
 ![dlv](../images/dlv.jpg)
 
+#### string的内存结构
+```
+func main() {
+	hash := "abc"
+	say(hash)
+}
+//go:noinline
+func say(hash2 string) {
+	hash2 += "d"
+	_ = hash2
+}
+
+// 编译并进入调试模式后执行
+b main.say
+c
+// 打印rsp处的数据x -count 8 -size 8 0x000000c00003c750
+第1个8B是返回地址
+第2个8B是stringStruct.array，打印x -count 3 0x000000000047f0be可以看到0x47f0be:   0x61   0x62   0x63
+第3个8B是stringStruct.length
+```
+
 #### slice的内存结构
 ```
 func main() {
@@ -41,7 +62,11 @@ func say(hash2 []int) {
 // 编译并进入调试模式后执行
 b main.say
 c
-// 此时寄存器rax=&hash2.data、rbx=hash2.len、rcx=hash2.cap
+// 打印rsp处的数据x -count 8 -size 8 0x000000c00003c750
+第1个8B是返回地址
+第2个8B是&hash2.data
+第3个8B是hash2.len
+第4个8B是hash2.cap
 ```
 
 #### map的内存结构
@@ -81,8 +106,9 @@ type hmap struct {
 // 编译并进入调试模式后执行
 b main.say
 c
-// 此时rax存储的即是hmap的地址
-x -count 6 -size 8 0x000000c000074150
+// 打印rsp处的数据x -count 8 -size 8 0x000000c00003c750
+第1个8B是返回地址
+第2个8B是map的指针，打印可以得到hmap结构体：x -count 6 -size 8 0x000000c000074150
 0xc000074150:   0x0000000000000000   0x69587b7700000200   0x000000c000078a80   0x0000000000000000   0x0000000000000000   0x0000000000000000
 ```
 
