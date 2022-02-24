@@ -337,7 +337,7 @@
 <li>&#x8FD0;&#x884C;&#x65F6;&#x6267;&#x884C;runtime.gopanic&#xFF0C;&#x4F1A;&#x4ECE;Goroutine&#x7684;&#x94FE;&#x8868;&#x4F9D;&#x6B21;&#x53D6;&#x51FA;runtime._defer&#x7ED3;&#x6784;&#x4F53;&#x5E76;&#x6267;&#x884C;</li>
 <li>&#x9047;&#x5230;runtime.gorecover&#x5C31;&#x4F1A;&#x5C06;_panic.recovered&#x6807;&#x8BB0;&#x6210;true&#x5E76;&#x8FD4;&#x56DE;panic&#x7684;&#x53C2;&#x6570;&#x3002;&#x5728;&#x8FD9;&#x6B21;&#x8C03;&#x7528;&#x7ED3;&#x675F;&#x4E4B;&#x540E;&#xFF0C;runtime.gopanic&#x8FD8;&#x4F1A;&#x8C03;&#x7528;runtime.recovery</li>
 <li>&#x6CA1;&#x6709;&#x9047;&#x5230;runtime.gorecover&#x5C31;&#x4F1A;&#x4E00;&#x76F4;&#x6267;&#x884C;runtime._defer&#x7ED3;&#x6784;&#x4F53;&#xFF0C;&#x6700;&#x540E;&#x6267;&#x884C;runtime.fatalpanic</li>
-<li>(&#x5982;&#x679C;&#x6267;&#x884C;runtime._defer&#x7ED3;&#x6784;&#x4F53;&#x65F6;&#x53C8;&#x6709;panic&#xFF0C;&#x5219;&#x52A0;&#x5230;runtime._panic&#x94FE;&#x6761;&#xFF0C;runtime.fatalpanic&#x4F1A;&#x7EDF;&#x4E00;&#x6253;&#x5370;)</li>
+<li>(&#x5982;&#x679C;&#x6267;&#x884C;runtime._defer&#x7ED3;&#x6784;&#x4F53;&#x65F6;&#x53C8;&#x6709;panic&#xFF0C;&#x5219;&#x52A0;&#x5230;runtime._panic&#x94FE;&#x6761;&#xFF0C;runtime.fatalpanic&#x4F1A;&#x7EDF;&#x4E00;&#x6253;&#x5370;&#xFF0C;&#x53C2;&#x89C1;panic-example1)</li>
 </ul>
 </li>
 </ul>
@@ -374,6 +374,21 @@ func main() {
     }()
 
     a = 1
+}
+
+// panic-example1&#xFF0C;&#x5148;&#x6253;&#x5370;3 2 1
+func main() {
+    defer println(&quot;1 in main&quot;)
+    defer func() {
+        defer func() {
+            println(&quot;2&quot;)
+            panic(&quot;panic again and again&quot;)
+        }()
+        println(&quot;3&quot;)
+        panic(&quot;panic again&quot;)
+    }()
+
+    panic(&quot;panic once&quot;)
 }
 </code></pre><h4 id="&#x7B2C;&#x516D;&#x7AE0;-&#x5E76;&#x53D1;&#x7F16;&#x7A0B;">&#x7B2C;&#x516D;&#x7AE0; &#x5E76;&#x53D1;&#x7F16;&#x7A0B;</h4>
 <h4 id="&#x7B2C;&#x4E03;&#x7AE0;-&#x5185;&#x5B58;&#x7BA1;&#x7406;">&#x7B2C;&#x4E03;&#x7AE0; &#x5185;&#x5B58;&#x7BA1;&#x7406;</h4>
@@ -416,7 +431,7 @@ func main() {
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Go 语言设计与实现","level":"1.5","depth":1,"previous":{"title":"Go 语言从入门到实战","level":"1.4","depth":1,"path":"docs/go-from-entry-to-practice.md","ref":"docs/go-from-entry-to-practice.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-language-design-and-implementation.md","mtime":"2022-02-24T03:12:41.239Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-02-24T03:13:14.531Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Go 语言设计与实现","level":"1.5","depth":1,"previous":{"title":"Go 语言从入门到实战","level":"1.4","depth":1,"path":"docs/go-from-entry-to-practice.md","ref":"docs/go-from-entry-to-practice.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-language-design-and-implementation.md","mtime":"2022-02-24T03:16:45.177Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-02-24T03:17:10.777Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
