@@ -1,22 +1,19 @@
 package main
 
-import "time"
-
-func main()  {
-	c3 := time.After(time.Microsecond)
-	c4 := c3
-
-
+func main() {
+	chan1 := make(chan bool)
 
 	go func() {
-		<-c4
-		println(4)
+		<-chan1
+		println("a")
 	}()
-
 	go func() {
-		<-c3
-		println(3)
+		<-chan1
+		println("b")
 	}()
 
-	time.Sleep(time.Second)
+	close(chan1)
+	for {
+
+	}
 }
