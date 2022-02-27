@@ -203,6 +203,8 @@
 <h4 id="&#x53C2;&#x8003;&#x8D44;&#x6599;">&#x53C2;&#x8003;&#x8D44;&#x6599;</h4>
 <ul>
 <li><a href="https://book.douban.com/subject/35635836/" target="_blank">&#x300A;Go &#x8BED;&#x8A00;&#x8BBE;&#x8BA1;&#x4E0E;&#x5B9E;&#x73B0;&#x300B;</a></li>
+<li>atomic.AddInt32(<em>val, delta)&#xFF1A;\</em>val += delta &amp;&amp; return *val</li>
+<li>atomic.CompareAndSwap(<em>val, old, new)&#xFF1A;\</em>val == old ? *val = new &amp;&amp; return 1 : return 0</li>
 </ul>
 <h4 id="&#x7B2C;&#x4E8C;&#x7AE0;-&#x7F16;&#x8BD1;&#x539F;&#x7406;">&#x7B2C;&#x4E8C;&#x7AE0; &#x7F16;&#x8BD1;&#x539F;&#x7406;</h4>
 <ul>
@@ -429,6 +431,21 @@ func main()  {
 <li>context.WithDeadline(parent, Now()+timeout)&#xFF0C;&#x57FA;&#x4E8E;WithCancel</li>
 <li>context.WithTimeout(parent, timeout)&#xFF0C;&#x57FA;&#x4E8E;WithDeadline</li>
 <li>context.WithValue(parent, key, val)&#xFF0C;&#x7531;&#x4E8E;ctx&#x662F;&#x5728;&#x4E00;&#x4E2A;&#x534F;&#x7A0B;&#x5199;key/val&#xFF0C;&#x5728;&#x5B50;&#x6811;&#x534F;&#x7A0B;&#x67E5;&#x8BE2;&#xFF0C;&#x6240;&#x4EE5;&#x662F;&#x534F;&#x7A0B;&#x5B89;&#x5168;&#x7684;</li>
+<li>sync.Mutex&#x7684;Lock&#x548C;Unlock&#x65B9;&#x6CD5;&#xFF1A;&#x52A0;&#x9501;&#x5931;&#x8D25;&#x5C31;&#x628A;&#x81EA;&#x5DF1;&#x6302;&#x5728;&#x9501;&#x961F;&#x5217;&#x4E0A;&#xFF0C;&#x7B49;&#x5F85;&#x6301;&#x9501;&#x8005;Unlock&#x7684;&#x65F6;&#x5019;&#x5524;&#x9192;</li>
+<li>sync.RWMutex&#x7684;Lock&#x548C;Unlock&#x65B9;&#x6CD5;&#xFF1A;&#x57FA;&#x4E8E;sync.Mutex&#xFF0C;&#x52A0;&#x9501;&#x65F6;&#x5982;&#x679C;&#x5DF2;&#x7ECF;&#x6709;&#x8BFB;&#x9501;&#x5C31;&#x628A;&#x81EA;&#x5DF1;&#x6302;&#x5728;&#x9501;&#x961F;&#x5217;&#x4E0A;</li>
+<li>sync.RWMutex&#x7684;RLock&#x65B9;&#x6CD5;&#xFF1A;&#x5982;&#x679C;&#x5B58;&#x5728;&#x5199;&#x9501;&#x5C31;&#x628A;&#x81EA;&#x5DF1;&#x6302;&#x5728;&#x9501;&#x961F;&#x5217;&#x4E0A;&#xFF0C;&#x6CA1;&#x6709;&#x5219;RWMutex.readerCount++</li>
+<li>sync.RWMutex&#x7684;RUnlock&#x65B9;&#x6CD5;&#xFF1A;RWMutex.readerCount--&#xFF0C;&#x5982;&#x679C;&#x81EA;&#x5DF1;&#x662F;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x8BFB;&#x9501;&#xFF0C;&#x5219;&#x5C1D;&#x8BD5;&#x5524;&#x9192;&#x5199;&#x9501;</li>
+<li>sync.WaitGroup&#x7684;Add&#x65B9;&#x6CD5;&#xFF1A;WaitGroup.counter+=addNum&#xFF0C;&#x5982;&#x679C;WaitGroup.counter==0&#xFF0C;&#x5219;&#x5524;&#x9192;WaitGroup.waiters</li>
+<li>sync.WaitGroup&#x7684;Wait&#x65B9;&#x6CD5;&#xFF1A;&#x5982;&#x679C;WaitGroup.counter==0&#x76F4;&#x63A5;return&#xFF0C;&#x5426;&#x5219;WaitGroup.waiters++&#x5E76;&#x6302;&#x8D77;</li>
+<li>sync.Once&#x7684;Do&#x65B9;&#x6CD5;&#xFF1A;&#x7B2C;&#x4E00;&#x6B21;&#x6267;&#x884C;&#x7684;&#x65F6;&#x5019;&#x628A;Once.done&#x6807;&#x8BB0;&#x4E3A;1&#xFF0C;&#x4FDD;&#x8BC1;&#x53EA;&#x6267;&#x884C;&#x4E00;&#x6B21;</li>
+<li>sync.Cond&#x7684;Wait&#x65B9;&#x6CD5;&#xFF1A;&#x628A;&#x81EA;&#x5DF1;&#x52A0;&#x5165;&#x5230;Cond.notifyList&#x5E76;&#x6302;&#x8D77;</li>
+<li>sync.Cond&#x7684;Broadcast&#x65B9;&#x6CD5;&#xFF1A;&#x4F9D;&#x6B21;&#x5524;&#x9192;Cond.notifyList</li>
+<li>sync&#x7684;&#x6269;&#x5C55;&#x539F;&#x8BED;&#xFF1A;<ul>
+<li>errgroup.Group&#x7684;Go&#x65B9;&#x6CD5;&#x521B;&#x5EFA;&#x534F;&#x7A0B;&#xFF0C;Wait&#x65B9;&#x6CD5;&#x7B49;&#x5F85;&#x534F;&#x7A0B;&#x5B8C;&#x6210;&#x5E76;&#x83B7;&#x53D6;err</li>
+<li>semaphore.Weighted&#xFF0C;&#x7528;NewWeighted&#x65B9;&#x6CD5;&#x521D;&#x59CB;&#x5316;size=n&#xFF0C;Acquire&#x65B9;&#x6CD5;size-=n&#xFF0C;Release&#x65B9;&#x6CD5;size+=n</li>
+<li>singleflight.Group&#x7684;Do(hash, func)&#x65B9;&#x6CD5;&#xFF1A;&#x7B2C;&#x4E00;&#x6B21;&#x6267;&#x884C;ok&#x540E;&#x7ED3;&#x679C;&#x5B58;&#x5168;&#x5C40;map&#xFF0C;&#x540E;&#x7EED;&#x76F8;&#x540C;&#x8BF7;&#x6C42;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;map[hash]</li>
+</ul>
+</li>
 </ul>
 <h4 id="&#x7B2C;&#x4E03;&#x7AE0;-&#x5185;&#x5B58;&#x7BA1;&#x7406;">&#x7B2C;&#x4E03;&#x7AE0; &#x5185;&#x5B58;&#x7BA1;&#x7406;</h4>
 
@@ -470,7 +487,7 @@ func main()  {
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Go 语言设计与实现","level":"1.5","depth":1,"previous":{"title":"Go 语言从入门到实战","level":"1.4","depth":1,"path":"docs/go-from-entry-to-practice.md","ref":"docs/go-from-entry-to-practice.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-language-design-and-implementation.md","mtime":"2022-02-25T09:26:30.351Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-02-25T09:26:55.507Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Go 语言设计与实现","level":"1.5","depth":1,"previous":{"title":"Go 语言从入门到实战","level":"1.4","depth":1,"path":"docs/go-from-entry-to-practice.md","ref":"docs/go-from-entry-to-practice.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-language-design-and-implementation.md","mtime":"2022-02-27T10:31:39.899Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-02-27T10:32:10.260Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
