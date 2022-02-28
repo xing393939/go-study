@@ -29,10 +29,11 @@
 * [茶歇驿站-杨文](https://maiyang.me/)
 * [luozhiyun-腾讯](https://www.luozhiyun.com/)
 * [蒙卓-腾讯](https://mzh.io/)，go源码贡献者
+* [MARATRIX BLOG](https://maratrix.cn/)，go源码阅读有6篇
 
 #### 第一阶段
 * [Go 语言设计与实现](https://draveness.me/golang/)，02-22开始，预计8天
-* [Go夜读-Go源码阅读](https://bytemode.github.io/reading/)，02-22开始，预计8天
+* [Go 语言原本](https://golang.design/under-the-hood/)，02-22开始，预计8天，作者欧长坤
 * [Go 进阶训练营大纲](https://shimo.im/docs/vX9YgCchV3XwgYTH/read)，02-22开始，20h视频
 * [Golang面试题汇总](https://www.golangroadmap.com/interview/books/questions/golang/)，[去除弹窗](javascript:document.getElementsByClassName%28'v-dialog-container'%29[0].remove%28%29;)
 * [面试八股文](https://www.topgoer.cn/docs/gomianshiti/gomianshiti-1dd225t6esqld)
