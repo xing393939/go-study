@@ -440,12 +440,45 @@ func main()  {
 <li>sync.Once&#x7684;Do&#x65B9;&#x6CD5;&#xFF1A;&#x7B2C;&#x4E00;&#x6B21;&#x6267;&#x884C;&#x7684;&#x65F6;&#x5019;&#x628A;Once.done&#x6807;&#x8BB0;&#x4E3A;1&#xFF0C;&#x4FDD;&#x8BC1;&#x53EA;&#x6267;&#x884C;&#x4E00;&#x6B21;</li>
 <li>sync.Cond&#x7684;Wait&#x65B9;&#x6CD5;&#xFF1A;&#x628A;&#x81EA;&#x5DF1;&#x52A0;&#x5165;&#x5230;Cond.notifyList&#x5E76;&#x6302;&#x8D77;</li>
 <li>sync.Cond&#x7684;Broadcast&#x65B9;&#x6CD5;&#xFF1A;&#x4F9D;&#x6B21;&#x5524;&#x9192;Cond.notifyList</li>
+<li>sync.Pool&#x7684;Get&#x548C;Put&#x65B9;&#x6CD5;&#xFF1A;&#x5982;&#x679C;&#x6709;N&#x4E2A;&#x534F;&#x7A0B;&#x90FD;&#x9700;&#x8981;&#x4E00;&#x5757;&#x4E34;&#x65F6;&#x5185;&#x5B58;&#x65F6;&#x7528;<a href="https://mp.weixin.qq.com/s/6Nx7IGFU_FbM5AOdUzmvcw" target="_blank">Pool</a></li>
 <li>sync&#x7684;&#x6269;&#x5C55;&#x539F;&#x8BED;&#xFF1A;<ul>
+<li>atomic.Value&#x7684;Store&#x65B9;&#x6CD5;&#x5229;&#x7528;CAS&#x4FDD;&#x8BC1;&#x539F;&#x5B50;&#x5199;&#x5165;&#xFF0C;Load&#x65B9;&#x6CD5;&#x65E0;&#x9501;&#x8BFB;&#xFF0C;&#x6240;&#x4EE5;&#x6BD4;Mutex&#x5FEB;</li>
 <li>errgroup.Group&#x7684;Go&#x65B9;&#x6CD5;&#x521B;&#x5EFA;&#x534F;&#x7A0B;&#xFF0C;Wait&#x65B9;&#x6CD5;&#x7B49;&#x5F85;&#x534F;&#x7A0B;&#x5B8C;&#x6210;&#x5E76;&#x83B7;&#x53D6;err</li>
 <li>semaphore.Weighted&#xFF0C;&#x7528;NewWeighted&#x65B9;&#x6CD5;&#x521D;&#x59CB;&#x5316;size=n&#xFF0C;Acquire&#x65B9;&#x6CD5;size-=n&#xFF0C;Release&#x65B9;&#x6CD5;size+=n</li>
 <li>singleflight.Group&#x7684;Do(hash, func)&#x65B9;&#x6CD5;&#xFF1A;&#x7B2C;&#x4E00;&#x6B21;&#x6267;&#x884C;ok&#x540E;&#x7ED3;&#x679C;&#x5B58;&#x5168;&#x5C40;map&#xFF0C;&#x540E;&#x7EED;&#x76F8;&#x540C;&#x8BF7;&#x6C42;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;map[hash]</li>
 </ul>
 </li>
+<li>&#x8BA1;&#x65F6;&#x5668;&#xFF1A;<a href="https://www.luozhiyun.com/archives/458" target="_blank">Go&#x4E2D;&#x5B9A;&#x65F6;&#x5668;&#x5B9E;&#x73B0;&#x539F;&#x7406;&#x53CA;&#x6E90;&#x7801;&#x89E3;&#x6790;</a></li>
+<li>runtime.addtimer&#xFF1A;&#x589E;&#x52A0;&#x8BA1;&#x65F6;&#x5668;&#x3002;&#x6807;&#x8BB0;&#x4E3A;timerWaiting&#xFF0C;&#x53EF;&#x80FD;&#x9700;&#x8981;&#x6FC0;&#x6D3B;NetPoller<ul>
+<li>&#x5982;&#x679C;time.when&lt;sched.pollUntil&#xFF0C;&#x9700;&#x8981;&#x63D0;&#x524D;&#x6FC0;&#x6D3B;&#xFF0C;&#x5199;fd&#xFF0C;&#x6267;&#x884C;netpoll(0)&#x65F6;&#x8FD4;&#x56DE;timer&#x5BF9;&#x5E94;&#x7684;goroutine</li>
+</ul>
+</li>
+<li>runtime.deltimer&#xFF1A;&#x5220;&#x9664;&#x8BA1;&#x65F6;&#x5668;&#x3002;&#x6807;&#x8BB0;&#x4E3A;timerDeleted&#xFF0C;&#x7531;P&#x6765;&#x6E05;&#x7406;&#x5B83;</li>
+<li>runtime.modtimer&#xFF1A;&#x4FEE;&#x6539;&#x8BA1;&#x65F6;&#x5668;&#x3002;&#x82E5;timer&#x88AB;&#x5220;&#x5219;&#x65B0;&#x5EFA;&#x4E00;&#x4E2A;</li>
+<li>runtime.cleantimers&#xFF1A;&#x6E05;&#x9664;&#x8BA1;&#x65F6;&#x5668;&#x3002;&#x53D6;&#x5806;&#x9876;&#xFF0C;timerDeleted&#x5219;&#x5220;&#x9664;&#xFF0C;timerModifiedEarlier/timerModifiedLater&#x5219;&#x79FB;&#x52A8;</li>
+<li>runtime.adjusttimers&#xFF1A;&#x8C03;&#x6574;&#x8BA1;&#x65F6;&#x5668;&#x3002;&#x548C;cleantimers&#x7C7B;&#x4F3C;&#xFF0C;&#x53EF;&#x80FD;&#x4F1A;&#x904D;&#x5386;P&#x7684;&#x5168;&#x90E8;timer</li>
+<li>runtime.runtimer&#xFF1A;&#x8FD0;&#x884C;&#x8BA1;&#x65F6;&#x5668;&#x3002;&#x53D6;&#x5806;&#x9876;&#xFF0C;&#x53EF;&#x80FD;&#x548C;cleantimers&#x7C7B;&#x4F3C;&#xFF0C;&#x53EF;&#x80FD;runOneTimer&#xFF1A;<ul>
+<li>&#x53D6;timer.period&#xFF0C;&gt;0&#x662F;&#x8FDE;&#x7EED;&#x95F4;&#x9694;&#x7684;&#xFF1B;=0&#x662F;&#x4E00;&#x6B21;&#x6027;&#x7684;  </li>
+</ul>
+</li>
+<li>&#x8BA1;&#x65F6;&#x5668;&#xFF1A;&#x4E24;&#x4E2A;&#x6A21;&#x5757;&#x4F1A;&#x89E6;&#x53D1;&#x8BA1;&#x65F6;&#x5668;<ul>
+<li>&#x8C03;&#x5EA6;&#x5668;&#x8C03;&#x7528; runtime.schedule &#x6267;&#x884C;&#x8C03;&#x5EA6;&#x65F6;&#xFF1B;</li>
+<li>&#x8C03;&#x5EA6;&#x5668;&#x8C03;&#x7528; runtime.findrunnable &#x83B7;&#x53D6;&#x53EF;&#x6267;&#x884C;&#x7684; Goroutine &#x65F6;&#xFF1B;</li>
+<li>&#x8C03;&#x5EA6;&#x5668;&#x8C03;&#x7528; runtime.findrunnable &#x4ECE;&#x5176;&#x4ED6;&#x5904;&#x7406;&#x5668;&#x7A83;&#x53D6;&#x8BA1;&#x65F6;&#x5668;&#x65F6;&#xFF1B;</li>
+<li>&#x7CFB;&#x7EDF;&#x76D1;&#x63A7;&#x7EBF;&#x7A0B;&#xFF1A;&#x904D;&#x5386;&#x6240;&#x6709;&#x7684;P&#x67E5;&#x627E;&#x4E0B;&#x4E00;&#x4E2A;&#x9700;&#x8981;&#x6267;&#x884C;&#x7684;timer</li>
+</ul>
+</li>
+<li>Channel&#xFF1A;&#x53D1;&#x9001;&#x6570;&#x636E;<ul>
+<li>&#x5982;&#x679C;&#x6709;&#x6302;&#x8D77;&#x7684;&#x63A5;&#x6536;&#x8005;&#xFF0C;&#x5219;&#x76F4;&#x63A5;&#x628A;&#x6570;&#x636E;&#x62F7;&#x8D1D;&#x7ED9;&#x63A5;&#x6536;&#x8005;(<a href="https://golang.design/under-the-hood/zh-cn/part2runtime/ch06sched/stack/" target="_blank">&#x6808;&#x6536;&#x7F29;&#x548C;&#x5199;&#x5C4F;&#x969C;</a>)&#xFF0C;&#x5E76;&#x8BBE;&#x7F6E;P.runnext=&#x63A5;&#x6536;&#x8005;</li>
+<li>&#x6CA1;&#x6709;&#x63A5;&#x6536;&#x8005;&#x4E14;&#x6CA1;&#x6709;&#x53EF;&#x5199;&#x7684;&#x7F13;&#x51B2;&#xFF0C;&#x5C06;&#x81EA;&#x5DF1;&#x52A0;&#x5165;Channel&#x7684;sendq&#x961F;&#x5217;&#x5E76;&#x6302;&#x8D77;</li>
+</ul>
+</li>
+<li>Channel&#xFF1A;&#x7ED3;&#x675F;&#x6570;&#x636E;<ul>
+<li>&#x5982;&#x679C;&#x6709;&#x6302;&#x8D77;&#x7684;&#x53D1;&#x9001;&#x8005;&#xFF0C;&#x76F4;&#x63A5;&#x62F7;&#x8D1D;&#x6570;&#x636E;&#x5E76;&#x5524;&#x9192;&#x53D1;&#x9001;&#x8005;</li>
+<li>&#x6CA1;&#x6709;&#x53D1;&#x9001;&#x8005;&#x4E14;&#x7F13;&#x51B2;&#x533A;&#x6CA1;&#x6709;&#x6570;&#x636E;&#xFF0C;&#x5C06;&#x81EA;&#x5DF1;&#x52A0;&#x5165;Channel&#x7684;recvq&#x961F;&#x5217;&#x5E76;&#x6302;&#x8D77;</li>
+</ul>
+</li>
+<li>Channel&#xFF1A;&#x5173;&#x95ED;Channel&#x3002;&#x5524;&#x9192;Channel&#x4E0A;&#x7684;recvq&#x548C;sendq&#x961F;&#x5217;&#x7684;&#x6240;&#x6709;Goroutine</li>
 </ul>
 <h4 id="&#x7B2C;&#x4E03;&#x7AE0;-&#x5185;&#x5B58;&#x7BA1;&#x7406;">&#x7B2C;&#x4E03;&#x7AE0; &#x5185;&#x5B58;&#x7BA1;&#x7406;</h4>
 
@@ -487,7 +520,7 @@ func main()  {
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Go 语言设计与实现","level":"1.5","depth":1,"previous":{"title":"Go 语言从入门到实战","level":"1.4","depth":1,"path":"docs/go-from-entry-to-practice.md","ref":"docs/go-from-entry-to-practice.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-language-design-and-implementation.md","mtime":"2022-02-27T10:31:39.899Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-02-27T10:32:10.260Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Go 语言设计与实现","level":"1.5","depth":1,"previous":{"title":"Go 语言从入门到实战","level":"1.4","depth":1,"path":"docs/go-from-entry-to-practice.md","ref":"docs/go-from-entry-to-practice.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-language-design-and-implementation.md","mtime":"2022-02-28T09:52:00.039Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-02-28T09:52:31.516Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
