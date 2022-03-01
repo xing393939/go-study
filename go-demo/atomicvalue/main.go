@@ -2,69 +2,118 @@ package main
 
 import (
 	"fmt"
-	"strconv"
-	"strings"
+	"go/ast"
+	"go/parser"
+	"go/token"
+	"io/ioutil"
+	"log"
+	"os"
 )
 
 func main() {
-	var n string
-	var m string
+	// read file
+	// here you can filepath.Walk() for your go files
+	gopath := os.ExpandEnv("$GOPATH")
+	fname := gopath + "/src/github.com/codegangsta/martini-contrib/web/web.go"
 
-	fmt.Scan(&n, &m)
-	list := strings.Split(n, ",")
-	var arr []int
-	for _, v := range list {
-		value, _ := strconv.Atoi(v)
-		arr = append(arr, value)
+	// read file
+	file, err := os.Open(fname)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	defer file.Close()
+
+	// read the whole file in
+	srcbuf, err := ioutil.ReadAll(file)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	src := string(srcbuf)
+
+	// file set
+	fset := token.NewFileSet()
+	f, err := parser.ParseFile(fset, "lib.go", src, 0)
+	if err != nil {
+		log.Println(err)
+		return
 	}
 
-	mi, _ := strconv.Atoi(m)
-	ans := subsets(arr, mi)
-	fmt.Println(ans)
+	// main inspection
+	ast.Inspect(f, func(n ast.Node) bool {
+
+		switch fn := n.(type) {
+
+		// catching all function declarations
+		// other intersting things to catch FuncLit and FuncType
+		case *ast.FuncDecl:
+			fmt.Print("func ")
+
+			// if a method, explore and print receiver
+			if fn.Recv != nil {
+				fmt.Printf("(%s)", fields(*fn.Recv))
+			}
+
+			// print actual function name
+			fmt.Printf("%v", fn.Name)
+
+			// print function parameters
+			if fn.Type.Params != nil {
+				fmt.Printf("(%s)", fields(*fn.Type.Params))
+			}
+
+			// print return params
+			if fn.Type.Results != nil {
+				fmt.Printf("(%s)", fields(*fn.Type.Results))
+			}
+
+			fmt.Println()
+
+		}
+		return true
+	})
 }
 
-func subsets(nums []int, m int) (ans [][]int) {
-	//回溯
-	var set []int
-	var dfs func(int)
-	dfs = func(cur int) {
-		if cur == len(nums) {
-			ans = append(ans, append([]int(nil), set...))
-			return
+func expr(e ast.Expr) (ret string) {
+	switch x := e.(type) {
+	case *ast.StarExpr:
+		return fmt.Sprintf("%s*%v", ret, x.X)
+	case *ast.Ident:
+		return fmt.Sprintf("%s%v", ret, x.Name)
+	case *ast.ArrayType:
+		if x.Len != nil {
+			log.Println("OH OH looks like homework")
+			return "TODO: HOMEWORK"
 		}
-		set = append(set, nums[cur])
-		dfs(cur + 1)
-		set = set[:len(set)-1]
-		dfs(cur + 1)
+		res := expr(x.Elt)
+		return fmt.Sprintf("%s[]%v", ret, res)
+	case *ast.MapType:
+		return fmt.Sprintf("map[%s]%s", expr(x.Key), expr(x.Value))
+	case *ast.SelectorExpr:
+		return fmt.Sprintf("%s.%s", expr(x.X), expr(x.Sel))
+	default:
+		fmt.Printf("\nTODO HOMEWORK: %#v\n", x)
 	}
-	dfs(0)
-
-	//过滤m长度不够的
-	var newAns = make([][]int, 0, 100)
-	for _, v := range ans {
-		if len(v) >= m {
-			newAns = append(newAns, v)
-		}
-	}
-	ans = newAns
-
-	//重新排序
-	length := len(ans)
-	var j int
-	for i := 0; i < length-1; i++ {
-		for j = i + 1; j < length; j++ {
-			if len(ans[i]) > len(ans[j]) {
-				ans[i], ans[j] = ans[j], ans[i]
-			} else if len(ans[i]) == len(ans[j]) {
-				for k := 0; k < len(ans[i]); k++ {
-					if ans[i][k] > ans[j][k] {
-						ans[i], ans[j] = ans[j], ans[i]
-						break
-					}
-				}
-			}
-		}
-	}
-
 	return
+}
+
+func fields(fl ast.FieldList) (ret string) {
+	pcomma := ""
+	for i, f := range fl.List {
+		// get all the names if present
+		var names string
+		ncomma := ""
+		for j, n := range f.Names {
+			if j > 0 {
+				ncomma = ", "
+			}
+			names = fmt.Sprintf("%s%s%s ", names, ncomma, n)
+		}
+		if i > 0 {
+			pcomma = ", "
+		}
+		ret = fmt.Sprintf("%s%s%s%s", ret, pcomma, names, expr(f.Type))
+	}
+	return ret
 }
