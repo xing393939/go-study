@@ -479,6 +479,64 @@ func main()  {
 </ul>
 </li>
 <li>Channel&#xFF1A;&#x5173;&#x95ED;Channel&#x3002;&#x5524;&#x9192;Channel&#x4E0A;&#x7684;recvq&#x548C;sendq&#x961F;&#x5217;&#x7684;&#x6240;&#x6709;Goroutine</li>
+<li>&#x57FA;&#x4E8E;&#x4EFB;&#x52A1;&#x7A83;&#x53D6;&#x7684;&#x8C03;&#x5EA6;&#xFF1A;&#x5148;&#x53D6;&#x672C;&#x5730;&#x3001;&#x5168;&#x5C40;&#x961F;&#x5217;&#xFF0C;&#x6CA1;&#x6709;&#x5C31;&#x4ECE;&#x5176;&#x4ED6;P&#x83B7;&#x53D6;</li>
+<li>&#x57FA;&#x4E8E;&#x534F;&#x4F5C;&#x7684;&#x62A2;&#x5360;&#x5F0F;&#x8C03;&#x5EA6;&#xFF1A;<ul>
+<li>G.stackguard0=StackPreempt&#xFF1A;GC&#x6682;&#x505C;&#x7A0B;&#x5E8F;&#x3001;&#x7CFB;&#x7EDF;&#x76D1;&#x63A7;&#x53D1;&#x73B0;&#x534F;&#x7A0B;&#x8D85;&#x65F6;10ms</li>
+<li>&#x8BA9;&#x51FA;&#x534F;&#x7A0B;&#xFF1A;&#x6267;&#x884C;&#x51FD;&#x6570;&#x65F6;&#x53EF;&#x80FD;&#x4F1A;&#x6267;&#x884C;runtime.morestack-&gt;runtime.newstack</li>
+</ul>
+</li>
+<li>&#x57FA;&#x4E8E;&#x4FE1;&#x53F7;&#x7684;&#x62A2;&#x5360;&#x5F0F;&#x8C03;&#x5EA6;&#xFF1A;<ul>
+<li>G.preemptStop=true&#xFF1A;GC&#x6808;&#x626B;&#x63CF;&#x65F6;&#x4F1A;&#x8C03;&#x7528;runtime.suspendG&#x8BBE;&#x7F6E;preemptStop=true&#xFF0C;&#x5E76;&#x7ACB;&#x5373;&#x8C03;&#x7528;runtime.preemptM</li>
+<li>&#x8BA9;&#x51FA;&#x534F;&#x7A0B;&#xFF1A;runtime.preemptM&#x53D1;&#x9001;SIGURG&#x4FE1;&#x53F7;&#x4E2D;&#x65AD;&#x7EBF;&#x7A0B;&#xFF0C;&#x7EBF;&#x7A0B;&#x6267;&#x884C;runtime.doSigPreempt-&gt;runtime.preemptPark</li>
+</ul>
+</li>
+<li>runtime&#xB7;osinit&#xFF1A;&#x5168;&#x5C40;ncpu=CPU&#x6838;&#x6570;</li>
+<li>runtime&#xB7;schedinit&#xFF1A;&#x5168;&#x5C40;allp&#x5207;&#x7247;&#x6570;&#x91CF;=MAX(ncpu, env(GOMAXPROCS))<ul>
+<li>&#x5C06;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;M&#x548C;allp[0]&#x7ED1;&#x5B9A;</li>
+<li>&#x5C06;allp[0]&#x9664;&#x5916;&#x7684;P&#x90FD;&#x8BBE;&#x7F6E;&#x6210;_Pidle</li>
+</ul>
+</li>
+<li>runtime.newproc&#xFF1A;<ul>
+<li>runtime.gfget(&#x83B7;&#x53D6;G)&#xFF1A;P.gFree&#x7684;&#x4E2A;&#x6570;&#x5C11;&#x4E8E;32&#xFF0C;&#x5C31;&#x4ECE;&#x5168;&#x5C40;sched.gFree&#x53D6;&#x4E00;&#x6BB5;&#xFF0C;&#x82E5;&#x8FD8;&#x662F;&#x6CA1;&#x6709;&#x5219;malg&#x65B0;&#x5EFA;</li>
+<li>runtime.runqput(&#x5B58;&#x653E;G)&#xFF1A;&#x5982;&#x679C;P&#x7684;&#x961F;&#x5217;&#x957F;&#x5EA6;&lt;P.runq(256)&#x5C31;&#x52A0;&#x5165;P&#x7684;&#x961F;&#x5217;&#xFF0C;&#x5426;&#x5219;&#x52A0;&#x5165;&#x5168;&#x5C40;&#x961F;&#x5217;</li>
+</ul>
+</li>
+<li>runtime&#xB7;mstart&#xFF1A;runtime.mstart1-&gt;runtime.schedule&#xFF1A;<ul>
+<li>runtime.globrunqget&#xFF1A;&#x6709;&#x4E00;&#x5B9A;&#x673A;&#x7387;&#x4ECE;&#x5168;&#x5C40;&#x961F;&#x5217;&#x83B7;&#x53D6;G</li>
+<li>runtime.runqget&#xFF1A;&#x4ECE;P&#x7684;&#x961F;&#x5217;&#x83B7;&#x53D6;G</li>
+<li>runtime.findrunnable&#xFF1A;&#x963B;&#x585E;&#x67E5;&#x627E;P(&#x5168;&#x5C40;&#x961F;&#x5217;&#x3001;P&#x7684;&#x961F;&#x5217;&#x3001;NetPoll&#x7684;&#x7B49;&#x5F85;&#x961F;&#x5217;&#x3001;&#x4ECE;&#x5176;&#x4ED6;P&#x7A83;&#x53D6;)</li>
+<li>runtime.execute&#xFF1A;&#x628A;runtime.goexit&#x51FD;&#x6570;&#x5730;&#x5740;&#x653E;&#x5728;(0)SP&#xFF0C;&#x7136;&#x540E;&#x6267;&#x884C;JMP &#x5F85;&#x8FD0;&#x884C;&#x51FD;&#x6570;&#x5730;&#x5740;</li>
+</ul>
+</li>
+<li>runtime.goexit&#xFF1A;&#x6BCF;&#x4E2A;G&#x6700;&#x7EC8;&#x7ED3;&#x675F;&#x65F6;&#x4F1A;&#x8C03;&#x7528;&#x5B83;<ul>
+<li>runtime.gfput&#xFF1A;&#x628A;G&#x653E;&#x56DE;&#x7A7A;&#x95F2;&#x5217;&#x8868;</li>
+<li>runtime.schedule&#xFF1A;&#x5F00;&#x59CB;&#x65B0;&#x7684;&#x4E00;&#x8F6E;&#x8C03;&#x5EA6;</li>
+</ul>
+</li>
+<li>&#x8C03;&#x5EA6;&#x5668;&#x6267;&#x884C;&#x8C03;&#x5EA6;(runtime.schedule)&#x7684;&#x65F6;&#x673A;&#xFF1A;<ul>
+<li>&#x57FA;&#x4E8E;&#x4FE1;&#x53F7;&#xFF1A;&#x53D1;&#x9001;&#x4FE1;&#x53F7;&#x7ED9;&#x7EBF;&#x7A0B;&#xFF0C;&#x7EBF;&#x7A0B;&#x6267;&#x884C;runtime.doSigPreempt-&gt;runtime.preemptPark</li>
+<li>&#x4E3B;&#x52A8;&#x6302;&#x8D77;&#xFF1A;runtime.gopark-&gt;runtime.mcall-&gt;runtime.park_m<ul>
+<li>G&#x4E0D;&#x4F1A;&#x653E;&#x5165;&#x8FD0;&#x884C;&#x961F;&#x5217;&#xFF0C;&#x72B6;&#x6001;&#x6539;&#x6210;_Gwaiting</li>
+<li>runtime.mcall&#x4F1A;&#x5207;&#x6362;&#x5230;g0&#x7684;&#x6808;&#x4E0A;&#x8C03;&#x7528;runtime.park_m&#xFF1A;&#x5206;&#x79BB;M&#x548C;G&#x5E76;&#x6267;&#x884C;runtime.schedule</li>
+<li>G&#x7B49;&#x5F85;&#x4E00;&#x5B9A;&#x6761;&#x4EF6;&#x6EE1;&#x8DB3;&#x540E;&#xFF0C;&#x6267;&#x884C;runtime.goready-&gt;runtime.ready&#xFF1A;&#x628A;G&#x91CD;&#x65B0;&#x653E;&#x56DE;&#x8FD0;&#x884C;&#x961F;&#x5217;</li>
+</ul>
+</li>
+<li>&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#xFF1A;runtime.exitsyscall-&gt;runtime.exitsyscall0<ul>
+<li>&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x53EF;&#x4EE5;&#x7ACB;&#x5373;&#x8FD4;&#x56DE;&#x6267;&#x884C;RawSyscall&#xFF0C;&#x5426;&#x5219;&#x6267;&#x884C;Syscall(&#x4F1A;&#x63D2;&#x5165;runtime.entersyscall&#x3001;runtime.exitsyscall)</li>
+<li>runtime.entersyscall-&gt;runtime.reentersyscall&#xFF1A;&#x5206;&#x79BB;M&#x548C;P(M&#x963B;&#x585E;&#xFF0C;&#x5176;&#x4ED6;G&#x53EF;&#x4EE5;&#x62A2;&#x7528;P)</li>
+<li>runtime.exitsyscall&#x53EF;&#x80FD;&#x6267;&#x884C;exitsyscallfast&#xFF1A;&#x5F53;&#x524D;&#x6709;&#x7A7A;&#x95F2;&#x7684;P&#x5219;&#x76F4;&#x63A5;&#x5173;&#x8054;P&#x8FD0;&#x884C;G(&#x5982;&#x679C;&#x662F;&#x539F;&#x6765;&#x7684;P&#x66F4;&#x597D;)</li>
+<li>runtime.exitsyscall&#x53EF;&#x80FD;&#x6267;&#x884C;exitsyscallfast&#xFF1A;&#x5206;&#x79BB;M&#x548C;G&#xFF0C;G&#x653E;&#x5168;&#x5C40;&#x961F;&#x5217;&#x5E76;&#x6267;&#x884C;runtime.schedule</li>
+</ul>
+</li>
+<li>&#x57FA;&#x4E8E;&#x534F;&#x4F5C;&#xFF1A;runtime.Gosched-&gt;runtime.gosched_m-&gt;runtime.goschedImpl<ul>
+<li>runtime.goschedImpl&#xFF1A;&#x5206;&#x79BB;P&#x548C;G&#xFF0C;G&#x653E;&#x5168;&#x5C40;&#x961F;&#x5217;&#x5E76;&#x6267;&#x884C;runtime.schedule</li>
+</ul>
+</li>
+<li>&#x7CFB;&#x7EDF;&#x76D1;&#x63A7;&#xFF1A;runtime.sysmon-&gt;runtime.retake-&gt;runtime.preemptone</li>
+</ul>
+</li>
+<li>&#x7EBF;&#x7A0B;&#x76F8;&#x5173;&#xFF1A;&#x901A;&#x8FC7;runtime.startm&#xFF1A;&#x4ECE;sched.midle&#x94FE;&#x8868;&#x627E;&#x7A7A;&#x95F2;&#x7684;M&#xFF0C;&#x6CA1;&#x6709;&#x627E;&#x5230;&#x5C31;runtime.newm</li>
+<li>&#x5173;&#x4E8E;g0&#xFF1A;&#x7EBF;&#x7A0B;M&#x4F1A;&#x6301;&#x6709;&#x81EA;&#x5DF1;&#x7684;g0&#xFF1B;&#x5168;&#x5C40;&#x4E5F;&#x6709;&#x4E00;&#x4E2A;g0</li>
 </ul>
 <pre><code>// Go&#x7684;&#x542F;&#x52A8;&#x8FC7;&#x7A0B;&#xFF08;Go 1.16.10&#xFF09;
 runtime/rt0_linux_amd64.s&#x7684;_rt0_amd64_linux()   JMP    _rt0_amd64(SB)
@@ -529,7 +587,7 @@ runtime/asm_amd64.s&#x7684;rt0_go()                   CALL    runtime&#xB7;settl
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Go 语言设计与实现","level":"1.5","depth":1,"previous":{"title":"Go 语言从入门到实战","level":"1.4","depth":1,"path":"docs/go-from-entry-to-practice.md","ref":"docs/go-from-entry-to-practice.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-language-design-and-implementation.md","mtime":"2022-03-01T10:30:03.113Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-03-01T10:31:00.641Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Go 语言设计与实现","level":"1.5","depth":1,"previous":{"title":"Go 语言从入门到实战","level":"1.4","depth":1,"path":"docs/go-from-entry-to-practice.md","ref":"docs/go-from-entry-to-practice.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-language-design-and-implementation.md","mtime":"2022-03-03T09:00:26.433Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-03-03T09:00:55.765Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
