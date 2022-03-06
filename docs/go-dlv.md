@@ -1,10 +1,21 @@
 ### Go dlv调试
 
+#### 更新Go的版本
+```
+wget https://go.dev/dl/go1.16.10.linux-amd64.tar.gz --no-check-certificate
+mv /usr/local/go /usr/local/go-bak
+tar -C /usr/local -xzf go1.16.10.linux-amd64.tar.gz
+
+sudo vim /etc/profile
+// 末尾添加
+export PATH=$PATH:/usr/local/go/bin
+```
+
 #### dlv用法
 ```
 // 本文的开发环境
 go version
-go version go1.16.14 linux/amd64
+go version go1.16.10 linux/amd64
 // 安装dlv命令
 go get github.com/go-delve/delve/cmd/dlv
 // 编译并进入调试模式
