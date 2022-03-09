@@ -35,6 +35,8 @@
 * [Go 语言设计与实现](https://draveness.me/golang/)，02-22开始，预计8天
 * [Go 语言原本](https://golang.design/under-the-hood/)，02-22开始，预计8天，作者欧长坤
 * [码农桃花源-Go笔记](https://golang.design/go-questions)
+* [golang-notes](https://github.com/cch123/golang-notes)、[Go 语言笔记](https://go.xargin.com/)，曹大
+* [爱写程序的阿波张](https://www.cnblogs.com/abozhang/)
 * [Go 进阶训练营大纲](https://shimo.im/docs/vX9YgCchV3XwgYTH/read)，02-22开始，20h视频
 * [Golang面试题汇总](https://www.golangroadmap.com/interview/books/questions/golang/)，[去除弹窗](javascript:document.getElementsByClassName%28'v-dialog-container'%29[0].remove%28%29;)
 * [面试八股文](https://www.topgoer.cn/docs/gomianshiti/gomianshiti-1dd225t6esqld)
