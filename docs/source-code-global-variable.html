@@ -1,0 +1,371 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>全局变量 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="source-code-first-goroutine.html" />
+    
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">目录</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="go-dlv.html">
+            
+                <a href="go-dlv.html">
+            
+                    
+                    Go dlv调试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="go-compilation.html">
+            
+                <a href="go-compilation.html">
+            
+                    
+                    Go 汇编相关
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="go-from-entry-to-practice.html">
+            
+                <a href="go-from-entry-to-practice.html">
+            
+                    
+                    Go 语言从入门到实战
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="go-language-design-and-implementation.html">
+            
+                <a href="go-language-design-and-implementation.html">
+            
+                    
+                    Go 语言设计与实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" >
+            
+                <span>
+            
+                    
+                    源码分析
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.6.1" data-path="source-code-global-variable.html">
+            
+                <a href="source-code-global-variable.html">
+            
+                    
+                    全局变量
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="source-code-first-goroutine.html">
+            
+                <a href="source-code-first-goroutine.html">
+            
+                    
+                    启动第一个协程
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >全局变量</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h3 id="&#x5168;&#x5C40;&#x53D8;&#x91CF;">&#x5168;&#x5C40;&#x53D8;&#x91CF;</h3>
+<h4 id="&#x57FA;&#x672C;&#x4ECB;&#x7ECD;">&#x57FA;&#x672C;&#x4ECB;&#x7ECD;</h4>
+<ul>
+<li>&#x6E90;&#x7801;&#x57FA;&#x4E8E;Go 1.16.10</li>
+<li>linux&#x7CFB;&#x7EDF;&#xFF0C;amd64&#x67B6;&#x6784;</li>
+<li>cpu&#xFF1A;&#x7269;&#x7406;&#x6838;4&#x4E2A;&#x3001;&#x903B;&#x8F91;&#x6838;8&#x4E2A;(cat /proc/cpuinfo)</li>
+</ul>
+<h4 id="&#x5168;&#x5C40;&#x53D8;&#x91CF;">&#x5168;&#x5C40;&#x53D8;&#x91CF;</h4>
+<pre><code>// &#x793A;&#x4F8B;&#x4EE3;&#x7801;
+func main() {
+    fmt.Println(&quot;Hello World&quot;)
+}
+// dlv&#x65AD;&#x70B9;&#x4F4D;&#x7F6E;&#xFF1A;b main.main&#x3002;&#x6B64;&#x65F6;&#x67E5;&#x770B;&#x7EBF;&#x7A0B;&#x4E00;&#x5171;&#x6709;5&#x4E2A;(threads&#x547D;&#x4EE4;)
+runtime.allp  []*runtime.p // &#x5171;8&#x4E2A;p
+runtime.allgs []*runtime.g // &#x5171;5&#x4E2A;g
+runtime.allm  *runtime.m   // &#x4EE5;m.alllink&#x4E3A;&#x6307;&#x9488;&#x7684;&#x5355;&#x94FE;&#x8868;&#xFF0C;&#x5171;6&#x4E2A;m&#x3002;
+                           // &#x5934;&#x8282;&#x70B9;runtime.allm.id=5&#xFF0C;&#x5C3E;&#x8282;&#x70B9;&#x662F;runtime.m0.id=0
+runtime.sched runtime.schedt {
+    nmidle: 3,             // &#x7A7A;&#x95F2;&#x7684;m&#x6709;3&#x4E2A;
+    mnext: 5,              // m&#x7684;id&#x81EA;&#x589E;&#x53F7;
+    maxmcount: 10000,      // m&#x6700;&#x591A;&#x80FD;&#x6709;&#x591A;&#x5C11;&#x4E2A;
+    midle: muintptr,       // m&#x7684;&#x7A7A;&#x95F2;&#x94FE;&#x8868;
+    pidle: puintptr,       // p&#x7684;&#x7A7A;&#x95F2;&#x94FE;&#x8868;
+    npidle: 7,             // &#x7A7A;&#x95F2;&#x7684;p&#x6709;7&#x4E2A;
+    runq: runtime.gQueue   // &#x5168;&#x5C40;&#x8FD0;&#x884C;&#x961F;&#x5217;
+    runqsize: 0,           // &#x5168;&#x5C40;&#x8FD0;&#x884C;&#x961F;&#x5217;&#x957F;&#x5EA6;
+}
+</code></pre><h4 id="gmp&#x7684;&#x5404;&#x81EA;&#x91CD;&#x8981;&#x5C5E;&#x6027;">GMP&#x7684;&#x5404;&#x81EA;&#x91CD;&#x8981;&#x5C5E;&#x6027;</h4>
+<pre><code>g.atomicstatus 
+    _Gidle = 0      // &#x7A7A;&#x95F2;
+    _Grunnable = 1  // &#x53EF;&#x8FD0;&#x884C;
+    _Grunning = 2   // &#x8FD0;&#x884C;&#x4E2D;
+    _Gsyscall = 3   // &#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x4E2D;&#xFF0C;&#x6B64;&#x65F6;&#x62E5;&#x6709;m&#xFF0C;&#x4F46;&#x662F;&#x548C;p&#x5206;&#x79BB;&#xFF0C;&#x4E5F;&#x4E0D;&#x5728;&#x8FD0;&#x884C;&#x961F;&#x5217;&#x4E2D;
+    _Gwaiting = 4   // &#x963B;&#x585E;&#x4E2D;
+    _Gdead = 6      // &#x505C;&#x6B62;&#x8FD0;&#x884C;
+    _Gcopystack = 8 // &#x6808;&#x6269;&#x7F29;&#xFF0C;&#x4E0D;&#x5728;&#x8FD0;&#x884C;&#x961F;&#x5217;&#x4E0A;
+    _Gpreempted = 9 // &#x88AB;&#x62A2;&#x5360;&#xFF0C;&#x4E0D;&#x5728;&#x8FD0;&#x884C;&#x961F;&#x5217;&#x4E0A;
+    _Gscan = 0x1000 // GC&#x65F6;&#x95F4;
+m {    
+    p     puintptr // &#x5F53;&#x524D;&#x7ED1;&#x5B9A;&#x7684;p
+    nextp puintptr // &#x6682;&#x5B58;&#x7684;p
+    oldp  puintptr // &#x6267;&#x884C;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x4E4B;&#x524D;&#x7684;p
+}
+p.status
+    _Pidle = 0  // &#x7A7A;&#x95F2;
+    _Prunning = 1  // &#x88AB;m&#x6301;&#x6709;&#xFF0C;&#x6B63;&#x5728;&#x8FD0;&#x884C;
+    _Psyscall = 2  // &#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x4E2D;
+    _Pgcstop = 3   // &#x88AB;m&#x6301;&#x6709;&#xFF0C;gc&#x65F6;&#x95F4;
+    _Pdead = 4     // p&#x4E0D;&#x518D;&#x88AB;&#x4F7F;&#x7528;
+</code></pre>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                
+                <a href="source-code-first-goroutine.html" class="navigation navigation-next navigation-unique" aria-label="Next page: 启动第一个协程">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"全局变量","level":"1.6.1","depth":2,"next":{"title":"启动第一个协程","level":"1.6.2","depth":2,"path":"docs/source-code-first-goroutine.md","ref":"docs/source-code-first-goroutine.md","articles":[]},"previous":{"title":"源码分析","level":"1.6","depth":1,"ref":"","articles":[{"title":"全局变量","level":"1.6.1","depth":2,"path":"docs/source-code-global-variable.md","ref":"docs/source-code-global-variable.md","articles":[]},{"title":"启动第一个协程","level":"1.6.2","depth":2,"path":"docs/source-code-first-goroutine.md","ref":"docs/source-code-first-goroutine.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/source-code-global-variable.md","mtime":"2022-03-10T09:27:20.944Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-03-10T09:27:54.782Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
