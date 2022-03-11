@@ -57,7 +57,7 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="source-code-first-goroutine.html" />
+    <link rel="next" href="source-code-core-functions.html" />
     
     
 
@@ -181,7 +181,20 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6.2" data-path="source-code-first-goroutine.html">
+        <li class="chapter " data-level="1.6.2" data-path="source-code-core-functions.html">
+            
+                <a href="source-code-core-functions.html">
+            
+                    
+                    核心函数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="source-code-first-goroutine.html">
             
                 <a href="source-code-first-goroutine.html">
             
@@ -271,7 +284,13 @@ runtime.sched runtime.schedt {
     runq: runtime.gQueue   // &#x5168;&#x5C40;&#x8FD0;&#x884C;&#x961F;&#x5217;
     runqsize: 0,           // &#x5168;&#x5C40;&#x8FD0;&#x884C;&#x961F;&#x5217;&#x957F;&#x5EA6;
 }
-</code></pre><h4 id="gmp&#x7684;&#x5404;&#x81EA;&#x91CD;&#x8981;&#x5C5E;&#x6027;">GMP&#x7684;&#x5404;&#x81EA;&#x91CD;&#x8981;&#x5C5E;&#x6027;</h4>
+</code></pre><h4 id="&#x6570;&#x636E;&#x7ED3;&#x6784;">&#x6570;&#x636E;&#x7ED3;&#x6784;</h4>
+<ul>
+<li><a href="https://github.com/golang/go/blob/go1.16.10/src/runtime/runtime2.go#L404" target="_blank">runtime.g</a></li>
+<li><a href="https://github.com/golang/go/blob/go1.16.10/src/runtime/runtime2.go#L486" target="_blank">runtime.m</a></li>
+<li><a href="https://github.com/golang/go/blob/go1.16.10/src/runtime/runtime2.go#L579" target="_blank">runtime.p</a></li>
+<li><a href="https://github.com/golang/go/blob/go1.16.10/src/runtime/runtime2.go#L716" target="_blank">runtime.schedt</a></li>
+</ul>
 <pre><code>g.atomicstatus 
     _Gidle = 0      // &#x7A7A;&#x95F2;
     _Grunnable = 1  // &#x53EF;&#x8FD0;&#x884C;
@@ -283,12 +302,15 @@ runtime.sched runtime.schedt {
     _Gpreempted = 9 // &#x88AB;&#x62A2;&#x5360;&#xFF0C;&#x4E0D;&#x5728;&#x8FD0;&#x884C;&#x961F;&#x5217;&#x4E0A;
     _Gscan = 0x1000 // GC&#x65F6;&#x95F4;
 m {    
-    p     puintptr // &#x5F53;&#x524D;&#x7ED1;&#x5B9A;&#x7684;p
-    nextp puintptr // &#x6682;&#x5B58;&#x7684;p
-    oldp  puintptr // &#x6267;&#x884C;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x4E4B;&#x524D;&#x7684;p
+    p     puintptr      // &#x5F53;&#x524D;&#x7ED1;&#x5B9A;&#x7684;p
+    nextp puintptr      // &#x6682;&#x5B58;&#x7684;p
+    oldp  puintptr      // &#x6267;&#x884C;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x4E4B;&#x524D;&#x7684;p
+    g0: *runtime.g      // g0
+    gsignal: *runtime.g // &#x5904;&#x7406;&#x4FE1;&#x53F7;&#x7684;g
+    curg: *runtime.g    // &#x5F53;&#x524D;&#x7ED1;&#x5B9A;&#x7684;g
 }
 p.status
-    _Pidle = 0  // &#x7A7A;&#x95F2;
+    _Pidle = 0     // &#x7A7A;&#x95F2;
     _Prunning = 1  // &#x88AB;m&#x6301;&#x6709;&#xFF0C;&#x6B63;&#x5728;&#x8FD0;&#x884C;
     _Psyscall = 2  // &#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x4E2D;
     _Pgcstop = 3   // &#x88AB;m&#x6301;&#x6709;&#xFF0C;gc&#x65F6;&#x95F4;
@@ -321,7 +343,7 @@ p.status
             
                 
                 
-                <a href="source-code-first-goroutine.html" class="navigation navigation-next navigation-unique" aria-label="Next page: 启动第一个协程">
+                <a href="source-code-core-functions.html" class="navigation navigation-next navigation-unique" aria-label="Next page: 核心函数">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -332,7 +354,7 @@ p.status
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"全局变量","level":"1.6.1","depth":2,"next":{"title":"启动第一个协程","level":"1.6.2","depth":2,"path":"docs/source-code-first-goroutine.md","ref":"docs/source-code-first-goroutine.md","articles":[]},"previous":{"title":"源码分析","level":"1.6","depth":1,"ref":"","articles":[{"title":"全局变量","level":"1.6.1","depth":2,"path":"docs/source-code-global-variable.md","ref":"docs/source-code-global-variable.md","articles":[]},{"title":"启动第一个协程","level":"1.6.2","depth":2,"path":"docs/source-code-first-goroutine.md","ref":"docs/source-code-first-goroutine.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/source-code-global-variable.md","mtime":"2022-03-10T09:27:20.944Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-03-10T09:27:54.782Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"全局变量","level":"1.6.1","depth":2,"next":{"title":"核心函数","level":"1.6.2","depth":2,"path":"docs/source-code-core-functions.md","ref":"docs/source-code-core-functions.md","articles":[]},"previous":{"title":"源码分析","level":"1.6","depth":1,"ref":"","articles":[{"title":"全局变量","level":"1.6.1","depth":2,"path":"docs/source-code-global-variable.md","ref":"docs/source-code-global-variable.md","articles":[]},{"title":"核心函数","level":"1.6.2","depth":2,"path":"docs/source-code-core-functions.md","ref":"docs/source-code-core-functions.md","articles":[]},{"title":"启动第一个协程","level":"1.6.3","depth":2,"path":"docs/source-code-first-goroutine.md","ref":"docs/source-code-first-goroutine.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/source-code-global-variable.md","mtime":"2022-03-11T07:32:03.407Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-03-11T07:32:36.315Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
