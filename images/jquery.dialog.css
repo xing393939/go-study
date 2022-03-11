@@ -49,3 +49,80 @@ button{
     outline:none;
     cursor:pointer;
 }
+
+/* for the highlight syntax ╮(╯▽╰)╭ */
+.highlighter-rouge pre,
+.highlighter-rouge .highlight {
+    background: #272822;
+    margin: 10px 0;
+    padding: 10px 10px;
+    overflow: auto;
+    color: #4c4c4c;
+    line-height: 22.400000000000002px;
+}
+.highlighter-rouge .highlight .gutter pre,
+.highlighter-rouge .gist .gist-file .gist-data .line-numbers {
+    color: #666;
+}
+.highlighter-rouge pre,
+.highlighter-rouge code {
+    font-family: "Source Code Pro", Consolas, Monaco, Menlo, Consolas, monospace;
+}
+.highlighter-rouge code {
+    background: #eee;
+    padding: 0 0.3em;
+    border: none;
+}
+.highlighter-rouge pre {
+    color: #fff;
+}
+.highlighter-rouge pre code {
+    background: none;
+    text-shadow: none;
+    padding: 0;
+    color: #fff;
+}
+.highlighter-rouge .highlight {
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+}
+.highlighter-rouge .highlight pre {
+    border: none;
+    margin: 0;
+    padding: 0 14px 0 0;
+}
+.highlighter-rouge .highlight table {
+    margin: 0;
+    width: auto;
+}
+.highlighter-rouge .highlight td {
+    border: none;
+    padding: 0;
+}
+.highlighter-rouge .highlight figcaption {
+    font-size: 0.85em;
+    line-height: 1em;
+    margin-bottom: 1em;
+}
+.highlighter-rouge .highlight figcaption:before,
+.highlighter-rouge .highlight figcaption:after {
+    content: "";
+    display: table;
+}
+.highlighter-rouge .highlight figcaption:after {
+    clear: both;
+}
+.highlighter-rouge .highlight figcaption a {
+    float: right;
+}
+.highlighter-rouge .highlight .gutter pre {
+    text-align: right;
+    padding-right: 20px;
+}
+.highlighter-rouge .highlight .gutter pre .line {
+    text-shadow: none;
+}
+.highlighter-rouge .highlight .line {
+    font-size: 15px;
+    height: 15px;
+}
