@@ -259,22 +259,13 @@
                                 
                                 <h3 id="&#x542F;&#x52A8;&#x7B2C;&#x4E00;&#x4E2A;&#x534F;&#x7A0B;">&#x542F;&#x52A8;&#x7B2C;&#x4E00;&#x4E2A;&#x534F;&#x7A0B;</h3>
 <p><link rel="stylesheet" type="text/css" href="../images/jquery.dialog.css"></p>
-<script>
-window.onload = function() {
-$.getScript("../images/jquery.dialog.js", function() {
-    $(".dialog1").dialog({
-        'title':'警告'
-    },function(api){
-        $('#btn1').click(function(){
-            api.open();
-        });
-    });
-});
-}
-</script>
+<script type="text/javascript" src="../images/jquery.main.js"></script>
 
-<p><button id="btn1" class="button">&#x6253;&#x5F00;&#x5BF9;&#x8BDD;&#x6846;</button></p>
-<div class="dialog dialog1">&#x4F60;&#x786E;&#x5B9A;&#x6211;&#x591F;&#x5E05;&#x5417;&#xFF1F;</div>
+<h4 id="runtimenewproc">runtime.newproc</h4>
+<p><div id="newproc"></div></p>
+<script>
+    mainFunctions.push(['newproc', '#aaa'])
+</script>
 
 
 
@@ -316,7 +307,7 @@ $.getScript("../images/jquery.dialog.js", function() {
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"启动第一个协程","level":"1.6.3","depth":2,"previous":{"title":"核心函数","level":"1.6.2","depth":2,"path":"docs/source-code-core-functions.md","ref":"docs/source-code-core-functions.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/source-code-first-goroutine.md","mtime":"2022-03-11T07:58:49.829Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-03-11T07:59:12.564Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"启动第一个协程","level":"1.6.3","depth":2,"previous":{"title":"核心函数","level":"1.6.2","depth":2,"path":"docs/source-code-core-functions.md","ref":"docs/source-code-core-functions.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/source-code-first-goroutine.md","mtime":"2022-03-11T09:03:00.599Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-03-11T09:03:35.192Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
