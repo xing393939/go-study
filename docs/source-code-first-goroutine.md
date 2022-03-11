@@ -7,7 +7,7 @@
 
 <div id="newproc"></div>
 <script>
-    mainFunctions.push(['newproc', '#aaa'])
+    mainFunctions.push(['newproc', '#newproc'])
 </script>
 
 
