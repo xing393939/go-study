@@ -128,10 +128,12 @@
 						"left": ($window.width()-$container.outerWidth())/2 + "px",
 						"top": options.top + "px"
 					});
-				}else{				
+				}else{
+					var top = ($window.height()-$container.outerHeight())/2;
 					$container.css({
+						"height": (top > 0 ? $container.outerHeight() : $window.height()) + "px",
 						"left": ($window.width()-$container.outerWidth())/2 + "px",
-						"top": ($window.height()-$container.outerHeight())/2 + "px"
+						"top": (top > 0 ? top : 0) + "px"
 					});
 				}
 			};
