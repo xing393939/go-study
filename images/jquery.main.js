@@ -8,13 +8,13 @@ window.onload = function () {
 };
 
 function getSourceCode(word, parent) {
-    let keywords = ['newproc1'];
+    let keywords = ['newproc', 'newproc1', 'runqput', 'wakep'];
     $.get(`https://xing393939.github.io/static/go1.16.10/${word}.html`, function (text) {
         let newElem = $(text);
         let spans = newElem.find('span');
         spans.each(function (k, span) {
             if (keywords.includes(span.innerText) && word != span.innerText) {
-                spans.eq(k).html(`<a href="javascript:getSourceCode('${span.innerText}');">${span.innerText}</a>`)
+                spans.eq(k).html(`<a onclick="getSourceCode('${span.innerText}');">${span.innerText}</a>`)
             }
         });
         if (parent) {
