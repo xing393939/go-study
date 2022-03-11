@@ -7,4 +7,5 @@
 1. [Go 语言设计与实现](docs/go-language-design-and-implementation.md)
 1. 源码分析
   * [全局变量](docs/source-code-global-variable.md)
+  * [核心函数](docs/source-code-core-functions.md)
   * [启动第一个协程](docs/source-code-first-goroutine.md)

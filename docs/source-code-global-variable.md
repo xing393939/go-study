@@ -28,7 +28,12 @@ runtime.sched runtime.schedt {
 }
 ```
 
-#### GMP的各自重要属性
+#### 数据结构
+* [runtime.g](https://github.com/golang/go/blob/go1.16.10/src/runtime/runtime2.go#L404)
+* [runtime.m](https://github.com/golang/go/blob/go1.16.10/src/runtime/runtime2.go#L486)
+* [runtime.p](https://github.com/golang/go/blob/go1.16.10/src/runtime/runtime2.go#L579)
+* [runtime.schedt](https://github.com/golang/go/blob/go1.16.10/src/runtime/runtime2.go#L716)
+
 ```
 g.atomicstatus 
 	_Gidle = 0      // 空闲
@@ -41,12 +46,15 @@ g.atomicstatus
 	_Gpreempted = 9 // 被抢占，不在运行队列上
 	_Gscan = 0x1000 // GC时间
 m {	
-    p     puintptr // 当前绑定的p
-	nextp puintptr // 暂存的p
-	oldp  puintptr // 执行系统调用之前的p
+    p     puintptr      // 当前绑定的p
+	nextp puintptr      // 暂存的p
+	oldp  puintptr      // 执行系统调用之前的p
+	g0: *runtime.g      // g0
+	gsignal: *runtime.g // 处理信号的g
+	curg: *runtime.g    // 当前绑定的g
 }
 p.status
-	_Pidle = 0  // 空闲
+	_Pidle = 0     // 空闲
 	_Prunning = 1  // 被m持有，正在运行
 	_Psyscall = 2  // 系统调用中
 	_Pgcstop = 3   // 被m持有，gc时间
