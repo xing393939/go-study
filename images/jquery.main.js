@@ -8,7 +8,10 @@ window.onload = function () {
 };
 
 function getSourceCode(word, parent) {
-    let keywords = ['newproc', 'newproc1', 'runqput', 'wakep', 'startm'];
+    let keywords = [
+        'newproc', 'newproc1', 'runqput', 'wakep', 'startm',
+        'mainPC',
+    ];
     $.get(`https://xing393939.github.io/static/go1.16.10/${word}.html`, function (text) {
         let newElem = $(text);
         let spans = newElem.find('span');

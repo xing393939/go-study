@@ -32,7 +32,7 @@ button{
     cursor:pointer;
 }
 .highlighter-rouge .widget-body{
-
+    background: #272822;
 }
 .highlighter-rouge .widget-foot{
     height:40px;
@@ -77,10 +77,6 @@ button{
     text-shadow: none;
     padding: 0;
     color: #fff;
-}
-.highlighter-rouge .highlight {
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
 }
 .highlighter-rouge .highlight a {
     color:cornflowerblue;
