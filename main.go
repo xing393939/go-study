@@ -1,6 +1,7 @@
 package main
 
 import (
+	"go-study/plan9/backtrace"
 	"go-study/plan9/callgofunction"
 	"go-study/plan9/math"
 	"go-study/plan9/nil"
@@ -16,11 +17,24 @@ type Duck interface {
 type Cat struct {
 	Name string
 }
+
 func (c Cat) Quack() {
 	c.Name = "bbbb"
 }
 
+func a() {
+	backtrace.ZzzPrintTrace()
+}
+
+func b() {
+	a()
+}
+
 func main() {
+	b()
+
+	println("====")
+
 	nil.Test()
 
 	println(registers.Output(987654321))
