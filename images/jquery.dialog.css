@@ -8,7 +8,7 @@ button{
     position:relative;
     width:800px;
     height:800px;
-    background:#fff;
+    background:#272822;
     overflow: auto;
 }
 .highlighter-rouge .widget-head{
@@ -30,9 +30,6 @@ button{
     line-height:40px;
     text-align:center;
     cursor:pointer;
-}
-.highlighter-rouge .widget-body{
-    background: #272822;
 }
 .highlighter-rouge .widget-foot{
     height:40px;
