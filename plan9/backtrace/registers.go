@@ -1,9 +1,9 @@
 package backtrace
 
-import "unsafe"
+import "strconv"
 
-func zzzPrintP(u unsafe.Pointer) {
-	print(u, " ")
+func zzzPrintP(u int64) {
+	print("0x", strconv.FormatInt(u, 16), " ")
 }
 
 func zzzPrintLn() {
