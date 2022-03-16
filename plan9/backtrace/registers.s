@@ -22,5 +22,7 @@ ok111:
 	MOVQ	hi-24(SP), R10
 	JMP	ok111
 exit000:
-    CALL	·zzzPrintLn(SB)
+    MOVQ	arg+0(FP), SI
+    MOVQ	SI, i-32(SP)
+    CALL	·zzzPrintB(SB)
 	RET
