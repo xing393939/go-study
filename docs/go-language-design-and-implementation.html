@@ -650,6 +650,22 @@ runtime/asm_amd64.s&#x7684;rt0_go()                   CALL    runtime&#xB7;settl
                                                 CALL    runtime&#xB7;newproc(0, runtime.mainPC)//&#x65B0;&#x5EFA;&#x534F;&#x7A0B;&#x5E76;&#x7ED1;&#x5B9A;runtime.main&#xFF0C;&#x653E;&#x5728;P&#x7684;&#x672C;&#x5730;&#x961F;&#x5217;&#x7B49;&#x5F85;&#x8C03;&#x5EA6;
                                                 CALL    runtime&#xB7;mstart(SB)   //&#x542F;&#x52A8;M&#xFF0C;&#x5F00;&#x59CB;&#x8C03;&#x5EA6;goroutine
 </code></pre><h4 id="&#x7B2C;&#x4E03;&#x7AE0;-&#x5185;&#x5B58;&#x7BA1;&#x7406;">&#x7B2C;&#x4E03;&#x7AE0; &#x5185;&#x5B58;&#x7BA1;&#x7406;</h4>
+<ul>
+<li><a href="https://juejin.cn/post/6844903795739082760" target="_blank">&#x56FE;&#x89E3;Go&#x8BED;&#x8A00;&#x5185;&#x5B58;&#x5206;&#x914D;</a></li>
+<li>heap&#x533A;&#x57DF;&#x5360;512G&#xFF0C;&#x5171;67108864&#x9875;(&#x6BCF;&#x9875;8K)</li>
+<li>bitmap&#x533A;&#x57DF;&#x9700;&#x8981;&#x6807;&#x8BB0;heap&#x533A;&#x57DF;&#x7684;&#x6307;&#x9488;&#x60C5;&#x51B5;&#xFF1A;<ul>
+<li>&#x5047;&#x8BBE;heap&#x533A;&#x57DF;&#x6709;4&#x4E2A;&#x6307;&#x9488;(32B)</li>
+<li>bitmap&#x533A;&#x57DF;&#x4EC5;&#x9700;&#x8981;1B&#x6765;&#x6807;&#x8BB0;4&#x4E2A;&#x6307;&#x9488;&#xFF0C;1b&#x8868;&#x793A;&#x662F;&#x5426;&#x662F;&#x6307;&#x9488;&#xFF0C;1b&#x6807;&#x8BB0;&#x662F;&#x5426;&#x626B;&#x63CF;</li>
+<li>&#x6240;&#x4EE5;bitmap&#x5927;&#x5C0F;&#x662F;512G / 32 = 16G</li>
+</ul>
+</li>
+<li>spans&#x533A;&#x57DF;&#x5360;0.5G&#xFF0C;67108864&#x9875;&#x6BCF;&#x9875;&#x5BF9;&#x5E94;&#x4E00;&#x4E2A;&#x6307;&#x9488;&#xFF0C;&#x6307;&#x5411;&#x5BF9;&#x5E94;&#x7684;mspan</li>
+</ul>
+<p><img src="../images/tcmalloc.png" alt="global"></p>
+<p><img src="../images/mspan.jpg" alt="global"></p>
+<p><img src="../images/mcache.jpg" alt="global"></p>
+<p><img src="../images/mcentral.jpg" alt="global"></p>
+<p><img src="../images/mheap.jpg" alt="global"></p>
 
                                 
                                 </section>
@@ -689,7 +705,7 @@ runtime/asm_amd64.s&#x7684;rt0_go()                   CALL    runtime&#xB7;settl
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Go 语言设计与实现","level":"1.5","depth":1,"next":{"title":"源码分析","level":"1.6","depth":1,"ref":"","articles":[{"title":"全局变量","level":"1.6.1","depth":2,"path":"docs/source-code-global-variable.md","ref":"docs/source-code-global-variable.md","articles":[]},{"title":"核心函数","level":"1.6.2","depth":2,"path":"docs/source-code-core-functions.md","ref":"docs/source-code-core-functions.md","articles":[]},{"title":"启动main协程","level":"1.6.3","depth":2,"path":"docs/source-code-main-goroutine.md","ref":"docs/source-code-main-goroutine.md","articles":[]}]},"previous":{"title":"Go 语言从入门到实战","level":"1.4","depth":1,"path":"docs/go-from-entry-to-practice.md","ref":"docs/go-from-entry-to-practice.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-language-design-and-implementation.md","mtime":"2022-03-16T02:34:38.434Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-03-16T02:35:01.251Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Go 语言设计与实现","level":"1.5","depth":1,"next":{"title":"源码分析","level":"1.6","depth":1,"ref":"","articles":[{"title":"全局变量","level":"1.6.1","depth":2,"path":"docs/source-code-global-variable.md","ref":"docs/source-code-global-variable.md","articles":[]},{"title":"核心函数","level":"1.6.2","depth":2,"path":"docs/source-code-core-functions.md","ref":"docs/source-code-core-functions.md","articles":[]},{"title":"启动main协程","level":"1.6.3","depth":2,"path":"docs/source-code-main-goroutine.md","ref":"docs/source-code-main-goroutine.md","articles":[]}]},"previous":{"title":"Go 语言从入门到实战","level":"1.4","depth":1,"path":"docs/go-from-entry-to-practice.md","ref":"docs/go-from-entry-to-practice.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-language-design-and-implementation.md","mtime":"2022-03-16T09:48:14.714Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-03-16T09:48:39.294Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

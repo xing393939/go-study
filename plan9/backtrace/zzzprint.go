@@ -16,8 +16,10 @@ func zzzPrintP(n int64) {
 	print("0x", string(result), " ")
 }
 
-func zzzPrintLn() {
-	println()
+func zzzPrintB(b byte) {
+	result := make([]byte, 1, 1)
+	result[0] = b
+	print(string(result))
 }
 
-func ZzzPrintTrace()
+func ZzzPrintTrace(b byte)

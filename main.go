@@ -23,7 +23,7 @@ func (c Cat) Quack() {
 }
 
 func a() {
-	backtrace.ZzzPrintTrace()
+	backtrace.ZzzPrintTrace('\n')
 }
 
 func b() {
