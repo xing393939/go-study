@@ -661,7 +661,41 @@ runtime/asm_amd64.s&#x7684;rt0_go()                   CALL    runtime&#xB7;settl
 </li>
 <li>spans&#x533A;&#x57DF;&#x5360;0.5G&#xFF0C;67108864&#x9875;&#x6BCF;&#x9875;&#x5BF9;&#x5E94;&#x4E00;&#x4E2A;&#x6307;&#x9488;&#xFF0C;&#x6307;&#x5411;&#x5BF9;&#x5E94;&#x7684;mspan</li>
 <li>&#x7EBF;&#x7A0B;&#x7F13;&#x5B58;mcache&#x662F;&#x548C;P&#x7ED1;&#x5B9A;&#x7684;&#xFF0C;&#x89C1;<a href="https://github.com/golang/go/blob/go1.16.10/src/runtime/mcache.go#L125" target="_blank">&#x6E90;&#x7801;</a></li>
+<li><a href="https://cloud.tencent.com/developer/article/1500335" target="_blank">Golang&#x5783;&#x573E;&#x56DE;&#x6536; &#x5C4F;&#x969C;&#x6280;&#x672F;</a></li>
+<li>&#x63D2;&#x5165;&#x5199;&#x5C4F;&#x969C;&#xFF1A;<ul>
+<li>stw&#x901A;&#x77E5;&#x5F00;&#x542F;&#x63D2;&#x5165;&#x5199;&#x5C4F;&#x969C;&#x3001;&#x5C06;&#x6240;&#x6709;&#x5BF9;&#x8C61;&#x52A0;&#x5165;&#x767D;&#x8272;&#x6807;&#x8BB0;&#x8868;</li>
+<li>stw&#x83B7;&#x53D6;&#x5168;&#x5C40;&#x5BF9;&#x8C61;&#x3001;&#x6808;&#x5BF9;&#x8C61;&#x52A0;&#x5165;&#x7070;&#x8272;&#x6807;&#x8BB0;&#x8868;</li>
+<li>&#x5E76;&#x53D1;&#x6807;&#x8BB0;&#xFF08;&#x4E0D;&#x80FD;&#x907F;&#x514D;&#xFF1A;&#x6808;a&#x589E;&#x52A0;&#x6307;&#x5411;&#x5806;b&#xFF0C;&#x6808;a&#x5220;&#x9664;&#x6307;&#x5411;&#x5806;b&#xFF09;</li>
+<li>stw&#x91CD;&#x65B0;&#x626B;&#x63CF;&#x6808;(&#x53D1;&#x751F;&#x5199;&#x64CD;&#x4F5C;&#x7684;&#x6808;)&#xFF0C;&#x53EA;&#x626B;&#x5230;&#x6808;-&gt;&#x5806;&#x8FB9;&#x754C;&#x8FD9;&#x4E00;&#x5C42;&#x3002;&#x5927;&#x7EA6;&#x9700;&#x8981;10~100ms</li>
+<li>stw&#x901A;&#x77E5;&#x5173;&#x95ED;&#x63D2;&#x5165;&#x5199;&#x5C4F;&#x969C;</li>
+<li>&#x7F3A;&#x70B9;1&#xFF1A;&#x9700;&#x8981;stw&#x91CD;&#x65B0;&#x626B;&#x63CF;&#x6808;</li>
+<li>&#x7F3A;&#x70B9;2&#xFF1A;&#x8BEF;&#x6807;&#x9ED1;&#xFF0C;&#x5F00;&#x59CB;&#x65F6;&#x9ED1;A-&gt;&#x7070;B&#xFF0C;&#x9ED1;A&#x5207;&#x6362;&#x6307;&#x9488;&#x5230;&#x767D;C&#xFF0C;&#x8FD9;&#x6837;B&#x672C;&#x6765;&#x5E94;&#x8BE5;&#x662F;&#x5783;&#x573E;&#x5374;&#x6807;&#x9ED1;&#x4E86;</li>
 </ul>
+</li>
+<li>&#x5220;&#x9664;&#x5199;&#x5C4F;&#x969C;&#xFF1A;<ul>
+<li>stw&#x901A;&#x77E5;&#x5F00;&#x542F;&#x5220;&#x9664;&#x5199;&#x5C4F;&#x969C;&#x3001;&#x5C06;&#x6240;&#x6709;&#x5BF9;&#x8C61;&#x52A0;&#x5165;&#x767D;&#x8272;&#x6807;&#x8BB0;&#x8868;</li>
+<li>stw&#x83B7;&#x53D6;&#x5168;&#x5C40;&#x5BF9;&#x8C61;&#x3001;&#x6808;&#x5BF9;&#x8C61;&#x52A0;&#x5165;&#x7070;&#x8272;&#x6807;&#x8BB0;&#x8868;</li>
+<li>&#x5E76;&#x53D1;&#x6807;&#x8BB0;&#xFF08;&#x4E0D;&#x80FD;&#x907F;&#x514D;&#xFF1A;&#x6808;a&#x589E;&#x52A0;&#x6307;&#x5411;&#x5806;b&#xFF0C;&#x6808;a&#x5220;&#x9664;&#x6307;&#x5411;&#x5806;b&#xFF09;</li>
+<li>stw&#x901A;&#x77E5;&#x5173;&#x95ED;&#x5220;&#x9664;&#x5199;&#x5C4F;&#x969C;</li>
+<li>&#x7F3A;&#x70B9;1&#xFF1A;&#x56DE;&#x6536;&#x7CBE;&#x5EA6;&#x4F4E;&#xFF0C;&#x5373;&#x4F7F;&#x5220;&#x9664;&#x4E86;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x6307;&#x5411;A&#x7684;&#x6307;&#x9488;&#xFF0C;A&#x4F9D;&#x7136;&#x5B58;&#x6D3B;</li>
+<li>&#x7F3A;&#x70B9;2&#xFF1A;&#x6CE2;&#x9762;&#x5012;&#x9000;&#xFF0C;&#x5220;&#x9664;&#x6307;&#x5411;A&#xFF0C;A&#x7F6E;&#x7070;&#xFF0C;&#x5219;&#x53C8;&#x9700;&#x8981;&#x626B;&#x63CF;A&#x6307;&#x5411;&#x7684;B&#x548C;C</li>
+</ul>
+</li>
+<li>&#x6DF7;&#x5408;&#x5199;&#x5C4F;&#x969C;&#xFF1A;<ul>
+<li>stw&#x901A;&#x77E5;&#x5F00;&#x542F;&#x6DF7;&#x5408;&#x5199;&#x5C4F;&#x969C;&#x3001;&#x5C06;&#x6240;&#x6709;&#x5BF9;&#x8C61;&#x52A0;&#x5165;&#x767D;&#x8272;&#x6807;&#x8BB0;&#x8868;<ul>
+<li><a href="https://github.com/draveness/blog-comments/issues/191#issuecomment-638580176" target="_blank">&#x6B64;&#x540E;&#x6240;&#x6709;&#x65B0;&#x5EFA;&#x5BF9;&#x8C61;&#x662F;&#x9ED1;&#x8272;</a></li>
+<li><a href="https://www.jianshu.com/p/52ab0bebefa0" target="_blank">&#x6808;&#x672A;&#x626B;&#x63CF;&#x65F6;&#x65B0;&#x5EFA;&#x5BF9;&#x8C61;&#x662F;&#x7070;&#x8272;&#xFF0C;&#x5DF2;&#x626B;&#x63CF;&#x5BF9;&#x8C61;&#x662F;&#x9ED1;&#x8272;</a></li>
+</ul>
+</li>
+<li>stw&#x83B7;&#x53D6;&#x5168;&#x5C40;&#x5BF9;&#x8C61;</li>
+<li>&#x626B;&#x63CF;&#x6808;&#x5BF9;&#x8C61;&#x65E0;&#x9700;stw&#xFF0C;&#x4E00;&#x4E2A;&#x534F;&#x7A0B;&#x4E00;&#x4E2A;&#x534F;&#x7A0B;&#x7684;&#x626B;&#xFF0C;&#x626B;&#x5230;&#x534F;&#x7A0B;1&#xFF0C;&#x534F;&#x7A0B;1&#x6808;&#x4E0A;&#x5BF9;&#x8C61;&#x5168;&#x9ED1;&#xFF0C;&#x6307;&#x5411;&#x7684;&#x5806;&#x5BF9;&#x8C61;&#x5168;&#x7070;</li>
+<li>&#x5E76;&#x53D1;&#x6807;&#x8BB0;&#xFF08;&#x4E0D;&#x80FD;&#x907F;&#x514D;&#xFF1A;&#x6808;a&#x589E;&#x52A0;&#x6307;&#x5411;&#x5806;b&#xFF0C;&#x6808;a&#x5220;&#x9664;&#x6307;&#x5411;&#x5806;b&#xFF09;</li>
+<li>stw&#x901A;&#x77E5;&#x5173;&#x95ED;&#x5220;&#x9664;&#x5199;&#x5C4F;&#x969C;</li>
+<li>&#x7F3A;&#x70B9;1&#xFF1A;&#x4E00;&#x6B21;&#x5199;&#x64CD;&#x4F5C;&#xFF0C;&#x4E24;&#x500D;&#x7684;&#x6807;&#x8BB0;</li>
+</ul>
+</li>
+</ul>
+<p><img src="../images/gc_steps.jpg" alt="global"></p>
 <p><img src="../images/tcmalloc.png" alt="global"></p>
 <p><img src="../images/mspan.jpg" alt="global"></p>
 <p><img src="../images/mcache.jpg" alt="global"></p>
@@ -706,7 +740,7 @@ runtime/asm_amd64.s&#x7684;rt0_go()                   CALL    runtime&#xB7;settl
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Go 语言设计与实现","level":"1.5","depth":1,"next":{"title":"源码分析","level":"1.6","depth":1,"ref":"","articles":[{"title":"全局变量","level":"1.6.1","depth":2,"path":"docs/source-code-global-variable.md","ref":"docs/source-code-global-variable.md","articles":[]},{"title":"核心函数","level":"1.6.2","depth":2,"path":"docs/source-code-core-functions.md","ref":"docs/source-code-core-functions.md","articles":[]},{"title":"启动main协程","level":"1.6.3","depth":2,"path":"docs/source-code-main-goroutine.md","ref":"docs/source-code-main-goroutine.md","articles":[]}]},"previous":{"title":"Go 语言从入门到实战","level":"1.4","depth":1,"path":"docs/go-from-entry-to-practice.md","ref":"docs/go-from-entry-to-practice.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-language-design-and-implementation.md","mtime":"2022-03-16T09:57:08.954Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-03-16T09:57:34.428Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Go 语言设计与实现","level":"1.5","depth":1,"next":{"title":"源码分析","level":"1.6","depth":1,"ref":"","articles":[{"title":"全局变量","level":"1.6.1","depth":2,"path":"docs/source-code-global-variable.md","ref":"docs/source-code-global-variable.md","articles":[]},{"title":"核心函数","level":"1.6.2","depth":2,"path":"docs/source-code-core-functions.md","ref":"docs/source-code-core-functions.md","articles":[]},{"title":"启动main协程","level":"1.6.3","depth":2,"path":"docs/source-code-main-goroutine.md","ref":"docs/source-code-main-goroutine.md","articles":[]}]},"previous":{"title":"Go 语言从入门到实战","level":"1.4","depth":1,"path":"docs/go-from-entry-to-practice.md","ref":"docs/go-from-entry-to-practice.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-language-design-and-implementation.md","mtime":"2022-03-18T04:02:28.239Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-03-18T04:02:54.815Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
