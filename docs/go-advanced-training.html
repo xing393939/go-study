@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>启动main协程 · GitBook</title>
+        <title>Go 进阶训练营 · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,8 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
+    <link rel="next" href="go-from-entry-to-practice.html" />
     
-    <link rel="prev" href="source-code-core-functions.html" />
+    
+    <link rel="prev" href="go-compilation.html" />
     
 
     </head>
@@ -128,7 +130,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4" data-path="go-advanced-training.html">
+        <li class="chapter active" data-level="1.4" data-path="go-advanced-training.html">
             
                 <a href="go-advanced-training.html">
             
@@ -207,7 +209,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.7.3" data-path="source-code-main-goroutine.html">
+        <li class="chapter " data-level="1.7.3" data-path="source-code-main-goroutine.html">
             
                 <a href="source-code-main-goroutine.html">
             
@@ -255,7 +257,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >启动main协程</a>
+        <a href=".." >Go 进阶训练营</a>
     </h1>
 </div>
 
@@ -270,21 +272,48 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h3 id="&#x542F;&#x52A8;main&#x534F;&#x7A0B;">&#x542F;&#x52A8;main&#x534F;&#x7A0B;</h3>
-<p><link rel="stylesheet" type="text/css" href="../images/jquery.dialog.css"></p>
-<script type="text/javascript" src="../images/jquery.main.js"></script>
-
-<h4 id="go&#x7684;&#x542F;&#x52A8;&#x8FC7;&#x7A0B;">Go&#x7684;&#x542F;&#x52A8;&#x8FC7;&#x7A0B;</h4>
-<pre><code>runtime/rt0_linux_amd64.s&#x7684;_rt0_amd64_linux()   JMP    _rt0_amd64(SB)
-runtime/asm_amd64.s&#x7684;_rt0_amd64()               JMP    runtime&#xB7;rt0_go(SB)
-runtime/asm_amd64.s&#x7684;rt0_go()
-</code></pre><h4 id="runtimert0go">runtime.rt0_go</h4>
-<p><div id="rt0_go"></div></p>
-<script>
-    mainFunctions.push(['rt0_go', '#rt0_go'])
-</script>
-
-
+                                <h3 id="go-&#x8FDB;&#x9636;&#x8BAD;&#x7EC3;&#x8425;">Go &#x8FDB;&#x9636;&#x8BAD;&#x7EC3;&#x8425;</h3>
+<h4 id="&#x5F00;&#x8425;&#x76F4;&#x64AD;">&#x5F00;&#x8425;&#x76F4;&#x64AD;</h4>
+<ul>
+<li>&#x7F13;&#x5B58;&#x9009;&#x578B;&#xFF1A;&#x5199;&#x6570;&#x636E;&#x65E2;&#x8981;&#x5199;db&#x4E5F;&#x5199;cache&#xFF0C;binlog&#x5F02;&#x6B65;&#x4EFB;&#x52A1;&#x8865;&#x507F;cache</li>
+<li>&#x7F13;&#x5B58;&#x6A21;&#x5F0F;1&#xFF1A;<ul>
+<li>&#x8BF7;&#x6C42;1&#xFF1A;cacheMiss-&gt;&#x8BFB;v1-&gt;setCache</li>
+<li>&#x8BF7;&#x6C42;2&#xFF1A;writeDB(v2)-&gt;delCache</li>
+</ul>
+</li>
+<li>&#x7F13;&#x5B58;&#x6A21;&#x5F0F;2&#xFF1A;<ul>
+<li>&#x8BF7;&#x6C42;1&#xFF1A;cacheMiss-&gt;&#x8BFB;v1-&gt;setNX</li>
+<li>&#x8BF7;&#x6C42;2&#xFF1A;writeDB(v2)-&gt;setEX  </li>
+<li>binlog&#x5F02;&#x6B65;&#x4EFB;&#x52A1;&#x8865;&#x507F;cache(&#x5047;&#x8BBE;&#x4E0D;&#x4F1A;&#x65E9;&#x4E8E;&#x8BF7;&#x6C42;2&#x7684;setEX)</li>
+</ul>
+</li>
+<li>&#x7F13;&#x5B58;&#x6A21;&#x5F0F;3&#xFF1A;facebook&#x7684;&#x65B9;&#x6848;<ul>
+<li>&#x8BF7;&#x6C42;1&#xFF1A;cacheMiss-&gt;&#x8BFB;v1-&gt;setCache(v1)&#xFF0C;&#x82E5;&#x5B58;&#x5728;v2&#x7248;&#x672C;set&#x5931;&#x8D25;</li>
+<li>&#x8BF7;&#x6C42;2&#xFF1A;writeDB(v2)-&gt;delCache  </li>
+<li>binlog&#x5F02;&#x6B65;&#x4EFB;&#x52A1;&#x8865;&#x507F;setCache(v2)</li>
+</ul>
+</li>
+<li>&#x7F13;&#x5B58;&#x6A21;&#x5F0F;-&#x591A;&#x7EA7;&#x7F13;&#x5B58;&#xFF1A;<ul>
+<li>&#x5199;&#x6570;&#x636E;&#x65F6;&#xFF0C;&#x4E0A;&#x6E38;&#x670D;&#x52A1;&#x5148;&#x628A;&#x4E0B;&#x6E38;&#x670D;&#x52A1;delCache&#xFF0C;&#x518D;&#x81EA;&#x5DF1;delCache</li>
+<li>&#x8BBE;&#x7F6E;&#x7F13;&#x5B58;&#x65F6;&#x95F4;&#xFF0C;&#x4E0B;&#x6E38;&#x670D;&#x52A1;&#x7684;&#x7F13;&#x5B58;&#x65F6;&#x95F4;&#x8981;&#x5927;&#x4E8E;&#x4E0A;&#x6E38;</li>
+</ul>
+</li>
+<li>&#x7F13;&#x5B58;&#x6A21;&#x5F0F;-&#x70ED;&#x70B9;&#x7F13;&#x5B58;&#xFF1A;<ul>
+<li>&#x5BF9;&#x4E8E;&#x5C0F;&#x8868;&#xFF0C;&#x8D77;&#x4E00;&#x4E2A;goroutine&#x5B9A;&#x65F6;&#x8BFB;db&#x5E76;&#x66F4;&#x65B0;localCache</li>
+<li>&#x6846;&#x67B6;&#x5C42;&#x9762;&#xFF0C;&#x7528;&#x5927;&#x9876;&#x5806;&#x7EF4;&#x62A4;&#x8BF7;&#x6C42;&#x9891;&#x7E41;&#x7684;key&#xFF0C;&#x5E76;&#x8F6C;&#x4E3A;&#x5C0F;&#x8868;localCache&#x6A21;&#x5F0F;</li>
+<li>&#x6846;&#x67B6;&#x5C42;&#x9762;&#xFF0C;&#x7528;key+&#x540E;&#x7F00;&#x8BF7;&#x6C42;&#x5230;&#x4E0D;&#x540C;&#x7684;&#x8282;&#x70B9;</li>
+</ul>
+</li>
+<li>&#x7F13;&#x5B58;&#x6A21;&#x5F0F;-&#x7F13;&#x5B58;&#x7A7F;&#x900F;&#xFF1A;<ul>
+<li>&#x901A;&#x8FC7;&#x54C8;&#x5E0C;key&#x4FDD;&#x8BC1;&#x4E00;&#x5B9A;&#x8BBF;&#x95EE;service&#x7684;&#x67D0;&#x8282;&#x70B9;&#xFF0C;&#x8282;&#x70B9;&#x4E0A;&#x7528;singlefly&#x4FDD;&#x8BC1;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x8BF7;&#x6C42;&#x56DE;&#x6E90;  </li>
+</ul>
+</li>
+<li>&#x7F13;&#x5B58;&#x6280;&#x5DE7;&#xFF1A;<ul>
+<li>&#x5927;&#x7684;hash key&#x62C6;&#x6210;&#x591A;&#x4E2A;key</li>
+<li>&#x907F;&#x514D;&#x8D85;&#x5927;value</li>
+</ul>
+</li>
+</ul>
 
                                 
                                 </section>
@@ -312,10 +341,14 @@ runtime/asm_amd64.s&#x7684;rt0_go()
 
             
                 
-                <a href="source-code-core-functions.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 核心函数">
+                <a href="go-compilation.html" class="navigation navigation-prev " aria-label="Previous page: Go 汇编相关">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
+                
+                <a href="go-from-entry-to-practice.html" class="navigation navigation-next " aria-label="Next page: Go 语言从入门到实战">
+                    <i class="fa fa-angle-right"></i>
+                </a>
                 
             
         
@@ -324,7 +357,7 @@ runtime/asm_amd64.s&#x7684;rt0_go()
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"启动main协程","level":"1.7.3","depth":2,"previous":{"title":"核心函数","level":"1.7.2","depth":2,"path":"docs/source-code-core-functions.md","ref":"docs/source-code-core-functions.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/source-code-main-goroutine.md","mtime":"2022-03-19T08:39:10.121Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-03-19T08:39:37.298Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Go 进阶训练营","level":"1.4","depth":1,"next":{"title":"Go 语言从入门到实战","level":"1.5","depth":1,"path":"docs/go-from-entry-to-practice.md","ref":"docs/go-from-entry-to-practice.md","articles":[]},"previous":{"title":"Go 汇编相关","level":"1.3","depth":1,"path":"docs/go-compilation.md","ref":"docs/go-compilation.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-advanced-training.md","mtime":"2022-03-19T08:39:10.121Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-03-19T08:39:37.298Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
