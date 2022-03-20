@@ -1,6 +1,7 @@
 ### Go 进阶训练营
 
 #### 开营直播
+* [scaling memcache at Facebook](https://zhuanlan.zhihu.com/p/21362291)
 * 缓存选型：写数据既要写db也写cache，binlog异步任务补偿cache
 * 缓存模式1：
   * 请求1：cacheMiss->读v1->setCache
@@ -26,7 +27,7 @@
   * 大的hash key拆成多个key
   * 避免超大value
 
-#### 第一课-微服务
+#### 第一课 微服务
 * 微服务的优点
   * 拆分成小的服务，容易测试，容易维护
   * 单一职责，专注才能做好
@@ -55,5 +56,18 @@
   * a->b->c，要测试b的新版本b'，设置入站header头env=testb
   * 这样就变成了a->b'->c
 
-
- 
+#### 第二课 异常处理
+* error和exception
+  * 不要用panic来参与业务逻辑，panic是表示factor error
+* error type
+  * 哨兵error：预定义的error实例
+  * 避免使用哨兵error：比如io包有个io.EOF，file包依赖io包，用户使用file包可能需要依赖io包
+* handing error
+  * you should handing error once：要么打印日志，要么返回错误
+  * error.Wrap(err, "/file/path") 包装错误
+  * error.Cause() 获取原始错误和哨兵error比较
+* error inspection
+  * fmt.Errorf("%w /file/path", err) 包装错误
+  * error.Is(err, io.EOF) 和原始错误比较
+* 为什么要使用"github.com/pkg/errors"
+  * 打印的时候使用%+v可以打印堆栈信息
