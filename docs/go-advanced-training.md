@@ -71,3 +71,26 @@
   * error.Is(err, io.EOF) 和原始错误比较
 * 为什么要使用"github.com/pkg/errors"
   * 打印的时候使用%+v可以打印堆栈信息
+
+#### 第三课 并行编程
+* goroutine-让调用方决定要不要继续运行
+  * ListDirectory(dir) ([]string, error) 缺点是必须扫描全部文件后再返回
+  * ListDirectory(dir) chan string 缺点是要靠关闭chan来通知调用结束，但是不知道是报错还是扫描完成
+  * ListDirectory(dir, func(string) error) 参考filepath.WalkDir()
+* goroutine泄露的例子
+  * go func(接收或者写入一个阻塞的chan)
+  * select条件1是超时1秒，条件2是等待某协程的chan数据，若条件1执行，条件2的goroutine因为没人接收而阻塞
+* 如果不知道协程什么时候结束或者不能控制它结束，就不要用协程
+  * go 协程1和go协程2时传入一个chan，并在协程1和协程2中判断这个chan关闭时协程退出
+* tracker上报逻辑
+  * 方案1：go tracker.send(结束时waitGroup.Add)，在main函数有waitGroup.Done保证程序退出时都send完。缺点是起了大量协程
+  * 方案2：启动一个专门的协程接收chan并send数据，同时判断ctx.Done
+* 数据的发送者才能去关闭channel
+* memory model
+* sync
+* context
+
+
+
+
+
