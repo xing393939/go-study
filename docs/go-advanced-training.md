@@ -86,9 +86,22 @@
   * 方案1：go tracker.send(结束时waitGroup.Add)，在main函数有waitGroup.Done保证程序退出时都send完。缺点是起了大量协程
   * 方案2：启动一个专门的协程接收chan并send数据，同时判断ctx.Done
 * 数据的发送者才能去关闭channel
-* memory model
-* sync
-* context
+* memory model的可见性
+  * 线程1修改了a，线程2不一定会读到a的新值，要满足可见性则必须把a的修改同步到每个cpu
+* memory model的原子性
+  * 64位的机器只能保证大小在64位以内数据的原子性
+* data race：一个协程在写变量a，一个协程在读协程a
+* sync.Atomic可以保证可见性和原子性
+* sync.Mutex 
+  * Barging模式：锁释放后，等待者或者runner都可以去抢锁
+  * Handoff模式：锁释放后，把锁给等待者
+* sync.errorGroup：并行执行协程ABC，ABC有一个失败则3个都退出
+* sync.Pool：协程ABC都需要申请一块零时空间，不使用Pool则需要申请3份内存   
+* concurrency patterns
+  * https://go.dev/blog/pipelines
+  * https://go.dev/blog/concurrency-timeouts
+* design philosophy
+* context的WithValue 里面的值必须是请求级别的，和请求是同生命周期的，比如traceId
 
 
 
