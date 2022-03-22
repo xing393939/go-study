@@ -103,7 +103,13 @@
 * design philosophy
 * context的WithValue 里面的值必须是请求级别的，和请求是同生命周期的，比如traceId
 
-
+#### 第四课 工程化实践
+* 工程项目结构：
+  * api放pb文件属于协议定义，configs是配置，pkg是基础库包，cmd是命令入口
+  * app是业务代码
+* api设计
+* 配置管理
+* 模块单元测试
 
 
 
