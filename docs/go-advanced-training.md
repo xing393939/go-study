@@ -109,8 +109,15 @@
   * api放pb文件属于协议定义，configs是配置，pkg是基础库包，cmd是命令入口
   * app是业务代码
 * api设计
+  * [Google API Design Guide](https://google-cloud.gitbook.io/api-design-guide/)
+  * 利用http的状态码
+  * rpc通讯使用gRPC
+  * api换版本号（破坏性变更）：修改/删除/重命名字段/服务等
+  * 错误码：每个服务都有自己的错误码，调用其他服务的错误码在内部消耗不要暴露
 * 配置管理
+  * 方案1：Conf{A, B, C} init(Conf) 缺点是不能区分零值和默认值
+  * 方案2：type Option func(*Conf) init(...Option) 可以区分零值和默认值
+  * 线上配置变更：配置尽量简单，合理性检查，配置和应用版本同步上线和回滚
 * 模块单元测试
-
-
+  * 不用程序mock外部资源，用docker生成mysql、redis、mc等等实例
 
