@@ -1,7 +1,7 @@
 ### Go 进阶训练营
 
 #### 开营直播
-* [scaling memcache at Facebook](https://zhuanlan.zhihu.com/p/21362291)
+* [scaling memcache at Facebook](https://tech.ipalfish.com/blog/2020/04/07/fb-memcache/)
 * 缓存选型：写数据既要写db也写cache，binlog异步任务补偿cache
 * 缓存模式1：
   * 请求1：cacheMiss->读v1->setCache
