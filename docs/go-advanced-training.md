@@ -159,7 +159,7 @@
   * 方案1：轮询请求，这样请求均匀，但是不同node的处理能力不同，会导致不同node的cpu负载不一
   * 方案2：p2c算法，收集客户端的cpu负载（靠response header或者health check），随机取2个node，取最优的
 
-#### 第六课 评论系统价格设计
+#### 第六课 评论系统
 * 功能模块：对接不同场景，不同场景的评论策略不同
 * 架构设计1
   * comment-bff：聚合comment-svc、account-svc，filter-svc
@@ -183,6 +183,38 @@
   * time()=timestamp时，map\[cacheKey]++
   * time()!=timestamp时，计算map的topK，即热点的cacheKey
 
-
+#### 第七课 播放历史
+* 功能模块
+  * 平台化：视频、文章、漫画都有历史记录
+  * 变更功能：添加、删除、清空
+  * 读取功能：topN、获取播放进度
+  * 其他功能：暂停记录，首次观看奖励
+  * 高tps写入，高tps读
+* 架构设计之history-svc
+  * 写kafka之前，同一个uid的数据只聚合最后一条再写
+  * 为了数据的实时性，写kafka也要写redis，redis是实时的
+  * uid对100取余，同时批量打包，再落到kafka不同的partition
+  * 读操作先读redis，再读hbase
+* 架构设计之history-job
+  * 读kafka得到uid和视频id，从redis取到完整数据，再batchWrite到hbase
+* 架构设计之history-bff
+  * 既对外提供api，也对内提供服务
+  * 依赖redis判断是否是首次播放，是否是暂停记录
+* 存储设计之hbase
+  * 存储时每个用户只保留最近1000条记录
+  * 对于历史记录翻页，先查redis，再查hbase（一次性全捞出来做分页）
+  * 对于播放页的进度，先查redis，如果cacheMiss则不查hbase（不然db压力很大）
+* 存储设计之redis
+  * history：zset，key是uid，score是timestamp，member是视频id
+  * history_content：string，key是视频id，value是视频详情
+  * 判断用户是否是首次登录：用bitmap或者boomfliter，避免热点要hash成多个key
+* 可用性设计-聚合
+  * history-svc对同一个用户的数据只聚合最后一条再写kafka
+  * bff层先聚合100请求再请求svc层
+  * 请求先在边缘节点聚合打包，再经过专网传到机房
+  * 与鉴权服务保持长连接，而不是每次请求都做鉴权
+* 可用性设计-判断是不是首次观看
+  * 在客户端维护，header头带上最后一次观看的日期
+  * 如果=当前时间，则不查redis，如果!=，查一次redis，客户端下次请求带上
 
 
