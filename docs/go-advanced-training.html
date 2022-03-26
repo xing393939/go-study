@@ -514,6 +514,39 @@
 </ul>
 </li>
 </ul>
+<h4 id="&#x7B2C;&#x516D;&#x8BFE;-&#x8BC4;&#x8BBA;&#x7CFB;&#x7EDF;&#x4EF7;&#x683C;&#x8BBE;&#x8BA1;">&#x7B2C;&#x516D;&#x8BFE; &#x8BC4;&#x8BBA;&#x7CFB;&#x7EDF;&#x4EF7;&#x683C;&#x8BBE;&#x8BA1;</h4>
+<ul>
+<li>&#x529F;&#x80FD;&#x6A21;&#x5757;&#xFF1A;&#x5BF9;&#x63A5;&#x4E0D;&#x540C;&#x573A;&#x666F;&#xFF0C;&#x4E0D;&#x540C;&#x573A;&#x666F;&#x7684;&#x8BC4;&#x8BBA;&#x7B56;&#x7565;&#x4E0D;&#x540C;</li>
+<li>&#x67B6;&#x6784;&#x8BBE;&#x8BA1;1<ul>
+<li>comment-bff&#xFF1A;&#x805A;&#x5408;comment-svc&#x3001;account-svc&#xFF0C;filter-svc</li>
+<li>comment-svc&#xFF1A;&#x64CD;&#x4F5C;redis&#x3001;mysql&#xFF0C;&#x901A;&#x8FC7;mq&#x4E0E;comment-job&#x901A;&#x4FE1;</li>
+<li>comment-job&#xFF1A;&#x6D88;&#x5CF0;&#x8282;&#x6D41;</li>
+<li>comment-admin&#xFF1A;&#x64CD;&#x4F5C;redis&#x3001;mysql</li>
+<li>&#xFF08;bff&#x548C;svc&#xFF0C;bff&#x662F;&#x5C11;&#x53D8;&#x7684;&#xFF0C;svc&#x662F;&#x591A;&#x53D8;&#x7684;&#xFF0C;&#x4E8C;&#x8005;&#x53D1;&#x7248;&#x8282;&#x594F;&#x4E0D;&#x4E00;&#x6837;&#xFF09;</li>
+</ul>
+</li>
+<li>&#x67B6;&#x6784;&#x8BBE;&#x8BA1;2<ul>
+<li>b&#x7AD9;&#x5355;&#x8868;&#x5230;&#x4E86;&#x51E0;&#x5341;&#x4EBF;&#x624D;&#x5F00;&#x59CB;&#x5206;&#x8868;&#xFF0C;&#x5355;&#x8868;&#x51E0;&#x767E;&#x4E2A;G&#x662F;&#x6CA1;&#x6709;&#x95EE;&#x9898;&#x7684;</li>
+<li>b&#x7AD9;&#x5F00;&#x59CB;&#x662F;&#x65F6;&#x5019;&#x662F;cacheMiss&#x8BFB;db&#x56DE;&#x586B;redis&#x90FD;&#x5728;svc&#x5C42;&#x505A;&#xFF0C;&#x9AD8;&#x5CF0;&#x65F6;goroutine&#x53C8;&#x591A;&#x53C8;&#x6162;&#x5BFC;&#x81F4;oom</li>
+<li>&#x89E3;&#x51B3;&#x529E;&#x6CD5;&#xFF1A;cacheMiss&#x7528;mq&#x5F02;&#x6B65;&#x901A;&#x77E5;job&#x53BB;&#x56DE;&#x586B;redis&#xFF0C;&#x5199;&#x64CD;&#x4F5C;&#x7C7B;&#x4F3C;</li>
+<li>&#x5185;&#x90E8;&#x8FD0;&#x8425;&#x4F53;&#x7CFB;&#x4E0D;&#x76F4;&#x63A5;&#x64CD;&#x4F5C;mysql&#xFF0C;&#x800C;&#x662F;&#x4F9D;&#x9760;es</li>
+</ul>
+</li>
+<li>&#x5B58;&#x50A8;&#x8BBE;&#x8BA1;-mysql&#xFF1A;&#x5206;&#x8868;&#xFF0C;&#x5197;&#x4F59;&#x8BC4;&#x8BBA;&#x6570;&#x3001;&#x697C;&#x5C42;&#xFF0C;&#x65F6;&#x95F4;&#x7528;datetime&#x7C7B;&#x578B;</li>
+<li>&#x5B58;&#x50A8;&#x8BBE;&#x8BA1;-redis&#xFF1A;<ul>
+<li>comment_subject&#xFF1A;string&#xFF0C;key&#x662F;id&#xFF0C;value&#x7528;pb&#x683C;&#x5F0F;</li>
+<li>comment_index&#xFF1A;zset&#xFF0C;key&#x662F;id+sortType&#xFF0C;score&#x662F;&#x697C;&#x5C42;</li>
+<li>comment_content&#xFF1A;string&#xFF0C;key&#x662F;id&#xFF0C;value&#x662F;pb&#x683C;&#x5F0F;</li>
+</ul>
+</li>
+<li>&#x53EF;&#x7528;&#x6027;&#x8BBE;&#x8BA1;-&#x7F13;&#x5B58;&#x7A7F;&#x900F;&#xFF1A;go&#x7684;singleflight</li>
+<li>&#x53EF;&#x7528;&#x6027;&#x8BBE;&#x8BA1;-redis&#x70ED;&#x70B9;&#xFF1A;&#x4E3B;&#x52A8;&#x53D1;&#x73B0;&#x70ED;&#x70B9;&#xFF0C;&#x53D8;&#x6210;localCache<ul>
+<li>&#x4E00;&#x4E2A;timestamp&#x5B57;&#x6BB5;&#xFF0C;&#x4E00;&#x4E2A;map</li>
+<li>time()=timestamp&#x65F6;&#xFF0C;map[cacheKey]++</li>
+<li>time()!=timestamp&#x65F6;&#xFF0C;&#x8BA1;&#x7B97;map&#x7684;topK&#xFF0C;&#x5373;&#x70ED;&#x70B9;&#x7684;cacheKey</li>
+</ul>
+</li>
+</ul>
 
                                 
                                 </section>
@@ -557,7 +590,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Go 进阶训练营","level":"1.4","depth":1,"next":{"title":"Go 语言从入门到实战","level":"1.5","depth":1,"path":"docs/go-from-entry-to-practice.md","ref":"docs/go-from-entry-to-practice.md","articles":[]},"previous":{"title":"Go 汇编相关","level":"1.3","depth":1,"path":"docs/go-compilation.md","ref":"docs/go-compilation.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-advanced-training.md","mtime":"2022-03-25T13:15:14.416Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-03-25T13:15:42.905Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Go 进阶训练营","level":"1.4","depth":1,"next":{"title":"Go 语言从入门到实战","level":"1.5","depth":1,"path":"docs/go-from-entry-to-practice.md","ref":"docs/go-from-entry-to-practice.md","articles":[]},"previous":{"title":"Go 汇编相关","level":"1.3","depth":1,"path":"docs/go-compilation.md","ref":"docs/go-compilation.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-advanced-training.md","mtime":"2022-03-26T08:24:35.702Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-03-26T08:25:09.453Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
