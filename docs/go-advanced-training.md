@@ -159,4 +159,30 @@
   * 方案1：轮询请求，这样请求均匀，但是不同node的处理能力不同，会导致不同node的cpu负载不一
   * 方案2：p2c算法，收集客户端的cpu负载（靠response header或者health check），随机取2个node，取最优的
 
+#### 第六课 评论系统价格设计
+* 功能模块：对接不同场景，不同场景的评论策略不同
+* 架构设计1
+  * comment-bff：聚合comment-svc、account-svc，filter-svc
+  * comment-svc：操作redis、mysql，通过mq与comment-job通信
+  * comment-job：消峰节流
+  * comment-admin：操作redis、mysql
+  * （bff和svc，bff是少变的，svc是多变的，二者发版节奏不一样）
+* 架构设计2
+  * b站单表到了几十亿才开始分表，单表几百个G是没有问题的
+  * b站开始是时候是cacheMiss读db回填redis都在svc层做，高峰时goroutine又多又慢导致oom
+  * 解决办法：cacheMiss用mq异步通知job去回填redis，写操作类似
+  * 内部运营体系不直接操作mysql，而是依靠es
+* 存储设计-mysql：分表，冗余评论数、楼层，时间用datetime类型
+* 存储设计-redis：
+  * comment_subject：string，key是id，value用pb格式
+  * comment_index：zset，key是id+sortType，score是楼层
+  * comment_content：string，key是id，value是pb格式
+* 可用性设计-缓存穿透：go的singleflight
+* 可用性设计-redis热点：主动发现热点，变成localCache
+  * 一个timestamp字段，一个map
+  * time()=timestamp时，map\[cacheKey]++
+  * time()!=timestamp时，计算map的topK，即热点的cacheKey
+
+
+
 
