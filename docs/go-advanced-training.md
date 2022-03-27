@@ -217,4 +217,42 @@
   * 在客户端维护，header头带上最后一次观看的日期
   * 如果=当前时间，则不查redis，如果!=，查一次redis，客户端下次请求带上
 
-
+#### 第八课 分布式缓存和事务
+* 一致性hash：
+  * 初始节点ABC，ABC各有256个虚拟节点分散在环上
+  * 删除节点B，A和C的虚拟节点不变，只是范围大了点
+  * 增加节点D，D生成256个虚拟节点插入在环上
+* [微信抢红包的优化](https://blog.csdn.net/emprere/article/details/98857800)  
+  * 根据群红包id把请求哈希到同一台机器，在进程内做合并计算，然后同一入库
+* 有界负载一致性hash
+  * 每个节点带有当前节点的负载信息
+  * 通过常规找到某个节点时，发现负载超过一个固定值，则飘到下一个节点
+* redis为什么用固定槽位来sharding？方便迁移数据
+* 缓存的读写场景：
+  * 方案1：写的时候updateCache，坏处是如果多个线程写cache，无法保证顺序性
+  * 方案2：写的时候deleteCache，坏处1是读+填的时候，填了老数据；坏处2是缓存击穿
+    * 坏处2的解决1：deleteCache的时候没有真正删除，保留10s
+    * 坏处2的解决2：缓存击穿的时候，用singlefly保证只有一个线程读db
+* 缓存击穿的解决：
+  * singlefly
+  * 分布式锁，（不建议）
+  * 用mq异步回填cache
+  * Facebook的方案，lease租约
+* redis技巧：key名不要长，value尽量用int，大hash类型拆分key，value不能太大
+* 缓存穿透（恶意用大量不存在的id来请求）
+  * 空缓存设置
+  * 自增id加密成字符串，这样用户模拟的id就是无效id
+  * 用布隆过滤器，false就是false，true可能wrong
+* 抽奖：把中奖奖池预置到list结构里面，来一个pop一个
+* 分布式事务（支付宝-1w，余额宝+1w）
+  * 支付宝事务更新money表和插入queue表
+  * Polling publisher，余额宝定时poll queue表
+  * Transaction log tailing，订阅queue表的binlog并转mq通知余额宝
+  * 2PC Message Queue
+* 2PC Message Queue之写入消息
+  * 1，对mq发prepare请求
+  * 2，支付宝-1w
+  * 3，对mq发commit请求
+  * 如果第三步失败了，mq会定时询问service
+* 2PC Message Queue之消费消息：处理完毕后ack消息
+* TCC：try、confirm、cancel
