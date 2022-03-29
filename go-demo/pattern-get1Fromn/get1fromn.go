@@ -12,7 +12,7 @@ func (c *Conn) DoQuery(str string) Result {
 }
 
 func Query(conns []Conn, query string) Result {
-	ch := make(chan Result, 1)
+	ch := make(chan Result)
 	for _, conn := range conns {
 		go func(c Conn) {
 			select {
