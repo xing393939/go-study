@@ -256,3 +256,21 @@
   * 如果第三步失败了，mq会定时询问service
 * 2PC Message Queue之消费消息：处理完毕后ack消息
 * TCC：try、confirm、cancel
+
+#### 第九课 网络编程
+* 网络通讯协议
+  * socket抽象层：建立/接收连接，读写和关闭连接，超时
+* go实现网络编程
+* goim长连接网关
+  * 客户端httpdns，客户端pull多个ip来选择服务的ip
+  * 客户端心跳保活：定时发tcp包，断线重连
+  * 服务端comet：bff层，和客户端建立长连接
+  * 服务端logic：通过mq和comet通信，通过grpc和具体的service交互
+* id分布式生成器
+  * 方案1：N个genID的server，定时向db索要一批号段
+  * 方案2：snowflake：1b不用，41b是毫秒时间戳，10b是机房+机器id，12b保证随机性
+  * 方案3：sonyflake：39b是时间戳(单元是10毫秒)，8b保证随机性，16b是机房+机器id
+* im私信协议
+  * 读扩散：N个群，读的时候去N个表拉取数据
+  * 写扩散：N个群，写的时候写到用户的表下，读的时候读用户的表
+  * 微信群最多1k人，适合用写扩展，而且kvdb的lsm，对写友好，读性能不佳
