@@ -342,3 +342,16 @@
   * 账号是Global资源，所以注册逻辑只能路由到唯一机房
   * 但是登录/查询用户信息，可以访问读副本，登录查不到用户可以去唯一机房再查一次
 
+#### 第十二课 消息队列
+* kafka基础概念
+  * broker：机器节点
+  * topic：类似数据库的表
+  * partition：topic可以分为多个partition，单partition内的消息是顺序的
+* kafka的存储原理：
+  * [Kafka文件存储机制那些事](https://tech.meituan.com/2015/01/13/kafka-fs-design-theory.html)
+  * 利用顺序io和pageCache达成超高吞吐
+  * 保留策略：保留xx天，保留xx文件大小
+  * 每个partition对应一个文件夹，开始只有一个index和log文件，当log文件满1G了写新的index和log文件
+* producer和consumer
+* leader和follower
+
