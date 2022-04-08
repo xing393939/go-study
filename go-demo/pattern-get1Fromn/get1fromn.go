@@ -11,6 +11,12 @@ func (c *Conn) DoQuery(str string) Result {
 	return Result{}
 }
 
+/*
+参考：https://go.dev/blog/concurrency-timeouts
+此代码ch是无缓冲的channel，若最后一行代码“return <-ch”还没有准备好接收，4个协程就都返回了
+此时在select语法下，4个协程都会走default分支，那么main函数会hang住
+解决方法：第一行代码改成ch := make(chan Result, 4)
+*/
 func Query(conns []Conn, query string) Result {
 	ch := make(chan Result)
 	for _, conn := range conns {
