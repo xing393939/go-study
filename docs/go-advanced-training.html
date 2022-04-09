@@ -813,9 +813,46 @@
 <li>&#x6BCF;&#x4E2A;partition&#x5BF9;&#x5E94;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x5939;&#xFF0C;&#x5F00;&#x59CB;&#x53EA;&#x6709;&#x4E00;&#x4E2A;index&#x548C;log&#x6587;&#x4EF6;&#xFF0C;&#x5F53;log&#x6587;&#x4EF6;&#x6EE1;1G&#x4E86;&#x5199;&#x65B0;&#x7684;index&#x548C;log&#x6587;&#x4EF6;</li>
 </ul>
 </li>
-<li>producer&#x548C;consumer</li>
-<li>leader&#x548C;follower</li>
+<li>&#x5206;&#x914D;partition&#x7684;&#x673A;&#x5236;&#xFF1A;<ul>
+<li>&#x6307;&#x660E;&#x4E86;partition&#xFF1A;&#x76F4;&#x63A5;&#x5206;&#x914D;</li>
+<li>&#x6307;&#x660E;&#x4E86;key&#xFF1A;&#x5BF9;key&#x54C8;&#x5E0C;&#x5F97;&#x5230;partition</li>
+<li>&#x90FD;&#x6CA1;&#x6709;&#x6307;&#x5B9A;&#xFF1A;&#x6BCF;&#x6B21;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x968F;&#x673A;&#x6574;&#x6570;&#xFF0C;&#x6C42;&#x4F59;&#x5F97;&#x5230;partition</li>
+<li>&#xFF08;b&#x7AD9;&#x7684;partition&#x673A;&#x5236;&#x4ECD;&#x7136;&#x4F1A;&#x6709;&#x5C40;&#x90E8;&#x70ED;&#x70B9;&#x95EE;&#x9898;&#xFF0C;&#x9488;&#x5BF9;&#x70ED;&#x70B9;key&#x8FD8;&#x662F;&#x8981;&#x968F;&#x673A;&#x4E00;&#x4E0B;&#xFF0C;&#x7136;&#x540E;&#x5728;db&#x5C42;&#x517C;&#x5BB9;&#x4E0B;&#xFF09;</li>
 </ul>
+</li>
+<li>producer&#x548C;consumer<ul>
+<li>&#x53D1;&#x9001;&#x6D88;&#x606F;&#x7684;&#x5E42;&#x7B49;&#x6027;(&#x4E0D;&#x5EFA;&#x8BAE;&#x4F7F;&#x7528;)&#xFF1A;broker&#x4F1A;&#x63D0;&#x4F9B;&#x4E00;&#x4E2A;pid&#xFF0C;producer&#x53D1;&#x9001;&#x7684;&#x6D88;&#x606F;id&#x662F;pid+partition+seq</li>
+<li>&#x5355;&#x6D88;&#x8D39;&#x7EC4;&#xFF0C;&#x5047;&#x8BBE;4&#x4E2A;partition&#xFF0C;&#x6D88;&#x8D39;&#x7EC4;&#x6709;4&#x4E2A;consumer&#x6B63;&#x597D;&#x4E00;&#x4E00;&#x5BF9;&#x5E94;&#xFF0C;&#x518D;&#x589E;&#x52A0;consumer&#x4E5F;&#x6536;&#x4E0D;&#x5230;&#x6D88;&#x606F;<ul>
+<li>&#x589E;&#x52A0;&#x6D88;&#x8D39;&#x80FD;&#x529B;&#x53EF;&#x4EE5;&#x8BA9;consumer&#x591A;&#x7EBF;&#x7A0B;&#x6D88;&#x8D39;&#xFF0C;&#x4F46;&#x662F;&#x63D0;&#x4EA4;&#x7684;offset&#x662F;&#x6700;&#x5C0F;&#x5DF2;&#x6D88;&#x8D39;&#x7684;offset</li>
+</ul>
+</li>
+<li>&#x591A;&#x6D88;&#x8D39;&#x7EC4;&#xFF0C;&#x589E;&#x52A0;&#x4E00;&#x4E2A;&#x6D88;&#x8D39;&#x7EC4;&#xFF0C;&#x5373;&#x53EF;&#x5168;&#x91CF;&#x955C;&#x50CF;&#x7684;&#x6D88;&#x8D39;&#x6D88;&#x606F;&#x4E86;</li>
+</ul>
+</li>
+<li>&#x6D88;&#x8D39;&#x7EC4;&#x5185;&#x7684;rebalance&#xFF1A;&#x65B0;&#x589E;&#x6216;&#x8005;&#x5220;&#x9664;consumer&#x65F6;&#xFF0C;&#x6D88;&#x606F;&#x4F1A;&#x91CD;&#x65B0;&#x5747;&#x8861;&#x7ED9;&#x5269;&#x4E0B;&#x7684;consumer<ul>
+<li>broker&#x901A;&#x8FC7;&#x5FC3;&#x8DF3;&#x68C0;&#x6D4B;consumer&#x662F;&#x5426;&#x5728;&#x7EBF;</li>
+<li>&#x201C;&#x907F;&#x514D;&#x6D3B;&#x9501;&#x201D;&#xFF1A;broker&#x53D1;&#x73B0;consumer&#x5F88;&#x4E45;&#x6CA1;&#x6709;&#x62C9;&#x53D6;&#x6D88;&#x606F;&#xFF0C;&#x6216;&#x8005;&#x6D88;&#x8D39;&#x901F;&#x5EA6;&#x5F88;&#x4F4E;&#x5C31;&#x6807;&#x8BB0;&#x4E0B;&#x7EBF;</li>
+<li>&#x201C;&#x907F;&#x514D;&#x6D3B;&#x9501;&#x201D;&#x7684;&#x5751;&#xFF1A;b&#x7AD9;&#x5199;hdfs&#x65F6;&#x67D0;&#x8282;&#x70B9;&#x6D88;&#x8D39;&#x6162;&#x5BFC;&#x81F4;&#x88AB;&#x6458;&#x9664;&#xFF0C;&#x5176;&#x4ED6;&#x8282;&#x70B9;&#x6D88;&#x8D39;&#x4E5F;&#x66F4;&#x6162;&#x4E86;&#xFF0C;&#x51FA;&#x73B0;&#x6076;&#x6027;&#x5FAA;&#x73AF;</li>
+</ul>
+</li>
+<li>consumer&#x5982;&#x4F55;&#x63D0;&#x4EA4;offset<ul>
+<li>&#x5148;&#x63D0;&#x4EA4;&#x518D;&#x5904;&#x7406;&#x6D88;&#x606F;&#xFF0C;&#x201C;at most once&#x201D;&#xFF0C;&#x53EF;&#x80FD;&#x4E22;&#x6D88;&#x606F;</li>
+<li>&#x5148;&#x5904;&#x7406;&#x6D88;&#x606F;&#x518D;&#x63D0;&#x4EA4;&#xFF0C;&#x201C;at least once&#x201D;&#xFF0C;&#x6D88;&#x606F;&#x53EF;&#x80FD;&#x91CD;&#x590D;&#xFF0C;&#x5904;&#x7406;&#x65F6;&#x8981;&#x505A;&#x5E42;&#x7B49;</li>
+</ul>
+</li>
+<li>&#x6570;&#x636E;&#x7684;&#x53EF;&#x9760;&#x6027;&#x7EA7;&#x522B;&#xFF0C;producer.required.acks<ul>
+<li>0&#xFF0C;producer&#x4E0D;&#x7B49;&#x5F85;broker&#x7684;ack&#xFF0C;&#x6027;&#x80FD;&#x662F;&#x6700;&#x597D;&#x7684;</li>
+<li>1&#xFF0C;producer&#x53EA;&#x7B49;&#x5F85;leader&#x843D;&#x76D8;&#x6210;&#x529F;&#x7684;ack&#xFF0C;&#x5982;&#x679C;follower&#x8FD8;&#x6CA1;&#x6709;&#x540C;&#x6B65;&#x5B8C;leader&#x5C31;&#x6302;&#x4E86;&#x4F1A;&#x4E22;&#x6570;&#x636E;</li>
+<li>-1&#xFF0C;producer&#x7B49;&#x5F85;leader&#x548C;&#x6240;&#x6709;follower&#x843D;&#x76D8;&#x540E;&#x7684;ack&#xFF0C;&#x5982;&#x679C;&#x53D1;&#x9001;ack&#x65F6;leader&#x6302;&#x4E86;&#x4F1A;&#x91CD;&#x590D;&#x6570;&#x636E;</li>
+</ul>
+</li>
+<li>&#x6570;&#x636E;&#x7684;&#x53EF;&#x9760;&#x6027;&#xFF0C;acks=-1&#x65F6;&#xFF0C;&#x9ED8;&#x8BA4;&#x7684;min.insync.replicas=1&#xFF0C;&#x610F;&#x5473;&#x7740;&#x53EA;&#x9700;&#x8981;&#x4E00;&#x4E2A;ISR&#x6210;&#x529F;&#x5373;&#x53EF;<ul>
+<li>&#x6240;&#x4EE5;&#x9700;&#x8981;&#x589E;&#x5927;&#x6B64;&#x503C;&#xFF0C;&#x503C;&#x8D8A;&#x5927;&#x53EF;&#x9760;&#x6027;&#x8D8A;&#x597D;&#xFF0C;&#x6027;&#x80FD;&#x964D;&#x4F4E;</li>
+<li>&#x82E5;&#x5F02;&#x5E38;&#x60C5;&#x51B5;ISR&#x7684;&#x603B;&#x6570;&#x53D8;&#x5F97;&#x5C0F;&#x4E8E;min.insync.replicas&#xFF0C;&#x53D1;&#x9001;&#x6D88;&#x606F;&#x4F1A;&#x62A5;&#x9519;</li>
+</ul>
+</li>
+</ul>
+<h4 id="&#x7B2C;&#x5341;&#x4E09;&#x8BFE;-&#x8BED;&#x8A00;&#x5B9E;&#x8DF5;">&#x7B2C;&#x5341;&#x4E09;&#x8BFE; &#x8BED;&#x8A00;&#x5B9E;&#x8DF5;</h4>
 
                                 
                                 </section>
@@ -859,7 +896,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Go 进阶训练营","level":"1.5","depth":1,"next":{"title":"Go 语言从入门到实战","level":"1.6","depth":1,"path":"docs/go-from-entry-to-practice.md","ref":"docs/go-from-entry-to-practice.md","articles":[]},"previous":{"title":"Go 并发模式","level":"1.4","depth":1,"path":"docs/go-concurrency-patterns.md","ref":"docs/go-concurrency-patterns.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-advanced-training.md","mtime":"2022-04-08T12:44:00.477Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-04-08T12:44:23.981Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Go 进阶训练营","level":"1.5","depth":1,"next":{"title":"Go 语言从入门到实战","level":"1.6","depth":1,"path":"docs/go-from-entry-to-practice.md","ref":"docs/go-from-entry-to-practice.md","articles":[]},"previous":{"title":"Go 并发模式","level":"1.4","depth":1,"path":"docs/go-concurrency-patterns.md","ref":"docs/go-concurrency-patterns.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-advanced-training.md","mtime":"2022-04-09T08:33:33.464Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-04-09T08:34:01.989Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
