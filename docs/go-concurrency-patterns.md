@@ -1,7 +1,7 @@
 ### Go 并发模式
 
 #### 参考资料
-* []
+* [Netflex开发的熔断限流包](https://learnku.com/articles/53019)
 
 #### 编程军规
 * Never start a goroutine without knowning when it will stop

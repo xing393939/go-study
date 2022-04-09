@@ -352,6 +352,30 @@
   * 利用顺序io和pageCache达成超高吞吐
   * 保留策略：保留xx天，保留xx文件大小
   * 每个partition对应一个文件夹，开始只有一个index和log文件，当log文件满1G了写新的index和log文件
+* 分配partition的机制：
+  * 指明了partition：直接分配
+  * 指明了key：对key哈希得到partition
+  * 都没有指定：每次生成一个随机整数，求余得到partition
+  * （b站的partition机制仍然会有局部热点问题，针对热点key还是要随机一下，然后在db层兼容下）
 * producer和consumer
-* leader和follower
+  * 发送消息的幂等性(不建议使用)：broker会提供一个pid，producer发送的消息id是pid+partition+seq
+  * 单消费组，假设4个partition，消费组有4个consumer正好一一对应，再增加consumer也收不到消息
+    * 增加消费能力可以让consumer多线程消费，但是提交的offset是最小已消费的offset
+  * 多消费组，增加一个消费组，即可全量镜像的消费消息了
+* 消费组内的rebalance：新增或者删除consumer时，消息会重新均衡给剩下的consumer
+  * broker通过心跳检测consumer是否在线
+  * “避免活锁”：broker发现consumer很久没有拉取消息，或者消费速度很低就标记下线
+  * “避免活锁”的坑：b站写hdfs时某节点消费慢导致被摘除，其他节点消费也更慢了，出现恶性循环
+* consumer如何提交offset
+  * 先提交再处理消息，“at most once”，可能丢消息
+  * 先处理消息再提交，“at least once”，消息可能重复，处理时要做幂等
+* 数据的可靠性级别，producer.required.acks
+  * 0，producer不等待broker的ack，性能是最好的
+  * 1，producer只等待leader落盘成功的ack，如果follower还没有同步完leader就挂了会丢数据
+  * -1，producer等待leader和所有follower落盘后的ack，如果发送ack时leader挂了会重复数据
+* 数据的可靠性，acks=-1时，默认的min.insync.replicas=1，意味着只需要一个ISR成功即可
+  * 所以需要增大此值，值越大可靠性越好，性能降低
+  * 若异常情况ISR的总数变得小于min.insync.replicas，发送消息会报错
+
+#### 第十三课 语言实践
 
