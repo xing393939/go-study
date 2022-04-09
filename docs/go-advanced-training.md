@@ -378,4 +378,25 @@
   * 若异常情况ISR的总数变得小于min.insync.replicas，发送消息会报错
 
 #### 第十三课 语言实践
-
+* 协程在等channel的时候gopark，再次唤醒的时候可能不在原来的M上运行，亲密性不够好
+* go1.15增加runnext字段，让这种协程gopark时放在runnext，下次会优先运行它
+* 每个P有256大小的运行队列，还有local freelist，存放回收的协程，以便重复利用
+* 全局也有with stack的协程队列和with no stack的协程队列，以便重复利用
+* GC的一些概念
+  * mutator：赋值器
+  * 根对象：不需要其他对象就能访问到的对象，如全局对象，栈上的对象
+* GC并发有两层含义：
+  * mark和sweep过程是多协程并发的，1.13是stw再mark(多协程并发)
+  * mutator和collector是同时运行的
+* go1.5可以在mark阶段可以并发，不过需要一小段的stw做准备工作和栈的re-scan
+  * 准备工作，通知进入插入写屏障
+  * re-scan，重新扫描栈
+* go1.8混合写屏障：
+  * 栈如果增加或者删除堆的一个引用，会把它置为灰色
+  * mark阶段堆上新产生的对象直接标黑
+* 协程g1写channel阻塞，g2读channel唤醒g1
+  * g1把创建一个sudug(g=g1，elem=value)挂在channel的sendq上
+  * g2读完channel，唤醒g1，所以称为协作式调度
+* 协程g2读channel阻塞，g1写channel唤醒g2
+  * 流程同上，不同在于g1直接写到g2栈的那个接收变量了  
+  
