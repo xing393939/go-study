@@ -5,8 +5,11 @@
 <script>
 var gitbook = gitbook || [];
 gitbook.push(function() {
-    let slider = new IdealImageSlider.Slider('.IdealImageSlider');
-    slider.addBulletNav();
+    document.querySelectorAll(".IdealImageSlider").forEach((el, k) => {
+        el.id = "IdealImageSlider" + k;
+        let slider = new IdealImageSlider.Slider("#IdealImageSlider" + k);
+        slider.addBulletNav();
+    })
 })
 </script>
 
