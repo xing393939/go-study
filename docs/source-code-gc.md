@@ -15,6 +15,10 @@ gitbook.push(function() {
 
 ### GC 分析
 
+#### GC 全流程
+
+![dlv](../images/gc-alltime.jpg)
+
 #### 后台标记worker的工作过程
 
 <div class="IdealImageSlider">
@@ -65,3 +69,13 @@ gitbook.push(function() {
     <img src="../images/write-barrier/1649746681-3.jpg" />
 </div>
 
+#### markWorker和mutator同时工作
+
+<div class="IdealImageSlider">
+    <img src="../images/gc-mark-mutator/1649754644-1.jpg" />
+    <img src="../images/gc-mark-mutator/1649754644-2.jpg" />
+    <img src="../images/gc-mark-mutator/1649754644-3.jpg" />
+    <img src="../images/gc-mark-mutator/1649754645-4.jpg" />
+    <img src="../images/gc-mark-mutator/1649754645-5.jpg" />
+    <img src="../images/gc-mark-mutator/1649754646-6.jpg" />
+</div>
