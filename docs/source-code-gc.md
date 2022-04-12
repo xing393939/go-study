@@ -16,6 +16,7 @@ gitbook.push(function() {
 ### GC 分析
 
 #### GC 全流程
+* [曹大-Go 语言的 GC](https://time.geekbang.org/column/article/484271)
 
 ![dlv](../images/gc-alltime.jpg)
 
