@@ -21,10 +21,15 @@ gitbook.push(function() {
     <img src="../images/insert-barrier/1649748072-4.jpg" />
 </div>
 
-
 #### 删除写屏障对象丢失问题
 
-
+<div class="IdealImageSlider">
+    <img src="../images/delete-barrier/1649748868-1.jpg" />
+    <img src="../images/delete-barrier/1649748869-2.jpg" />
+    <img src="../images/delete-barrier/1649748869-3.jpg" />
+    <img src="../images/delete-barrier/1649748870-4.jpg" />
+    <img src="../images/delete-barrier/1649748870-5.jpg" />
+</div>
 
 #### write barrier 的执行过程
 
