@@ -12,10 +12,25 @@ gitbook.push(function() {
 
 ### GC 分析
 
+#### 插入写屏障对象丢失问题
+
+<div class="IdealImageSlider">
+    <img src="../images/insert-barrier/1649748070-1.jpg" />
+    <img src="../images/insert-barrier/1649748071-2.jpg" />
+    <img src="../images/insert-barrier/1649748071-3.jpg" />
+    <img src="../images/insert-barrier/1649748072-4.jpg" />
+</div>
+
+
+#### 删除写屏障对象丢失问题
+
+
+
 #### write barrier 的执行过程
 
 <div class="IdealImageSlider">
     <img src="../images/write-barrier/1649746680-1.jpg" />
-    <img src="../images/write-barrier/1649746680-2.jpg" />
-    <img src="../images/write-barrier/1649746680-3.jpg" />
+    <img src="../images/write-barrier/1649746681-2.jpg" />
+    <img src="../images/write-barrier/1649746681-3.jpg" />
 </div>
+
