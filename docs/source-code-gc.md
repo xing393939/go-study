@@ -15,6 +15,29 @@ gitbook.push(function() {
 
 ### GC 分析
 
+#### 后台标记worker的工作过程
+
+<div class="IdealImageSlider">
+    <img src="../images/gc-mark/1649752192-1.jpg" />
+    <img src="../images/gc-mark/1649752193-2.jpg" />
+    <img src="../images/gc-mark/1649752193-3.jpg" />
+    <img src="../images/gc-mark/1649752193-4.jpg" />
+    <img src="../images/gc-mark/1649752194-5.jpg" />
+    <img src="../images/gc-mark/1649752194-6.jpg" />
+    <img src="../images/gc-mark/1649752194-7.jpg" />
+    <img src="../images/gc-mark/1649752195-8.jpg" />
+    <img src="../images/gc-mark/1649752195-9.jpg" />
+</div>
+
+#### gcDrain.scanobject的具体过程
+
+<div class="IdealImageSlider">
+    <img src="../images/gc-scanobject/1649753414-1.jpg" />
+    <img src="../images/gc-scanobject/1649753414-2.jpg" />
+    <img src="../images/gc-scanobject/1649753415-3.jpg" />
+    <img src="../images/gc-scanobject/1649753415-4.jpg" />
+</div>
+
 #### 插入写屏障对象丢失问题
 
 <div class="IdealImageSlider">
