@@ -6,6 +6,7 @@ button{
 }
 .highlighter-rouge .widget-container{
     position:relative;
+    background:#f8f8f8;
     width:800px;
     height:800px;
     overflow: auto;
