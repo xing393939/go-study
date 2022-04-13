@@ -76,3 +76,12 @@
 	return IIS;
 
 })(IdealImageSlider);
+
+var gitbook = gitbook || [];
+gitbook.push(function() {
+	document.querySelectorAll(".IdealImageSlider").forEach((el, k) => {
+		el.id = "IdealImageSlider" + k;
+		let slider = new IdealImageSlider.Slider("#IdealImageSlider" + k);
+		slider.addBulletNav();
+	})
+});

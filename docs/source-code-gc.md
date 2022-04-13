@@ -2,16 +2,6 @@
 <link rel="stylesheet" href="../extra/ideal-default-theme.css">
 <script src="../extra/ideal-image-slider.js"></script>
 <script src="../extra/ideal-iis-bullet-nav.js"></script>
-<script>
-var gitbook = gitbook || [];
-gitbook.push(function() {
-    document.querySelectorAll(".IdealImageSlider").forEach((el, k) => {
-        el.id = "IdealImageSlider" + k;
-        let slider = new IdealImageSlider.Slider("#IdealImageSlider" + k);
-        slider.addBulletNav();
-    })
-})
-</script>
 
 ### GC 分析
 
