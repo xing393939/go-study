@@ -1,8 +1,11 @@
 var gitbook = gitbook || [];
 gitbook.push(function() {
-    document.querySelectorAll('.DialogCode').forEach(el => {
-        getSourceCode($(el).data('code'), el)
-    })
+    $('body').append('<div id="DialogCodeTemp" style="display:none"></div>');
+    $.getScript("../images/jquery.dialog.js", function () {
+        document.querySelectorAll('.DialogCode').forEach(el => {
+            getSourceCode($(el).data('code'), el)
+        })
+    });
 });
 
 function getSourceCode(word, parent) {
@@ -11,7 +14,8 @@ function getSourceCode(word, parent) {
         'mainPC',
     ];
     $.get(`../docs/go1.16.10/${word}.html`, function (text) {
-        let newElem = $(text);
+        $('#DialogCodeTemp').html(text);
+        let newElem = $('#DialogCodeTemp').find('.highlighter-rouge');
         let spans = newElem.find('span');
         spans.each(function (k, span) {
             if (keywords.includes(span.innerText) && word != span.innerText) {

@@ -1,7 +1,6 @@
 ### 核心函数
 
 <link rel="stylesheet" type="text/css" href="../images/jquery.dialog.css">
-<script type=text/javascript src="../images/jquery.dialog.js"></script>
 <script type=text/javascript src="../images/jquery.dialog-code.js"></script>
 
 #### runtime.get_tls(CX)
