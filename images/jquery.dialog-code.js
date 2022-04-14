@@ -1,19 +1,21 @@
-let mainFunctions = [];
-window.onload = function () {
+var gitbook = gitbook || [];
+gitbook.push(function() {
+    $('body').append('<div id="DialogCodeTemp" style="display:none"></div>');
     $.getScript("../images/jquery.dialog.js", function () {
-        mainFunctions.forEach(function (row) {
-            getSourceCode(row[0], row[1])
+        document.querySelectorAll('.DialogCode').forEach(el => {
+            getSourceCode($(el).data('code'), el)
         })
     });
-};
+});
 
 function getSourceCode(word, parent) {
     let keywords = [
         'newproc', 'newproc1', 'runqput', 'wakep', 'startm',
         'mainPC',
     ];
-    $.get(`https://xing393939.github.io/static/go1.16.10/${word}.html`, function (text) {
-        let newElem = $(text);
+    $.get(`../docs/go1.16.10/${word}.html`, function (text) {
+        $('#DialogCodeTemp').html(text);
+        let newElem = $('#DialogCodeTemp').find('.highlighter-rouge');
         let spans = newElem.find('span');
         spans.each(function (k, span) {
             if (keywords.includes(span.innerText) && word != span.innerText) {

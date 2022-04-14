@@ -1,7 +1,7 @@
 ### 启动main协程
 
 <link rel="stylesheet" type="text/css" href="../images/jquery.dialog.css">
-<script type=text/javascript src="../images/jquery.main.js"></script>
+<script type=text/javascript src="../images/jquery.dialog-code.js"></script>
 
 #### Go的启动过程
 ```
@@ -11,9 +11,7 @@ runtime/asm_amd64.s的rt0_go()
 ```
 
 #### runtime.rt0_go
-<div id="rt0_go"></div>
-<script>
-    mainFunctions.push(['rt0_go', '#rt0_go'])
-</script>
+<div class="DialogCode" data-code="rt0_go"></div>
+
 
 

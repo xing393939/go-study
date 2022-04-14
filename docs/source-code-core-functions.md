@@ -1,7 +1,7 @@
 ### 核心函数
 
 <link rel="stylesheet" type="text/css" href="../images/jquery.dialog.css">
-<script type=text/javascript src="../images/jquery.main.js"></script>
+<script type=text/javascript src="../images/jquery.dialog-code.js"></script>
 
 #### runtime.get_tls(CX)
 * [本地线程存储](https://tiancaiamao.gitbooks.io/go-internals/content/zh/04.1.html#%E6%9C%AC%E5%9C%B0%E7%BA%BF%E7%A8%8B%E5%AD%98%E5%82%A8)

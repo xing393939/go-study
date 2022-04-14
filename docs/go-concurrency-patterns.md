@@ -2,6 +2,7 @@
 
 #### 参考资料
 * [Netflex开发的熔断限流包](https://learnku.com/articles/53019)
+* [Go 并发模式：超时，执行下一个](https://learnku.com/docs/go-blog/go-concurrency-patterns-timing-out-and/6584)
 
 #### 编程军规
 * Never start a goroutine without knowning when it will stop
@@ -24,4 +25,15 @@
   * 主协程+for循环子协程，有一个子协程失败，则其他子协程也终止：go-demo/parttern-errgroup.breakWhenHasError
   * （注意errgroup.WithContext只用来处理失败，不要把它当作父context传给下游），[bug案例](https://blog.csdn.net/EDDYCJY/article/details/119881145)
 
+#### 管道和撤销
+* [Go 并发模式：管道和撤销](https://learnku.com/docs/go-blog/pipelines/6550)
+* 平方数：sq函数传入的是<-chan，传出的也是<-chan
+* fan-out：N个管道来接收上游的1个管道，并发处理数据
+* fan-in ：N个管道来接收上游的N个管道，汇聚到一个新的管道
+* 止损：当下游提前退出时，上游可能因没有接收者而阻塞，所以需要设置缓冲区
+  * 对于gen方法：因为知道要处理的数量，所以可以准确设置缓冲区
+  * 对于merge方法：因为并不知道管道内有多少数据，因此不能准确设置
+* 显式取消：对于merge方法，需要有一个专门的关闭管道
 
+#### 上下文
+* [Go 并发模式：上下文](https://learnku.com/docs/go-blog/context/6545)
