@@ -20,3 +20,21 @@
   * 复杂的数据结构  
 * PS：Domain Primitive可以说是Value Object的进阶版。
 
+#### 三种对象类型
+1. DO(Data Object)：作为数据库表的映射
+1. Entity：作为领域层的入参和出参。正常业务使用的对象模型，和持久化的方式无关
+1. DTO(Data Transfer Object)：作为应用层的入参和出参。CQRS里面的Query、Command、Event和Request、Response都属于DTO
+
+#### 规范
+1. 接口层的返回值是封装了错误码和DTO的Result，接口层负责捕获所有异常
+1. 应用层不处理异常
+1. 应用层的入参严格来说是CQE：Query、Command、Event
+1. ACL接口可以在应用层和领域层，也就是他们都可以使用基础设施
+  * ACL接口应该在应用层还是领域层？应用层处理的是技术问题，没有业务含义
+
+#### DDD的分层模型
+
+| |接口层|应用层|领域层|基础设施层|
+|---|---|---|---|---|
+|元素|  | Application service<br/>ACL接口 | Entity <br/>Domain Primitive<br/>Domain Service<br/>Repository接口<br/>ACL接口 | ACL具体类<br/>Repository具体类 |
+
