@@ -315,6 +315,9 @@
 <h4 id="&#x53C2;&#x8003;&#x8D44;&#x6599;">&#x53C2;&#x8003;&#x8D44;&#x6599;</h4>
 <ul>
 <li><a href="https://tech.taobao.org/news/wden4k" target="_blank">DDD&#x7CFB;&#x5217;&#x4E94;&#x8BB2;</a></li>
+<li><a href="https://tech.meituan.com/2017/12/22/ddd-in-practice.html" target="_blank">&#x9886;&#x57DF;&#x9A71;&#x52A8;&#x8BBE;&#x8BA1;&#x5728;&#x4E92;&#x8054;&#x7F51;&#x4E1A;&#x52A1;&#x5F00;&#x53D1;&#x4E2D;&#x7684;&#x5B9E;&#x8DF5;</a></li>
+<li><a href="https://mp.weixin.qq.com/s/x4HjK8t6mPAg1vQWa3PrSg" target="_blank">&#x4ECE;&#x7406;&#x8BBA;&#x5230;&#x5B9E;&#x8DF5;&#xFF0C;&#x4E00;&#x6587;&#x5E26;&#x4F60;&#x638C;&#x63E1;DDD</a></li>
+<li><a href="https://book.douban.com/subject/35728308/" target="_blank">&#x9886;&#x57DF;&#x9A71;&#x52A8;&#x8BBE;&#x8BA1;</a></li>
 </ul>
 <h4 id="domain-primitive">Domain Primitive</h4>
 <ul>
@@ -346,9 +349,28 @@
 <li>Entity&#xFF1A;&#x4F5C;&#x4E3A;&#x9886;&#x57DF;&#x5C42;&#x7684;&#x5165;&#x53C2;&#x548C;&#x51FA;&#x53C2;&#x3002;&#x6B63;&#x5E38;&#x4E1A;&#x52A1;&#x4F7F;&#x7528;&#x7684;&#x5BF9;&#x8C61;&#x6A21;&#x578B;&#xFF0C;&#x548C;&#x6301;&#x4E45;&#x5316;&#x7684;&#x65B9;&#x5F0F;&#x65E0;&#x5173;</li>
 <li>DTO(Data Transfer Object)&#xFF1A;&#x4F5C;&#x4E3A;&#x5E94;&#x7528;&#x5C42;&#x7684;&#x5165;&#x53C2;&#x548C;&#x51FA;&#x53C2;&#x3002;CQRS&#x91CC;&#x9762;&#x7684;Query&#x3001;Command&#x3001;Event&#x548C;Request&#x3001;Response&#x90FD;&#x5C5E;&#x4E8E;DTO</li>
 </ol>
+<h4 id="&#x8D2B;&#x8840;&#x6A21;&#x578B;">&#x8D2B;&#x8840;&#x6A21;&#x578B;</h4>
+<ul>
+<li>&#x4EC0;&#x4E48;&#x662F;&#x8D2B;&#x8840;&#x6A21;&#x578B;&#xFF1A;&#x6A21;&#x578B;&#x662F;&#x5BF9;&#x6570;&#x636E;&#x5E93;&#x8868;&#x7684;&#x6620;&#x5C04;&#xFF0C;&#x4EC5;&#x5305;&#x542B;&#x5B9E;&#x4F53;&#x7684;&#x6570;&#x636E;&#x548C;&#x5C5E;&#x6027;&#xFF0C;&#x800C;&#x4E1A;&#x52A1;&#x903B;&#x8F91;&#x90FD;&#x5206;&#x6563;&#x5728;service&#x3001;controller&#x3001;utils&#x4E2D;</li>
+<li>&#x8D2B;&#x8840;&#x6A21;&#x578B;&#x7684;&#x7F3A;&#x9677;&#xFF1A;<ul>
+<li>&#x65E0;&#x6CD5;&#x4FDD;&#x62A4;&#x6A21;&#x578B;&#x5BF9;&#x8C61;&#x7684;&#x5B8C;&#x6574;&#x6027;&#x548C;&#x4E00;&#x81F4;&#x6027;&#xFF0C;&#x56E0;&#x4E3A;&#x5BF9;&#x8C61;&#x7684;&#x6240;&#x6709;&#x5C5E;&#x6027;&#x662F;&#x516C;&#x5F00;&#x7684;</li>
+<li>&#x5F88;&#x96BE;&#x4ECE;&#x5BF9;&#x8C61;&#x5C5E;&#x6027;&#x4E0A;&#x770B;&#x51FA;&#x6709;&#x54EA;&#x4E9B;&#x4E1A;&#x52A1;&#x903B;&#x8F91;&#xFF0C;&#x6BD4;&#x5982;long&#x7C7B;&#x578B;&#x7684;&#x503C;&#x662F;&#x5426;&#x53EF;&#x4EE5;&#x4E3A;&#x8D1F;&#x6570;</li>
+<li>&#x4EE3;&#x7801;&#x903B;&#x8F91;&#x91CD;&#x590D;&#xFF1A;&#x6BD4;&#x5982;&#x6821;&#x9A8C;&#x903B;&#x8F91;&#x5F88;&#x5BB9;&#x6613;&#x51FA;&#x73B0;&#x5728;&#x591A;&#x4E2A;&#x5730;&#x65B9;</li>
+<li>&#x4EE3;&#x7801;&#x7684;&#x5065;&#x58EE;&#x6027;&#x5DEE;&#xFF0C;&#x6A21;&#x578B;&#x7684;&#x53D8;&#x5316;&#x53EF;&#x80FD;&#x5BFC;&#x81F4;&#x4ECE;&#x4E0A;&#x5230;&#x4E0B;&#x7684;&#x4EE3;&#x7801;&#x90FD;&#x8981;&#x53D8;&#x66F4;</li>
+<li>&#x5F3A;&#x4F9D;&#x8D56;&#x5E95;&#x5C42;&#x5B9E;&#x73B0;&#xFF1A;&#x6BD4;&#x5982;&#x7ED1;&#x5B9A;&#x4E86;&#x5E95;&#x5C42;&#x6570;&#x636E;&#x5E93;&#x3001;&#x7F51;&#x7EDC;&#x534F;&#x8BAE;&#x3001;&#x7B2C;&#x4E09;&#x65B9;api</li>
+</ul>
+</li>
+</ul>
 <h4 id="&#x89C4;&#x8303;">&#x89C4;&#x8303;</h4>
 <ol>
 <li>&#x63A5;&#x53E3;&#x5C42;&#x7684;&#x8FD4;&#x56DE;&#x503C;&#x662F;&#x5C01;&#x88C5;&#x4E86;&#x9519;&#x8BEF;&#x7801;&#x548C;DTO&#x7684;Result&#xFF0C;&#x63A5;&#x53E3;&#x5C42;&#x8D1F;&#x8D23;&#x6355;&#x83B7;&#x6240;&#x6709;&#x5F02;&#x5E38;</li>
+<li>&#x63A5;&#x53E3;&#x5C42;&#x7684;&#x529F;&#x80FD;&#xFF1A;<ul>
+<li>&#x7F51;&#x7EDC;&#x534F;&#x8BAE;&#x7684;&#x8F6C;&#x5316;&#xFF1A;&#x6BD4;&#x5982;http&#x3001;grpc</li>
+<li>&#x524D;&#x7F6E;&#x7F13;&#x5B58;&#xFF1A;&#x9488;&#x5BF9;&#x53EA;&#x8BFB;&#x573A;&#x666F;&#x7684;&#x4F18;&#x5316;</li>
+<li>&#x5F02;&#x5E38;&#x5904;&#x7406;&#xFF1A;&#x7EDF;&#x4E00;&#x7684;&#x5F02;&#x5E38;&#x6355;&#x83B7;</li>
+<li>&#x9274;&#x6743;&#x3001;session&#x3001;&#x9650;&#x6D41;&#x3001;&#x65E5;&#x5FD7;&#xFF1A;&#x4E00;&#x4E9B;&#x5FAE;&#x670D;&#x52A1;&#x6846;&#x67B6;&#x53EF;&#x80FD;&#x5DF2;&#x7ECF;&#x5305;&#x542B;&#x8FD9;&#x4E9B;&#xFF0C;&#x6216;&#x8005;&#x653E;&#x5728;&#x72EC;&#x7ACB;&#x7684;&#x7F51;&#x5173;&#x5C42;</li>
+</ul>
+</li>
 <li>&#x5E94;&#x7528;&#x5C42;&#x4E0D;&#x5904;&#x7406;&#x5F02;&#x5E38;</li>
 <li>&#x5E94;&#x7528;&#x5C42;&#x7684;&#x5165;&#x53C2;&#x4E25;&#x683C;&#x6765;&#x8BF4;&#x662F;CQE&#xFF1A;Query&#x3001;Command&#x3001;Event</li>
 <li>ACL&#x63A5;&#x53E3;&#x53EF;&#x4EE5;&#x5728;&#x5E94;&#x7528;&#x5C42;&#x548C;&#x9886;&#x57DF;&#x5C42;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x4ED6;&#x4EEC;&#x90FD;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x57FA;&#x7840;&#x8BBE;&#x65BD;<ul>
@@ -420,7 +442,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Go DDD 学习","level":"1.5","depth":1,"next":{"title":"Go 进阶训练营","level":"1.6","depth":1,"path":"docs/go-advanced-training.md","ref":"docs/go-advanced-training.md","articles":[]},"previous":{"title":"Go 并发模式","level":"1.4","depth":1,"path":"docs/go-concurrency-patterns.md","ref":"docs/go-concurrency-patterns.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-ddd.md","mtime":"2022-04-14T06:53:25.949Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-04-14T06:53:50.796Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Go DDD 学习","level":"1.5","depth":1,"next":{"title":"Go 进阶训练营","level":"1.6","depth":1,"path":"docs/go-advanced-training.md","ref":"docs/go-advanced-training.md","articles":[]},"previous":{"title":"Go 并发模式","level":"1.4","depth":1,"path":"docs/go-concurrency-patterns.md","ref":"docs/go-concurrency-patterns.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-ddd.md","mtime":"2022-04-14T07:53:51.973Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-04-14T07:54:15.903Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
