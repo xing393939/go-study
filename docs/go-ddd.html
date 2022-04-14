@@ -340,6 +340,43 @@
 </li>
 <li>PS&#xFF1A;Domain Primitive&#x53EF;&#x4EE5;&#x8BF4;&#x662F;Value Object&#x7684;&#x8FDB;&#x9636;&#x7248;&#x3002;</li>
 </ul>
+<h4 id="&#x4E09;&#x79CD;&#x5BF9;&#x8C61;&#x7C7B;&#x578B;">&#x4E09;&#x79CD;&#x5BF9;&#x8C61;&#x7C7B;&#x578B;</h4>
+<ol>
+<li>DO(Data Object)&#xFF1A;&#x4F5C;&#x4E3A;&#x6570;&#x636E;&#x5E93;&#x8868;&#x7684;&#x6620;&#x5C04;</li>
+<li>Entity&#xFF1A;&#x4F5C;&#x4E3A;&#x9886;&#x57DF;&#x5C42;&#x7684;&#x5165;&#x53C2;&#x548C;&#x51FA;&#x53C2;&#x3002;&#x6B63;&#x5E38;&#x4E1A;&#x52A1;&#x4F7F;&#x7528;&#x7684;&#x5BF9;&#x8C61;&#x6A21;&#x578B;&#xFF0C;&#x548C;&#x6301;&#x4E45;&#x5316;&#x7684;&#x65B9;&#x5F0F;&#x65E0;&#x5173;</li>
+<li>DTO(Data Transfer Object)&#xFF1A;&#x4F5C;&#x4E3A;&#x5E94;&#x7528;&#x5C42;&#x7684;&#x5165;&#x53C2;&#x548C;&#x51FA;&#x53C2;&#x3002;CQRS&#x91CC;&#x9762;&#x7684;Query&#x3001;Command&#x3001;Event&#x548C;Request&#x3001;Response&#x90FD;&#x5C5E;&#x4E8E;DTO</li>
+</ol>
+<h4 id="&#x89C4;&#x8303;">&#x89C4;&#x8303;</h4>
+<ol>
+<li>&#x63A5;&#x53E3;&#x5C42;&#x7684;&#x8FD4;&#x56DE;&#x503C;&#x662F;&#x5C01;&#x88C5;&#x4E86;&#x9519;&#x8BEF;&#x7801;&#x548C;DTO&#x7684;Result&#xFF0C;&#x63A5;&#x53E3;&#x5C42;&#x8D1F;&#x8D23;&#x6355;&#x83B7;&#x6240;&#x6709;&#x5F02;&#x5E38;</li>
+<li>&#x5E94;&#x7528;&#x5C42;&#x4E0D;&#x5904;&#x7406;&#x5F02;&#x5E38;</li>
+<li>&#x5E94;&#x7528;&#x5C42;&#x7684;&#x5165;&#x53C2;&#x4E25;&#x683C;&#x6765;&#x8BF4;&#x662F;CQE&#xFF1A;Query&#x3001;Command&#x3001;Event</li>
+<li>ACL&#x63A5;&#x53E3;&#x53EF;&#x4EE5;&#x5728;&#x5E94;&#x7528;&#x5C42;&#x548C;&#x9886;&#x57DF;&#x5C42;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x4ED6;&#x4EEC;&#x90FD;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x57FA;&#x7840;&#x8BBE;&#x65BD;<ul>
+<li>ACL&#x63A5;&#x53E3;&#x5E94;&#x8BE5;&#x5728;&#x5E94;&#x7528;&#x5C42;&#x8FD8;&#x662F;&#x9886;&#x57DF;&#x5C42;&#xFF1F;&#x5E94;&#x7528;&#x5C42;&#x5904;&#x7406;&#x7684;&#x662F;&#x6280;&#x672F;&#x95EE;&#x9898;&#xFF0C;&#x6CA1;&#x6709;&#x4E1A;&#x52A1;&#x542B;&#x4E49;</li>
+</ul>
+</li>
+</ol>
+<h4 id="ddd&#x7684;&#x5206;&#x5C42;&#x6A21;&#x578B;">DDD&#x7684;&#x5206;&#x5C42;&#x6A21;&#x578B;</h4>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>&#x63A5;&#x53E3;&#x5C42;</th>
+<th>&#x5E94;&#x7528;&#x5C42;</th>
+<th>&#x9886;&#x57DF;&#x5C42;</th>
+<th>&#x57FA;&#x7840;&#x8BBE;&#x65BD;&#x5C42;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&#x5143;&#x7D20;</td>
+<td></td>
+<td>Application service<br>ACL&#x63A5;&#x53E3;</td>
+<td>Entity <br>Domain Primitive<br>Domain Service<br>Repository&#x63A5;&#x53E3;<br>ACL&#x63A5;&#x53E3;</td>
+<td>ACL&#x5177;&#x4F53;&#x7C7B;<br>Repository&#x5177;&#x4F53;&#x7C7B;</td>
+</tr>
+</tbody>
+</table>
 
                                 
                                 </section>
@@ -383,7 +420,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Go DDD 学习","level":"1.5","depth":1,"next":{"title":"Go 进阶训练营","level":"1.6","depth":1,"path":"docs/go-advanced-training.md","ref":"docs/go-advanced-training.md","articles":[]},"previous":{"title":"Go 并发模式","level":"1.4","depth":1,"path":"docs/go-concurrency-patterns.md","ref":"docs/go-concurrency-patterns.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-ddd.md","mtime":"2022-04-13T10:10:20.160Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-04-13T10:10:54.509Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Go DDD 学习","level":"1.5","depth":1,"next":{"title":"Go 进阶训练营","level":"1.6","depth":1,"path":"docs/go-advanced-training.md","ref":"docs/go-advanced-training.md","articles":[]},"previous":{"title":"Go 并发模式","level":"1.4","depth":1,"path":"docs/go-concurrency-patterns.md","ref":"docs/go-concurrency-patterns.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-ddd.md","mtime":"2022-04-14T06:53:25.949Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-04-14T06:53:50.796Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
