@@ -2,8 +2,8 @@ package service
 
 import (
 	"context"
-	"gf001/internal/model"
-	"gf001/internal/service/internal/dao"
+	"go-study/gf002/internal/model"
+	"go-study/gf002/internal/service/internal/dao"
 )
 
 type sUser struct {}

@@ -1,8 +1,8 @@
-package apiv1
+package v1
 
 import (
-	"gf001/internal/model"
 	"github.com/gogf/gf/v2/frame/g"
+	"go-study/gf002/internal/model"
 )
 
 type UserListReq struct {

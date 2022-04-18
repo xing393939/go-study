@@ -1,9 +1,8 @@
 package main
 
 import (
-	"gf001/internal/cmd"
 	"github.com/gogf/gf/v2/os/gctx"
-	_ "github.com/mattn/go-sqlite3"
+	"go-study/gf002/internal/cmd"
 )
 
 func main() {

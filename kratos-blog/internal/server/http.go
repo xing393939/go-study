@@ -33,6 +33,11 @@ func NewHTTPServer(c *conf.Server, logger log.Logger, blog *service.BlogService)
 		opts = append(opts, http.Timeout(c.Http.Timeout.AsDuration()))
 	}
 	srv := http.NewServer(opts...)
+	http.Middleware(
+		validate.Validator(),
+	)
+
+	// 业务路由
 	v1.RegisterBlogServiceHTTPServer(srv, blog)
 
 	// add swagger

@@ -5,7 +5,7 @@
 package dao
 
 import (
-	"gf001/internal/service/internal/dao/internal"
+	"go-study/gf002/internal/service/internal/dao/internal"
 )
 
 // usersDao is the data access object for table users.
