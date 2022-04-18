@@ -1,6 +1,6 @@
 package model
 
-import "gf001/internal/model/entity"
+import "go-study/gf002/internal/model/entity"
 
 type RowWithUser struct {
 	User *entity.Users

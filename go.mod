@@ -14,7 +14,8 @@ require (
 	github.com/go-kratos/kratos/v2 v2.2.0
 	github.com/go-kratos/swagger-api v1.0.1
 	github.com/go-redis/redis/extra/redisotel v0.3.0
-	github.com/go-redis/redis/v8 v8.11.2
+	github.com/go-redis/redis/v8 v8.11.4
+	github.com/gogf/gf/v2 v2.0.6 // indirect
 	github.com/golang/glog v1.0.0 // indirect
 	github.com/google/gnostic v0.6.8 // indirect
 	github.com/google/wire v0.5.0
