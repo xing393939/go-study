@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>并发模式 · GitBook</title>
+        <title>pprof 工具 · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="go-ddd.html" />
+    <link rel="next" href="go-principle-of-detail.html" />
     
     
-    <link rel="prev" href="go-compilation.html" />
+    <link rel="prev" href="go-ddd.html" />
     
 
     </head>
@@ -202,7 +202,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.3.3" data-path="go-concurrency-patterns.html">
+        <li class="chapter " data-level="1.3.3" data-path="go-concurrency-patterns.html">
             
                 <a href="go-concurrency-patterns.html">
             
@@ -228,7 +228,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.5" data-path="go-pprof.html">
+        <li class="chapter active" data-level="1.3.5" data-path="go-pprof.html">
             
                 <a href="go-pprof.html">
             
@@ -360,7 +360,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >并发模式</a>
+        <a href=".." >pprof 工具</a>
     </h1>
 </div>
 
@@ -375,59 +375,7 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h3 id="go-&#x5E76;&#x53D1;&#x6A21;&#x5F0F;">Go &#x5E76;&#x53D1;&#x6A21;&#x5F0F;</h3>
-<h4 id="&#x53C2;&#x8003;&#x8D44;&#x6599;">&#x53C2;&#x8003;&#x8D44;&#x6599;</h4>
-<ul>
-<li><a href="https://learnku.com/articles/53019" target="_blank">Netflex&#x5F00;&#x53D1;&#x7684;&#x7194;&#x65AD;&#x9650;&#x6D41;&#x5305;</a></li>
-<li><a href="https://learnku.com/docs/go-blog/go-concurrency-patterns-timing-out-and/6584" target="_blank">Go &#x5E76;&#x53D1;&#x6A21;&#x5F0F;&#xFF1A;&#x8D85;&#x65F6;&#xFF0C;&#x6267;&#x884C;&#x4E0B;&#x4E00;&#x4E2A;</a></li>
-</ul>
-<h4 id="&#x7F16;&#x7A0B;&#x519B;&#x89C4;">&#x7F16;&#x7A0B;&#x519B;&#x89C4;</h4>
-<ul>
-<li>Never start a goroutine without knowning when it will stop</li>
-</ul>
-<h4 id="http&#x8BF7;&#x6C42;&#x7684;&#x8D85;&#x65F6;&#x63A7;&#x5236;">http&#x8BF7;&#x6C42;&#x7684;&#x8D85;&#x65F6;&#x63A7;&#x5236;</h4>
-<ul>
-<li>&#x65B9;&#x6848;1&#xFF1A;&#x8BBE;&#x7F6E;http.Client&#x7684;Timeout</li>
-<li>&#x65B9;&#x6848;2&#xFF1A;&#x4F20;&#x7ED9;http.Request&#x4E00;&#x4E2A;&#x8D85;&#x65F6;&#x7684;context&#xFF0C;&#x574F;&#x5904;&#x662F;&#x8D85;&#x65F6;ctx&#x4F1A;&#x5173;&#x95ED;&#x5E95;&#x5C42;&#x8FDE;&#x63A5;&#xFF0C;<a href="https://mp.weixin.qq.com/s/tHBAVX3LKvqi-02cJ2jTdQ" target="_blank">&#x5BFC;&#x81F4;&#x8FDE;&#x63A5;&#x9891;&#x7E41;&#x521B;&#x5EFA;</a></li>
-<li>&#x65B9;&#x6848;3&#xFF1A;go-demo/pattern-timeout.httpRequestWithTimeout</li>
-</ul>
-<h4 id="&#x540C;&#x6B65;&#x8C03;&#x7528;">&#x540C;&#x6B65;&#x8C03;&#x7528;</h4>
-<ol>
-<li>&#x4E3B;&#x534F;&#x7A0B;+for&#x5FAA;&#x73AF;&#x5B50;&#x534F;&#x7A0B;&#xFF1A;<ul>
-<li>context.WithCancel&#xFF0C;&#x4E3B;&#x534F;&#x7A0B;&#x9000;&#x51FA;&#x524D;&#xFF0C;&#x901A;&#x77E5;&#x6240;&#x6709;&#x5B50;&#x534F;&#x7A0B;&#xFF1A;go-demo/parttern-httpandrpc</li>
-</ul>
-</li>
-<li>&#x4E3B;&#x534F;&#x7A0B;+&#x4E00;&#x4E2A;&#x77ED;&#x4EFB;&#x52A1;&#x534F;&#x7A0B;&#xFF0C;&#x540C;&#x6B65;&#x7B49;&#x5F85;N&#x79D2;&#xFF0C;&#x8FC7;&#x65F6;&#x4E0D;&#x5019;&#xFF1A;go-demo/pattern-timeout<ul>
-<li>&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x7684;&#x53D8;&#x79CD;&#x662F;&#x5C01;&#x88C5;&#x6210;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#xFF1A;go-demo/pattern-timeout.httpRequestWithTimeout</li>
-</ul>
-</li>
-<li>&#x4E3B;&#x534F;&#x7A0B;+&#x591A;&#x4E2A;&#x77ED;&#x4EFB;&#x52A1;&#x534F;&#x7A0B;&#xFF0C;&#x540C;&#x6B65;&#x7B49;&#x5F85;&#x5176;&#x4E2D;&#x4E00;&#x4E2A;&#x8FD4;&#x56DE;&#x5373;&#x53EF;&#xFF1A;go-demo/pattern-get1Fromn</li>
-<li>&#x591A;&#x4E2A;&#x534F;&#x7A0B;&#x4E32;&#x884C;&#x6267;&#x884C;&#xFF1A;singleflight</li>
-<li>&#x591A;&#x4E2A;&#x534F;&#x7A0B;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x80FD;&#x6267;&#x884C;&#xFF1A;sync.Once</li>
-<li>sync.errgroup<ul>
-<li>&#x4E3B;&#x534F;&#x7A0B;+&#x591A;&#x4E2A;&#x77ED;&#x4EFB;&#x52A1;&#x534F;&#x7A0B;&#xFF0C;&#x540C;&#x6B65;&#x7B49;&#x5F85;&#x5168;&#x90E8;&#x5B8C;&#x6210;&#xFF0C;&#x82E5;&#x6709;&#x9519;&#x8BEF;&#x8FD4;&#x56DE;&#x7B2C;&#x4E00;&#x4E2A;&#x9519;&#x8BEF;&#xFF1A;go-demo/parttern-errgroup.noBreakWhenHasError</li>
-<li>&#x4E3B;&#x534F;&#x7A0B;+for&#x5FAA;&#x73AF;&#x5B50;&#x534F;&#x7A0B;&#xFF0C;&#x6709;&#x4E00;&#x4E2A;&#x5B50;&#x534F;&#x7A0B;&#x5931;&#x8D25;&#xFF0C;&#x5219;&#x5176;&#x4ED6;&#x5B50;&#x534F;&#x7A0B;&#x4E5F;&#x7EC8;&#x6B62;&#xFF1A;go-demo/parttern-errgroup.breakWhenHasError</li>
-<li>&#xFF08;&#x6CE8;&#x610F;errgroup.WithContext&#x53EA;&#x7528;&#x6765;&#x5904;&#x7406;&#x5931;&#x8D25;&#xFF0C;&#x4E0D;&#x8981;&#x628A;&#x5B83;&#x5F53;&#x4F5C;&#x7236;context&#x4F20;&#x7ED9;&#x4E0B;&#x6E38;&#xFF09;&#xFF0C;<a href="https://blog.csdn.net/EDDYCJY/article/details/119881145" target="_blank">bug&#x6848;&#x4F8B;</a></li>
-</ul>
-</li>
-</ol>
-<h4 id="&#x7BA1;&#x9053;&#x548C;&#x64A4;&#x9500;">&#x7BA1;&#x9053;&#x548C;&#x64A4;&#x9500;</h4>
-<ul>
-<li><a href="https://learnku.com/docs/go-blog/pipelines/6550" target="_blank">Go &#x5E76;&#x53D1;&#x6A21;&#x5F0F;&#xFF1A;&#x7BA1;&#x9053;&#x548C;&#x64A4;&#x9500;</a></li>
-<li>&#x5E73;&#x65B9;&#x6570;&#xFF1A;sq&#x51FD;&#x6570;&#x4F20;&#x5165;&#x7684;&#x662F;&lt;-chan&#xFF0C;&#x4F20;&#x51FA;&#x7684;&#x4E5F;&#x662F;&lt;-chan</li>
-<li>fan-out&#xFF1A;N&#x4E2A;&#x7BA1;&#x9053;&#x6765;&#x63A5;&#x6536;&#x4E0A;&#x6E38;&#x7684;1&#x4E2A;&#x7BA1;&#x9053;&#xFF0C;&#x5E76;&#x53D1;&#x5904;&#x7406;&#x6570;&#x636E;</li>
-<li>fan-in &#xFF1A;N&#x4E2A;&#x7BA1;&#x9053;&#x6765;&#x63A5;&#x6536;&#x4E0A;&#x6E38;&#x7684;N&#x4E2A;&#x7BA1;&#x9053;&#xFF0C;&#x6C47;&#x805A;&#x5230;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x7BA1;&#x9053;</li>
-<li>&#x6B62;&#x635F;&#xFF1A;&#x5F53;&#x4E0B;&#x6E38;&#x63D0;&#x524D;&#x9000;&#x51FA;&#x65F6;&#xFF0C;&#x4E0A;&#x6E38;&#x53EF;&#x80FD;&#x56E0;&#x6CA1;&#x6709;&#x63A5;&#x6536;&#x8005;&#x800C;&#x963B;&#x585E;&#xFF0C;&#x6240;&#x4EE5;&#x9700;&#x8981;&#x8BBE;&#x7F6E;&#x7F13;&#x51B2;&#x533A;<ul>
-<li>&#x5BF9;&#x4E8E;gen&#x65B9;&#x6CD5;&#xFF1A;&#x56E0;&#x4E3A;&#x77E5;&#x9053;&#x8981;&#x5904;&#x7406;&#x7684;&#x6570;&#x91CF;&#xFF0C;&#x6240;&#x4EE5;&#x53EF;&#x4EE5;&#x51C6;&#x786E;&#x8BBE;&#x7F6E;&#x7F13;&#x51B2;&#x533A;</li>
-<li>&#x5BF9;&#x4E8E;merge&#x65B9;&#x6CD5;&#xFF1A;&#x56E0;&#x4E3A;&#x5E76;&#x4E0D;&#x77E5;&#x9053;&#x7BA1;&#x9053;&#x5185;&#x6709;&#x591A;&#x5C11;&#x6570;&#x636E;&#xFF0C;&#x56E0;&#x6B64;&#x4E0D;&#x80FD;&#x51C6;&#x786E;&#x8BBE;&#x7F6E;</li>
-</ul>
-</li>
-<li>&#x663E;&#x5F0F;&#x53D6;&#x6D88;&#xFF1A;&#x5BF9;&#x4E8E;merge&#x65B9;&#x6CD5;&#xFF0C;&#x9700;&#x8981;&#x6709;&#x4E00;&#x4E2A;&#x4E13;&#x95E8;&#x7684;&#x5173;&#x95ED;&#x7BA1;&#x9053;</li>
-</ul>
-<h4 id="&#x4E0A;&#x4E0B;&#x6587;">&#x4E0A;&#x4E0B;&#x6587;</h4>
-<ul>
-<li><a href="https://learnku.com/docs/go-blog/context/6545" target="_blank">Go &#x5E76;&#x53D1;&#x6A21;&#x5F0F;&#xFF1A;&#x4E0A;&#x4E0B;&#x6587;</a></li>
-</ul>
+                                <h3 id="&#x7EC6;&#x8282;&#x539F;&#x7406;">&#x7EC6;&#x8282;&#x539F;&#x7406;</h3>
 
                                 
                                 </section>
@@ -455,12 +403,12 @@
 
             
                 
-                <a href="go-compilation.html" class="navigation navigation-prev " aria-label="Previous page: 汇编相关">
+                <a href="go-ddd.html" class="navigation navigation-prev " aria-label="Previous page: DDD 学习">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="go-ddd.html" class="navigation navigation-next " aria-label="Next page: DDD 学习">
+                <a href="go-principle-of-detail.html" class="navigation navigation-next " aria-label="Next page: 细节原理">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -471,7 +419,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"并发模式","level":"1.3.3","depth":2,"next":{"title":"DDD 学习","level":"1.3.4","depth":2,"path":"docs/go-ddd.md","ref":"docs/go-ddd.md","articles":[]},"previous":{"title":"汇编相关","level":"1.3.2","depth":2,"path":"docs/go-compilation.md","ref":"docs/go-compilation.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-concurrency-patterns.md","mtime":"2022-04-20T09:53:06.067Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-04-20T09:53:29.382Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"pprof 工具","level":"1.3.5","depth":2,"next":{"title":"细节原理","level":"1.3.6","depth":2,"path":"docs/go-principle-of-detail.md","ref":"docs/go-principle-of-detail.md","articles":[]},"previous":{"title":"DDD 学习","level":"1.3.4","depth":2,"path":"docs/go-ddd.md","ref":"docs/go-ddd.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-pprof.md","mtime":"2022-04-20T09:53:06.067Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-04-20T09:53:29.382Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
