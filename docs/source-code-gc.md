@@ -1,7 +1,7 @@
-<link rel="stylesheet" href="../extra/ideal-image-slider.css">
-<link rel="stylesheet" href="../extra/ideal-default-theme.css">
-<script src="../extra/ideal-image-slider.js"></script>
-<script src="../extra/ideal-iis-bullet-nav.js"></script>
+<link rel="stylesheet" href="../images/ideal-image-slider.css">
+<link rel="stylesheet" href="../images/ideal-default-theme.css">
+<script src="../images/ideal-image-slider.js"></script>
+<script src="../images/ideal-iis-bullet-nav.js"></script>
 
 ### GC 分析
 
