@@ -1,4 +1,4 @@
-package nil
+package nilcompare
 
 import (
 	"fmt"
