@@ -10,7 +10,9 @@ MOVQ $0x123, AX  // AX=291
 MOVB $1, DI      // 1 byte
 MOVW $0x10, BX   // 2 bytes
 MOVD $1, DX      // 4 bytes
+MOVL $1, DX      // 4 bytes
 MOVQ $-10, AX    // 8 bytes
+XCHG DST,SRC     // 交换DST,SRC的值，DST,SRC不能同时是内存
 
 //SIMD
 movups: 把(16B)4个不对准的单精度值传送到xmm寄存器或者内存

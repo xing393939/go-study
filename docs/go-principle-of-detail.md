@@ -8,4 +8,7 @@
 
 <div class="DialogCode" data-code="strings/WriteString"></div>
 
+#### defer 的执行顺序
+* 需要注意有名返回值在defer中可以被修改，如func get() (i int)
 
+<div class="DialogCode" data-code="demo/testDefer"></div>
