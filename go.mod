@@ -29,6 +29,7 @@ require (
 	github.com/mattn/go-sqlite3 v1.14.12
 	github.com/mitchellh/mapstructure v1.4.3 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
+	github.com/tsliwowicz/go-wrk v0.0.0-20210628064207-cc6865c14ec7 // indirect
 	github.com/tx7do/kratos-transport v0.0.0-20220419014525-edc165b59c27
 	github.com/ziutek/mymysql v1.5.4 // indirect
 	go.opentelemetry.io/otel v1.3.0
