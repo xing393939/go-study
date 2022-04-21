@@ -4,7 +4,6 @@ import (
 	"go-study/plan9/backtrace"
 	"go-study/plan9/callgofunction"
 	"go-study/plan9/math"
-	"go-study/plan9/nilcompare"
 	"go-study/plan9/registers"
 	"go-study/plan9/swap"
 	"go-study/plan9/test"
@@ -33,8 +32,6 @@ func b() {
 func main() {
 
 	println("====")
-
-	nilcompare.Test()
 
 	println(registers.Output(987654321))
 

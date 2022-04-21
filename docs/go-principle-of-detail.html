@@ -407,6 +407,55 @@
 </ul>
 </li>
 </ul>
+<h4 id="nil&#x548C;interface">nil&#x548C;interface</h4>
+<ol>
+<li>&#x4E00;&#x4E2A;&#x63A5;&#x53E3;&#x7B49;&#x4E8E;nil&#xFF1A;&#x6709;&#x4E14;&#x4EC5;&#x5F53;&#x7C7B;&#x578B;T&#x548C;&#x503C;V&#x90FD;&#x662F;unset</li>
+<li>&#x4E24;&#x4E2A;&#x63A5;&#x53E3;&#x6BD4;&#x8F83;&#x65F6;&#xFF0C;&#x4F1A;&#x5148;&#x6BD4;&#x8F83;&#x7C7B;&#x578B;T&#xFF0C;&#x518D;&#x6BD4;&#x8F83;&#x503C;V</li>
+<li>&#x63A5;&#x53E3;&#x4E0E;&#x975E;&#x63A5;&#x53E3;&#x6BD4;&#x8F83;&#x65F6;&#xFF0C;&#x4F1A;&#x5148;&#x5C06;&#x975E;&#x63A5;&#x53E3;&#x8F6C;&#x6362;&#x6210;&#x63A5;&#x53E3;</li>
+</ol>
+<h4 id="&#x503C;&#x63A5;&#x6536;&#x8005;&#x548C;&#x6307;&#x9488;&#x63A5;&#x6536;&#x8005;">&#x503C;&#x63A5;&#x6536;&#x8005;&#x548C;&#x6307;&#x9488;&#x63A5;&#x6536;&#x8005;</h4>
+<ul>
+<li><a href="https://geektutu.com/post/qa-golang-2.html#Q7-%E9%9D%9E%E6%8E%A5%E5%8F%A3%E9%9D%9E%E6%8E%A5%E5%8F%A3%E7%9A%84%E4%BB%BB%E6%84%8F%E7%B1%BB%E5%9E%8B-T-%E9%83%BD%E8%83%BD%E5%A4%9F%E8%B0%83%E7%94%A8-T-%E7%9A%84%E6%96%B9%E6%B3%95%E5%90%97%EF%BC%9F%E5%8F%8D%E8%BF%87%E6%9D%A5%E5%91%A2%EF%BC%9F" target="_blank">&#x975E;&#x63A5;&#x53E3;&#x7684;&#x4EFB;&#x610F;&#x7C7B;&#x578B;T&#x90FD;&#x80FD;&#x591F;&#x8C03;&#x7528;*T&#x7684;&#x65B9;&#x6CD5;&#x5417;&#xFF1F;&#x53CD;&#x8FC7;&#x6765;&#x5462;</a></li>
+<li>T&#x521D;&#x59CB;&#x5316;&#x7684;&#x53D8;&#x91CF;t1&#xFF0C;&#x5982;&#x679C;&#x662F;&#x201C;&#x4E0D;&#x53EF;&#x5BFB;&#x5740;&#x7684;&#x201D;&#xFF0C;&#x5219;&#x4E0D;&#x80FD;&#x8C03;&#x7528;&#x6307;&#x9488;&#x63A5;&#x6536;&#x8005;&#x5B9A;&#x4E49;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x54EA;&#x4E9B;&#x662F;&#x201C;&#x4E0D;&#x53EF;&#x5BFB;&#x5740;&#x7684;&#x201D;&#xFF1A;<ul>
+<li>map&#x4E2D;&#x7684;&#x5143;&#x7D20;(slice&#x7684;&#x5143;&#x7D20;&#x53EF;&#x5BFB;&#x5740;)</li>
+<li>const&#x5E38;&#x91CF;</li>
+<li>&#x5B57;&#x7B26;&#x4E32;&#x4E2D;&#x7684;&#x5B57;&#x8282;</li>
+<li>&#x5305;&#x7EA7;&#x522B;&#x7684;&#x51FD;&#x6570;</li>
+</ul>
+</li>
+<li>&#x6D4B;&#x8BD5;&#x4EE3;&#x7801;&#xFF1A;go-demo/receiver</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>func (T) Error()</th>
+<th>func (*T) UnmarshalJSON()</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T&#x521D;&#x59CB;&#x5316;&#x7684;&#x53D8;&#x91CF;t1</td>
+<td>&#x53EF;&#x4EE5;&#x8C03;&#x7528;</td>
+<td>&#x8981;&#x6C42;&#x53D8;&#x91CF;&#x662F;&#x53EF;&#x5BFB;&#x5740;&#x7684;</td>
+</tr>
+<tr>
+<td>*T&#x521D;&#x59CB;&#x5316;&#x7684;&#x53D8;&#x91CF;t2</td>
+<td>&#x53EF;&#x4EE5;&#x8C03;&#x7528;</td>
+<td>&#x53EF;&#x4EE5;&#x8C03;&#x7528;</td>
+</tr>
+<tr>
+<td>T&#x521D;&#x59CB;&#x5316;&#x7684;&#x53D8;&#x91CF;t1&#x80FD;&#x5426;&#x5B9E;&#x73B0;&#x63A5;&#x53E3;</td>
+<td>&#x53EF;&#x4EE5;</td>
+<td>&#x4E0D;&#x80FD;</td>
+</tr>
+<tr>
+<td>*T&#x521D;&#x59CB;&#x5316;&#x7684;&#x53D8;t2&#x91CF;&#x80FD;&#x5426;&#x5B9E;&#x73B0;&#x63A5;&#x53E3;</td>
+<td>&#x53EF;&#x4EE5;</td>
+<td>&#x53EF;&#x4EE5;</td>
+</tr>
+</tbody>
+</table>
 
                                 
                                 </section>
@@ -446,7 +495,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"细节原理","level":"1.3.6","depth":2,"next":{"title":"源码分析","level":"1.4","depth":1,"ref":"","articles":[{"title":"全局变量","level":"1.4.1","depth":2,"path":"docs/source-code-global-variable.md","ref":"docs/source-code-global-variable.md","articles":[]},{"title":"核心函数","level":"1.4.2","depth":2,"path":"docs/source-code-core-functions.md","ref":"docs/source-code-core-functions.md","articles":[]},{"title":"GC 分析","level":"1.4.3","depth":2,"path":"docs/source-code-gc.md","ref":"docs/source-code-gc.md","articles":[]},{"title":"启动main协程","level":"1.4.4","depth":2,"path":"docs/source-code-main-goroutine.md","ref":"docs/source-code-main-goroutine.md","articles":[]}]},"previous":{"title":"pprof 工具","level":"1.3.5","depth":2,"path":"docs/go-pprof.md","ref":"docs/go-pprof.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-principle-of-detail.md","mtime":"2022-04-21T08:48:50.513Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-04-21T08:49:17.062Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"细节原理","level":"1.3.6","depth":2,"next":{"title":"源码分析","level":"1.4","depth":1,"ref":"","articles":[{"title":"全局变量","level":"1.4.1","depth":2,"path":"docs/source-code-global-variable.md","ref":"docs/source-code-global-variable.md","articles":[]},{"title":"核心函数","level":"1.4.2","depth":2,"path":"docs/source-code-core-functions.md","ref":"docs/source-code-core-functions.md","articles":[]},{"title":"GC 分析","level":"1.4.3","depth":2,"path":"docs/source-code-gc.md","ref":"docs/source-code-gc.md","articles":[]},{"title":"启动main协程","level":"1.4.4","depth":2,"path":"docs/source-code-main-goroutine.md","ref":"docs/source-code-main-goroutine.md","articles":[]}]},"previous":{"title":"pprof 工具","level":"1.3.5","depth":2,"path":"docs/go-pprof.md","ref":"docs/go-pprof.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-principle-of-detail.md","mtime":"2022-04-21T11:06:24.219Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-04-21T11:06:54.231Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

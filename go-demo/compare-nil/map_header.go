@@ -1,7 +1,7 @@
 /**
  * 参考：https://hackernoon.com/some-insights-on-maps-in-golang-rm5v3ywh
  */
-package nilcompare
+package main
 
 import "unsafe"
 

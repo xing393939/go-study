@@ -1,10 +1,10 @@
-package nilcompare
+package main
 
 import (
 	"fmt"
 )
 
-func Test() {
+func main() {
 	temp := 1
 	pointer1 := &temp
 	println(pointer1 == nil)
@@ -13,9 +13,9 @@ func Test() {
 	var s1 = make([]int, 10)
 	var s2 = make([]int, 0)
 	var s3 []int
-	println(s1 == nil) // 空切片分配了内存
-	println(s2 == nil) // 零切片指针指向zerobase
-	println(s3 == nil) // nil切片指针是0
+	println("s1", s1 == nil) // 空切片分配了内存
+	println("s2", s2 == nil) // 零切片指针指向zerobase
+	println("s3", s3 == nil) // nil切片指针是0
 
 	var m1 map[string]int
 	var m2 = make(map[string]int)
