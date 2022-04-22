@@ -24,9 +24,78 @@
 * 两种情况下interface相等
   * 两个interface均等于nil，此时类型T和值V都是unset
   * 类型T相同，且对应的值V相等
-  
+
+```go
+//go:nosplit
+func testEq(a interface{}, b interface{}) bool {
+	return a == b
+}
+
+TEXT    "".testEq(SB), NOSPLIT|ABIInternal, $40-40
+        SUBQ    $40, SP
+        MOVQ    BP, 32(SP)
+        LEAQ    32(SP), BP          // 设置栈和保存BP
+        MOVB    $0, "".~r2+80(SP)   // r2 = 0
+        MOVQ    "".b+64(SP), AX
+        CMPQ    "".a+48(SP), AX     // 比较a._type和b._type  
+        SETEQ   AL
+        JEQ     testNamed_pc36      // 相等跳转 
+        JMP     testNamed_pc91      // 不相等跳转
+testNamed_pc36:
+        MOVQ    "".a+48(SP), AX
+        MOVQ    "".a+56(SP), CX
+        MOVQ    "".b+72(SP), DX
+        MOVQ    AX, (SP)
+        MOVQ    CX, 8(SP)
+        MOVQ    DX, 16(SP)
+        CALL    runtime.efaceeq(SB) // efaceeq(a._type, a.value, b.value)
+        MOVBLZX 24(SP), AX
+        JMP     testNamed_pc77
+testNamed_pc77:
+        MOVB    AL, "".~r2+80(SP)
+        MOVQ    32(SP), BP
+        ADDQ    $40, SP
+        RET
+testNamed_pc91:
+        JMP     testNamed_pc77
+        RET
+```
+
+#### 和nil比较
+```go
+//go:nosplit
+func testCompareNil(a []int) bool {
+	return a == nil
+}
+TEXT    "".testCompareNil(SB), NOSPLIT|ABIInternal, $0-32
+        MOVB    $0, "".~r1+32(SP)  // r1 = 0
+        CMPQ    "".a+8(SP), $0     // 比较a.Data和0
+        SETEQ   "".~r1+32(SP)      // 设置r1
+        RET
+//go:nosplit
+func testCompareNil(a map[int]int) bool {
+	return a == nil
+}
+TEXT    "".testCompareNil(SB), NOSPLIT|ABIInternal, $0-16
+        MOVB    $0, "".~r1+16(SP)  // r1 = 0
+        CMPQ    "".a+8(SP), $0     // 比较a(*hmap)和0
+        SETEQ   "".~r1+16(SP)      // 设置r1
+        RET
+//go:nosplit
+func testCompareNil(a interface{}) bool {
+	return a == nil
+}
+TEXT    "".testCompareNil(SB), NOSPLIT|ABIInternal, $0-24
+        MOVB    $0, "".~r1+24(SP) // r1 = 0
+        CMPQ    "".a+8(SP), $0    // 比较a._type和0
+        SETEQ   "".~r1+24(SP)     // 设置r1
+        RET
+```
+
 #### nil和interface
-1. 一个接口等于nil：有且仅当类型T和值V都是unset
+1. 一个接口等于nil：类型T是nil(eface和iface都适用)
+  * _type和data都是nil：var a interface{} = nil或 var b error = nil
+  * _type不为0data为0：var a *int && var b interface{} = a
 1. 两个接口比较时，会先比较类型T，再比较值V
 1. 接口与非接口比较时，会先将非接口转换成接口
 
