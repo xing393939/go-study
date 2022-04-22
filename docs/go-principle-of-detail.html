@@ -407,9 +407,76 @@
 </ul>
 </li>
 </ul>
+<pre><code class="lang-go"><span class="hljs-comment">//go:nosplit</span>
+<span class="hljs-keyword">func</span> testEq(a <span class="hljs-keyword">interface</span>{}, b <span class="hljs-keyword">interface</span>{}) <span class="hljs-keyword">bool</span> {
+    <span class="hljs-keyword">return</span> a == b
+}
+
+TEXT    <span class="hljs-string">&quot;&quot;</span>.testEq(SB), NOSPLIT|ABIInternal, $<span class="hljs-number">40</span><span class="hljs-number">-40</span>
+        SUBQ    $<span class="hljs-number">40</span>, SP
+        MOVQ    BP, <span class="hljs-number">32</span>(SP)
+        LEAQ    <span class="hljs-number">32</span>(SP), BP          <span class="hljs-comment">// &#x8BBE;&#x7F6E;&#x6808;&#x548C;&#x4FDD;&#x5B58;BP</span>
+        MOVB    $<span class="hljs-number">0</span>, <span class="hljs-string">&quot;&quot;</span>.~r2+<span class="hljs-number">80</span>(SP)   <span class="hljs-comment">// r2 = 0</span>
+        MOVQ    <span class="hljs-string">&quot;&quot;</span>.b+<span class="hljs-number">64</span>(SP), AX
+        CMPQ    <span class="hljs-string">&quot;&quot;</span>.a+<span class="hljs-number">48</span>(SP), AX     <span class="hljs-comment">// &#x6BD4;&#x8F83;a._type&#x548C;b._type  </span>
+        SETEQ   AL
+        JEQ     testNamed_pc36      <span class="hljs-comment">// &#x76F8;&#x7B49;&#x8DF3;&#x8F6C; </span>
+        JMP     testNamed_pc91      <span class="hljs-comment">// &#x4E0D;&#x76F8;&#x7B49;&#x8DF3;&#x8F6C;</span>
+testNamed_pc36:
+        MOVQ    <span class="hljs-string">&quot;&quot;</span>.a+<span class="hljs-number">48</span>(SP), AX
+        MOVQ    <span class="hljs-string">&quot;&quot;</span>.a+<span class="hljs-number">56</span>(SP), CX
+        MOVQ    <span class="hljs-string">&quot;&quot;</span>.b+<span class="hljs-number">72</span>(SP), DX
+        MOVQ    AX, (SP)
+        MOVQ    CX, <span class="hljs-number">8</span>(SP)
+        MOVQ    DX, <span class="hljs-number">16</span>(SP)
+        CALL    runtime.efaceeq(SB) <span class="hljs-comment">// efaceeq(a._type, a.value, b.value)</span>
+        MOVBLZX <span class="hljs-number">24</span>(SP), AX
+        JMP     testNamed_pc77
+testNamed_pc77:
+        MOVB    AL, <span class="hljs-string">&quot;&quot;</span>.~r2+<span class="hljs-number">80</span>(SP)
+        MOVQ    <span class="hljs-number">32</span>(SP), BP
+        ADDQ    $<span class="hljs-number">40</span>, SP
+        RET
+testNamed_pc91:
+        JMP     testNamed_pc77
+        RET
+</code></pre>
+<h4 id="&#x548C;nil&#x6BD4;&#x8F83;">&#x548C;nil&#x6BD4;&#x8F83;</h4>
+<pre><code class="lang-go"><span class="hljs-comment">//go:nosplit</span>
+<span class="hljs-keyword">func</span> testCompareNil(a []<span class="hljs-keyword">int</span>) <span class="hljs-keyword">bool</span> {
+    <span class="hljs-keyword">return</span> a == <span class="hljs-literal">nil</span>
+}
+TEXT    <span class="hljs-string">&quot;&quot;</span>.testCompareNil(SB), NOSPLIT|ABIInternal, $<span class="hljs-number">0</span><span class="hljs-number">-32</span>
+        MOVB    $<span class="hljs-number">0</span>, <span class="hljs-string">&quot;&quot;</span>.~r1+<span class="hljs-number">32</span>(SP)  <span class="hljs-comment">// r1 = 0</span>
+        CMPQ    <span class="hljs-string">&quot;&quot;</span>.a+<span class="hljs-number">8</span>(SP), $<span class="hljs-number">0</span>     <span class="hljs-comment">// &#x6BD4;&#x8F83;a.Data&#x548C;0</span>
+        SETEQ   <span class="hljs-string">&quot;&quot;</span>.~r1+<span class="hljs-number">32</span>(SP)      <span class="hljs-comment">// &#x8BBE;&#x7F6E;r1</span>
+        RET
+<span class="hljs-comment">//go:nosplit</span>
+<span class="hljs-keyword">func</span> testCompareNil(a <span class="hljs-keyword">map</span>[<span class="hljs-keyword">int</span>]<span class="hljs-keyword">int</span>) <span class="hljs-keyword">bool</span> {
+    <span class="hljs-keyword">return</span> a == <span class="hljs-literal">nil</span>
+}
+TEXT    <span class="hljs-string">&quot;&quot;</span>.testCompareNil(SB), NOSPLIT|ABIInternal, $<span class="hljs-number">0</span><span class="hljs-number">-16</span>
+        MOVB    $<span class="hljs-number">0</span>, <span class="hljs-string">&quot;&quot;</span>.~r1+<span class="hljs-number">16</span>(SP)  <span class="hljs-comment">// r1 = 0</span>
+        CMPQ    <span class="hljs-string">&quot;&quot;</span>.a+<span class="hljs-number">8</span>(SP), $<span class="hljs-number">0</span>     <span class="hljs-comment">// &#x6BD4;&#x8F83;a(*hmap)&#x548C;0</span>
+        SETEQ   <span class="hljs-string">&quot;&quot;</span>.~r1+<span class="hljs-number">16</span>(SP)      <span class="hljs-comment">// &#x8BBE;&#x7F6E;r1</span>
+        RET
+<span class="hljs-comment">//go:nosplit</span>
+<span class="hljs-keyword">func</span> testCompareNil(a <span class="hljs-keyword">interface</span>{}) <span class="hljs-keyword">bool</span> {
+    <span class="hljs-keyword">return</span> a == <span class="hljs-literal">nil</span>
+}
+TEXT    <span class="hljs-string">&quot;&quot;</span>.testCompareNil(SB), NOSPLIT|ABIInternal, $<span class="hljs-number">0</span><span class="hljs-number">-24</span>
+        MOVB    $<span class="hljs-number">0</span>, <span class="hljs-string">&quot;&quot;</span>.~r1+<span class="hljs-number">24</span>(SP) <span class="hljs-comment">// r1 = 0</span>
+        CMPQ    <span class="hljs-string">&quot;&quot;</span>.a+<span class="hljs-number">8</span>(SP), $<span class="hljs-number">0</span>    <span class="hljs-comment">// &#x6BD4;&#x8F83;a._type&#x548C;0</span>
+        SETEQ   <span class="hljs-string">&quot;&quot;</span>.~r1+<span class="hljs-number">24</span>(SP)     <span class="hljs-comment">// &#x8BBE;&#x7F6E;r1</span>
+        RET
+</code></pre>
 <h4 id="nil&#x548C;interface">nil&#x548C;interface</h4>
 <ol>
-<li>&#x4E00;&#x4E2A;&#x63A5;&#x53E3;&#x7B49;&#x4E8E;nil&#xFF1A;&#x6709;&#x4E14;&#x4EC5;&#x5F53;&#x7C7B;&#x578B;T&#x548C;&#x503C;V&#x90FD;&#x662F;unset</li>
+<li>&#x4E00;&#x4E2A;&#x63A5;&#x53E3;&#x7B49;&#x4E8E;nil&#xFF1A;&#x7C7B;&#x578B;T&#x662F;nil(eface&#x548C;iface&#x90FD;&#x9002;&#x7528;)<ul>
+<li>_type&#x548C;data&#x90FD;&#x662F;nil&#xFF1A;var a interface{} = nil&#x6216; var b error = nil</li>
+<li>_type&#x4E0D;&#x4E3A;0data&#x4E3A;0&#xFF1A;var a *int &amp;&amp; var b interface{} = a</li>
+</ul>
+</li>
 <li>&#x4E24;&#x4E2A;&#x63A5;&#x53E3;&#x6BD4;&#x8F83;&#x65F6;&#xFF0C;&#x4F1A;&#x5148;&#x6BD4;&#x8F83;&#x7C7B;&#x578B;T&#xFF0C;&#x518D;&#x6BD4;&#x8F83;&#x503C;V</li>
 <li>&#x63A5;&#x53E3;&#x4E0E;&#x975E;&#x63A5;&#x53E3;&#x6BD4;&#x8F83;&#x65F6;&#xFF0C;&#x4F1A;&#x5148;&#x5C06;&#x975E;&#x63A5;&#x53E3;&#x8F6C;&#x6362;&#x6210;&#x63A5;&#x53E3;</li>
 </ol>
@@ -495,7 +562,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"细节原理","level":"1.3.6","depth":2,"next":{"title":"源码分析","level":"1.4","depth":1,"ref":"","articles":[{"title":"全局变量","level":"1.4.1","depth":2,"path":"docs/source-code-global-variable.md","ref":"docs/source-code-global-variable.md","articles":[]},{"title":"核心函数","level":"1.4.2","depth":2,"path":"docs/source-code-core-functions.md","ref":"docs/source-code-core-functions.md","articles":[]},{"title":"GC 分析","level":"1.4.3","depth":2,"path":"docs/source-code-gc.md","ref":"docs/source-code-gc.md","articles":[]},{"title":"启动main协程","level":"1.4.4","depth":2,"path":"docs/source-code-main-goroutine.md","ref":"docs/source-code-main-goroutine.md","articles":[]}]},"previous":{"title":"pprof 工具","level":"1.3.5","depth":2,"path":"docs/go-pprof.md","ref":"docs/go-pprof.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-principle-of-detail.md","mtime":"2022-04-21T11:06:24.219Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-04-21T11:06:54.231Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"细节原理","level":"1.3.6","depth":2,"next":{"title":"源码分析","level":"1.4","depth":1,"ref":"","articles":[{"title":"全局变量","level":"1.4.1","depth":2,"path":"docs/source-code-global-variable.md","ref":"docs/source-code-global-variable.md","articles":[]},{"title":"核心函数","level":"1.4.2","depth":2,"path":"docs/source-code-core-functions.md","ref":"docs/source-code-core-functions.md","articles":[]},{"title":"GC 分析","level":"1.4.3","depth":2,"path":"docs/source-code-gc.md","ref":"docs/source-code-gc.md","articles":[]},{"title":"启动main协程","level":"1.4.4","depth":2,"path":"docs/source-code-main-goroutine.md","ref":"docs/source-code-main-goroutine.md","articles":[]}]},"previous":{"title":"pprof 工具","level":"1.3.5","depth":2,"path":"docs/go-pprof.md","ref":"docs/go-pprof.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-principle-of-detail.md","mtime":"2022-04-22T03:07:11.929Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-04-22T03:07:45.248Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
