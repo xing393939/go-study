@@ -3,14 +3,24 @@
 <link rel="stylesheet" type="text/css" href="../images/jquery.dialog.css">
 <script type=text/javascript src="../images/jquery.dialog-code.js"></script>
 
+#### 对齐规则
+* [Go 夜读-内存对齐](https://www.bilibili.com/video/BV1iZ4y1j7TT)
+* [在 Go 中恰到好处的内存对齐](https://eddycjy.gitbook.io/golang/di-1-ke-za-tan/go-memory-align)
+* 编译器默认对齐长度：#pragma pack(n)，一般是8
+* 对齐规则：
+  * 结构体的成员变量，第一个成员的偏移量为0。之后的成员的偏移量需要是min(编译器默认, 当前成员的类型长度)的倍数
+  * 结构体本身的类型长度=max(编译器默认, 所有成员的类型长度的最大值)
+* [在线测试代码](https://go.dev/play/p/25Pr9TmqW-C)
+
 #### 如何高效地拼接字符串
+* 
 * var b strings.Builder && b.WriteString("asong") && b.string()
 
 <div class="DialogCode" data-code="strings/WriteString"></div>
 
 #### defer 的执行顺序
 * [Go 语言笔试面试题](https://geektutu.com/post/qa-golang-1.html)
-* 需要注意有名返回值在defer中可以被修改，如func get() (i int)
+* 需要注意有名返回值在defer中可以被修改，如func testNamed() (i int)
 
 <div class="DialogCode" data-code="demo/testDefer"></div>
 
