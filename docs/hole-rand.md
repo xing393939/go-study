@@ -1,4 +1,4 @@
-### GO 坑之math/rand
+### Go 坑之math/rand
 
 <link rel="stylesheet" type="text/css" href="../images/jquery.dialog.css">
 <script type=text/javascript src="../images/jquery.dialog-code.js"></script>
