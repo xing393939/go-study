@@ -23,3 +23,17 @@
   * gdb
   * perf命令
   * viewcore
+
+#### 性能优化究竟应该怎么做
+* [性能优化究竟应该怎么做](https://talkgo.org/t/topic/2127)
+* pprof可以收集的：
+  * on-cpu profile
+  * memory
+  * goroutine
+* fgprof：弥补pprof不能抓休眠协程的短板
+* trace：诊断运行时的bug
+* perf
+* OOM常见情况：
+  * 锁问题：锁粒度大了，会有大量协程卡在这里
+  * 高cpu：高并发时GC次数变多
+  * 高内存：使用sync.Pool、少用map(销毁时要注意销毁子元素)
