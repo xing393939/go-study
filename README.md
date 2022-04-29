@@ -10,14 +10,6 @@
 * [Go夜读](https://talkgo.org/latest)
 * [GoCN](https://gocn.vip/topics)
 
-#### Web实战
-* [第三代微服务架构：基于 Go 的博客微服务实战案例](https://learnku.com/articles/64204)，基于istio、grpc
-* [带你十天轻松搞定 Go 微服务系列](https://learnku.com/articles/64566)，基于go-zero
-
-#### Go的GPM模型
-* [调度器实现分析](https://learn.gocn.vip/column/18/doc/67)
-* [Go夜读-第78期 Go Scheduler 源码阅读](https://talkgo.org/t/topic/97)
-
 #### Go博客
 * [学习路线图、文章、规范](https://github.com/yongxinz/gopher)
 * [Gopher Reading List](https://github.com/qichengzx/gopher-reading-list-zh_CN)
@@ -34,14 +26,16 @@
 * [luozhiyun-腾讯](https://www.luozhiyun.com/)
 * [蒙卓-腾讯](https://mzh.io/)，go源码贡献者
 * [MARATRIX BLOG](https://maratrix.cn/)，go源码阅读有6篇
+* [Go 从源码到应用](https://gocn.vip/column/L4RWxzHVQO)，曹大
 
 #### 第一阶段
-* [Go 语言设计与实现](https://draveness.me/golang/)，02-22开始，预计8天
-* [Go 语言原本](https://golang.design/under-the-hood/)，02-22开始，预计8天，作者欧长坤
+* [Go 语言设计与实现](https://draveness.me/golang/)，已读
+* [Go 进阶训练营大纲](https://shimo.im/docs/vX9YgCchV3XwgYTH/read)，已看
+* [Go 语言原本](https://golang.design/under-the-hood/)，欧长坤
+* [Go 语言101](https://gfw.go101.org/article/101.html)
 * [码农桃花源-Go笔记](https://golang.design/go-questions)
 * [golang-notes](https://github.com/cch123/golang-notes)、[Go 语言笔记](https://go.xargin.com/)，曹大
 * [爱写程序的阿波张](https://www.cnblogs.com/abozhang/)
-* [Go 进阶训练营大纲](https://shimo.im/docs/vX9YgCchV3XwgYTH/read)，02-22开始，20h视频
 * [Golang面试题汇总](https://www.golangroadmap.com/interview/books/questions/golang/)，[去除弹窗](javascript:document.getElementsByClassName%28'v-dialog-container'%29[0].remove%28%29;)
 * [面试八股文](https://www.topgoer.cn/docs/gomianshiti/gomianshiti-1dd225t6esqld)
 * [面试专题](https://bytemode.github.io/interview/)，Go/操作系统/数据库/算法
