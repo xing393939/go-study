@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>核心函数 · GitBook</title>
+        <title>Go 程序员面试 · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,8 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="source-code-gc.html" />
     
-    
-    <link rel="prev" href="source-code-global-variable.html" />
+    <link rel="prev" href="go-language-design-and-implementation.html" />
     
 
     </head>
@@ -157,7 +155,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.4" data-path="go-interview.html">
+        <li class="chapter active" data-level="1.2.4" data-path="go-interview.html">
             
                 <a href="go-interview.html">
             
@@ -312,7 +310,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.4.2" data-path="source-code-core-functions.html">
+        <li class="chapter " data-level="1.4.2" data-path="source-code-core-functions.html">
             
                 <a href="source-code-core-functions.html">
             
@@ -386,7 +384,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >核心函数</a>
+        <a href=".." >Go 程序员面试</a>
     </h1>
 </div>
 
@@ -401,58 +399,8 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h3 id="&#x6838;&#x5FC3;&#x51FD;&#x6570;">&#x6838;&#x5FC3;&#x51FD;&#x6570;</h3>
-<p><link rel="stylesheet" type="text/css" href="../images/jquery.dialog.css"></p>
-<script type="text/javascript" src="../images/jquery.dialog-code.js"></script>
-
-<h4 id="runtimegettlscx">runtime.get_tls(CX)</h4>
-<ul>
-<li><a href="https://tiancaiamao.gitbooks.io/go-internals/content/zh/04.1.html#%E6%9C%AC%E5%9C%B0%E7%BA%BF%E7%A8%8B%E5%AD%98%E5%82%A8" target="_blank">&#x672C;&#x5730;&#x7EBF;&#x7A0B;&#x5B58;&#x50A8;</a></li>
-<li>&#x4E0D;&#x540C;&#x7684;goroutine&#x8C03;&#x7528;get_tls&#xFF0C;&#x5F97;&#x5230;&#x7684;&#x5C31;&#x662F;&#x5F53;&#x524D;&#x7684;g</li>
-</ul>
-<h4 id="runtimemcallfng"><a href="https://github.com/golang/go/blob/go1.16.10/src/runtime/asm_amd64.s#L302" target="_blank">runtime.mcall(fn(*g))</a></h4>
-<ul>
-<li><a href="https://hushi55.github.io/2017/05/10/Golang-function-call#menuIndex3" target="_blank">&#x51E0;&#x4E2A;&#x91CD;&#x8981;&#x7684;&#x6C47;&#x7F16;</a></li>
-<li>mcall&#x53EA;&#x80FD;&#x5728;g&#x6808;&#x88AB;&#x8C03;&#x7528;&#xFF0C;&#x4E0D;&#x80FD;&#x5728;g0&#x3001;gsingal&#x6808;&#x8C03;&#x7528;</li>
-<li>fn&#x6C38;&#x4E0D;&#x8FD4;&#x56DE;&#xFF0C;&#x4E00;&#x822C;&#x60C5;&#x51B5;&#x4E0B;&#x7531;&#x8C03;&#x7528;schedule&#x7ED3;&#x675F;&#xFF0C;&#x8FD9;&#x6837;&#x53EF;&#x4EE5;&#x8BA9;m&#x8FD0;&#x884C;&#x5176;&#x4ED6;goroutine</li>
-<li>&#x4E5F;&#x5C31;&#x662F;&#x8BF4;mcall&#x4F7F;&#x5F97;&#x5F53;&#x524D;goroutine&#x653E;&#x5F03;&#x5F53;&#x524D;&#x7684;&#x8FD0;&#x884C;</li>
-</ul>
-<h4 id="runtimesystemstackfn"><a href="https://github.com/golang/go/blob/go1.16.10/src/runtime/asm_amd64.s#L342" target="_blank">runtime.systemstack(fn)</a></h4>
-<ul>
-<li><a href="https://hushi55.github.io/2017/05/10/Golang-function-call#menuIndex3" target="_blank">&#x51E0;&#x4E2A;&#x91CD;&#x8981;&#x7684;&#x6C47;&#x7F16;</a></li>
-<li>&#x901A;&#x8FC7;get_tls&#x5F97;&#x5230;&#x5F53;&#x524D;&#x7684;g&#x548C;m</li>
-<li>&#x68C0;&#x67E5;g==m.gsignal&#xFF0C;&#x76F4;&#x63A5;&#x6267;&#x884C;fn</li>
-<li>&#x68C0;&#x67E5;g==m.g0&#xFF0C;&#x76F4;&#x63A5;&#x6267;&#x884C;fn</li>
-<li>&#x68C0;&#x67E5;g!=m.currg&#xFF0C;&#x62A5;&#x9519;</li>
-<li>&#x5207;&#x6362;&#x5230;m.g0&#x7684;&#x6808;&#x4E0A;&#x6267;&#x884C;fn&#xFF0C;&#x6267;&#x884C;&#x7ED3;&#x675F;&#x518D;&#x5207;&#x56DE;&#x6765;</li>
-</ul>
-<h4 id="runtimegogogobuf"><a href="https://github.com/golang/go/blob/go1.16.10/src/runtime/asm_amd64.s#L281" target="_blank">runtime.gogo(*gobuf)</a></h4>
-<ul>
-<li><a href="https://draveness.me/golang/docs/part3-runtime/ch06-concurrency/golang-goroutine/#655-%e8%b0%83%e5%ba%a6%e5%be%aa%e7%8e%af" target="_blank">&#x8C03;&#x5EA6;&#x5FAA;&#x73AF;</a></li>
-<li>&#x4ECE;m.g0&#x6808;&#x5207;&#x6362;&#x5230;g&#x6808;&#xFF0C;&#x6CE8;&#x610F;&#x6700;&#x540E;&#x4E00;&#x6761;&#x6307;&#x4EE4;&#x662F;JMP&#x800C;&#x4E0D;&#x662F;RET</li>
-<li>&#x6B64;&#x65F6;&#x7684;SP=runtime.goexit&#xFF0C;&#x8FD9;&#x6837;&#x5728;&#x6267;&#x884C;&#x5B8C;gobuf.pc&#x51FD;&#x6570;&#x6700;&#x540E;RET&#x7684;&#x65F6;&#x5019;&#x5C31;&#x4F1A;&#x5230;runtime.goexit</li>
-</ul>
-<h4 id="runtimenewprocsiz-fn"><a href="https://github.com/golang/go/blob/go1.16.10/src/runtime/proc.go#L4018" target="_blank">runtime.newproc(siz, fn)</a></h4>
-<ul>
-<li>siz=&#x53C2;&#x6570;&#x7684;&#x5927;&#x5C0F;&#x3001;fn=&#x51FD;&#x6570;&#x7684;&#x6307;&#x9488;</li>
-<li><a href="https://tiancaiamao.gitbooks.io/go-internals/content/zh/05.2.html" target="_blank">goroutine&#x7684;&#x751F;&#x8001;&#x75C5;&#x6B7B;</a></li>
-<li>&#x5728;systemstack&#x4E0A;&#x6267;&#x884C;newg := <a href="https://github.com/golang/go/blob/go1.16.10/src/runtime/proc.go#L4043" target="_blank">newproc1(fn, argp, siz, gp, pc)</a><ul>
-<li>fn=&#x51FD;&#x6570;&#x7684;&#x6307;&#x9488;&#x3001;argp=&#x53C2;&#x6570;&#x7684;&#x6307;&#x9488;&#x3001;siz=&#x53C2;&#x6570;&#x7684;&#x5927;&#x5C0F;&#x3001;gp=caller&#x7684;g&#x3001;pc=caller&#x7684;pc</li>
-<li>newproc1()&#x4E3B;&#x8981;&#x5DE5;&#x4F5C;&#x662F;&#xFF1A;<ul>
-<li>&#x901A;&#x8FC7;<a href="https://github.com/golang/go/blob/go1.16.10/src/runtime/proc.go#L4215" target="_blank">gfget(_p_)</a>&#x83B7;&#x53D6;g&#xFF0C;&#x83B7;&#x53D6;&#x4E0D;&#x5230;&#x5C31;<a href="https://github.com/golang/go/blob/go1.16.10/src/runtime/proc.go#L3987" target="_blank">malg(stackSize)</a></li>
-<li>&#x5C06;&#x4F20;&#x5165;&#x7684;&#x53C2;&#x6570;&#x79FB;&#x5230;Goroutine&#x7684;&#x6808;&#x4E0A;&#xFF1B;</li>
-<li>&#x66F4;&#x65B0;Goroutine&#x8C03;&#x5EA6;&#x76F8;&#x5173;&#x7684;&#x5C5E;&#x6027;</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>&#x5728;systemstack&#x4E0A;&#x6267;&#x884C;<a href="https://github.com/golang/go/blob/go1.16.10/src/runtime/proc.go#L5789" target="_blank">runqput(<em>p</em>, newg, true)</a><ul>
-<li>_p_=caller&#x7684;P&#x3001;newg=&#x65B0;&#x7684;g&#x3001;true=&#x628A;&#x65B0;&#x7684;g&#x653E;&#x5728;P.runnext</li>
-<li>&#x5982;&#x679C;P&#x7684;&#x961F;&#x5217;&#x957F;&#x5EA6;&lt;P.runq(256)&#x5C31;&#x52A0;&#x5165;P&#x7684;&#x961F;&#x5217;&#xFF0C;&#x5426;&#x5219;&#x52A0;&#x5165;&#x5168;&#x5C40;&#x961F;&#x5217;</li>
-</ul>
-</li>
-<li>&#x5728;systemstack&#x4E0A;&#x6267;&#x884C;<a href="https://github.com/golang/go/blob/go1.16.10/src/runtime/proc.go#L2469:6" target="_blank">wakep()</a></li>
-</ul>
+                                <h3 id="go-&#x7A0B;&#x5E8F;&#x5458;&#x9762;&#x8BD5;">Go &#x7A0B;&#x5E8F;&#x5458;&#x9762;&#x8BD5;</h3>
+<h4 id=""> </h4>
 
                                 
                                 </section>
@@ -480,14 +428,10 @@
 
             
                 
-                <a href="source-code-global-variable.html" class="navigation navigation-prev " aria-label="Previous page: 全局变量">
+                <a href="go-language-design-and-implementation.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Go 语言设计与实现">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="source-code-gc.html" class="navigation navigation-next " aria-label="Next page: GC 分析">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -496,7 +440,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"核心函数","level":"1.4.2","depth":2,"next":{"title":"GC 分析","level":"1.4.3","depth":2,"path":"docs/source-code-gc.md","ref":"docs/source-code-gc.md","articles":[]},"previous":{"title":"全局变量","level":"1.4.1","depth":2,"path":"docs/source-code-global-variable.md","ref":"docs/source-code-global-variable.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/source-code-core-functions.md","mtime":"2022-05-09T02:58:52.462Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-05-09T02:59:19.791Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Go 程序员面试","level":"1.2.4","depth":2,"next":{"title":"零散知识","level":"1.3","depth":1,"ref":"","articles":[{"title":"dlv调试","level":"1.3.1","depth":2,"path":"docs/go-dlv.md","ref":"docs/go-dlv.md","articles":[]},{"title":"汇编相关","level":"1.3.2","depth":2,"path":"docs/go-compilation.md","ref":"docs/go-compilation.md","articles":[]},{"title":"并发模式","level":"1.3.3","depth":2,"path":"docs/go-concurrency-patterns.md","ref":"docs/go-concurrency-patterns.md","articles":[]},{"title":"DDD 学习","level":"1.3.4","depth":2,"path":"docs/go-ddd.md","ref":"docs/go-ddd.md","articles":[]},{"title":"pprof 工具","level":"1.3.5","depth":2,"path":"docs/go-pprof.md","ref":"docs/go-pprof.md","articles":[]},{"title":"细节原理","level":"1.3.6","depth":2,"path":"docs/go-principle-of-detail.md","ref":"docs/go-principle-of-detail.md","articles":[]},{"title":"Go 坑之math/rand","level":"1.3.7","depth":2,"path":"docs/hole-rand.md","ref":"docs/hole-rand.md","articles":[]}]},"previous":{"title":"Go 语言设计与实现","level":"1.2.3","depth":2,"path":"docs/go-language-design-and-implementation.md","ref":"docs/go-language-design-and-implementation.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-interview.md","mtime":"2022-05-09T02:58:52.462Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-05-09T02:59:19.791Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
