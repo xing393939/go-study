@@ -9,6 +9,7 @@
 * 零散知识
   1. [dlv调试](docs/go-dlv.md)
   1. [汇编相关](docs/go-compilation.md)
+  1. [汇编+Syscall](docs/go-compilation-syscall.md)
   1. [并发模式](docs/go-concurrency-patterns.md)
   1. [DDD 学习](docs/go-ddd.md)
   1. [pprof 工具](docs/go-pprof.md)
