@@ -33,6 +33,7 @@
 * [Go 进阶训练营大纲](https://shimo.im/docs/vX9YgCchV3XwgYTH/read)，已看
 * [Go 语言原本](https://golang.design/under-the-hood/)，欧长坤
 * [Go 语言101](https://gfw.go101.org/article/101.html)
+* [跟煎鱼学 Go](https://eddycjy.gitbook.io/golang/)
 * [码农桃花源-Go笔记](https://golang.design/go-questions)
 * [golang-notes](https://github.com/cch123/golang-notes)、[Go 语言笔记](https://go.xargin.com/)，曹大
 * [爱写程序的阿波张](https://www.cnblogs.com/abozhang/)

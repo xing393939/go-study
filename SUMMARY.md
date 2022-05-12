@@ -15,6 +15,7 @@
   1. [pprof 工具](docs/go-pprof.md)
   1. [细节原理](docs/go-principle-of-detail.md)
   1. [Go 坑之math/rand](docs/hole-rand.md)
+  1. [内存泄漏](docs/memory-leak.md)
 * 源码分析
   1. [全局变量](docs/source-code-global-variable.md)
   1. [核心函数](docs/source-code-core-functions.md)
