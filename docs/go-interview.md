@@ -27,6 +27,7 @@
     * 通过 shmget 申请的共享内存。
 * [A deep dive into the OS memory use of a simple Go program](https://utcc.utoronto.ca/~cks/space/blog/programming/GoProgramMemoryUse)
   * pmap -p 进程ID后，前四个内存段分别是：text、rodata(常量)、data(全局变量)、bss(未初始化)
+  * cat /proc/进程ID/maps，vvar是内核和进程共享的数据，vdso是系统调用代码实现
 
 ![Pointer](../images/interview/runtime.Memstats.png)
 
