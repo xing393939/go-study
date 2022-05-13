@@ -6,6 +6,9 @@
 #include<sys/types.h>
 #include<sys/stat.h>
 #include<fcntl.h>
+
+long long ccc[4];
+
 int main(int ac,char**av) {
 	char*fp=(char*)mmap(NULL,1024*1024*200,PROT_READ,MAP_SHARED|MAP_ANONYMOUS,-1,0);
 	char c;
@@ -17,6 +20,7 @@ int main(int ac,char**av) {
 	while(i++<1024*1024*100) {
 		c=*(fp+i);
 	}
+	printf("%p\n", &ccc);
 	sleep(20000000);
 	return 0;
 }
