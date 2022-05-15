@@ -5,10 +5,9 @@
 .global _start       # 指定入口函数
 
 _start:
+    callq runtime_mmap
     callq runtime_usleep
-    movl $3,%ebx     # 参数一：退出代码
-    movl $1,%eax     # 系统调用号(sys_exit)
-    int  $0x80       # 调用内核功能
+    callq runtime_exit
 
 runtime_usleep:
     sub    $0x18,%rsp
@@ -29,3 +28,21 @@ runtime_usleep:
     mov    0x10(%rsp),%rbp
     add    $0x18,%rsp
     retq
+
+runtime_mmap:
+	MOVQ	$0, %RDI
+	MOVQ	$4096, %RSI
+	MOVQ	$1, %RDX   # 从低到高依次是PROT_READ|PROT_WRITE|PROT_EXEC|PROT_SEM|PROT_NONE|PROT_GROWSDOWN|PROT_GROWSUP
+	MOVQ	$33, %R10  # 从低到高依次是MAP_SHARED|MAP_PRIVATE|MAP_SHARED_VALIDATE|MAP_TYPE|MAP_FIXED|MAP_ANONYMOUS
+	MOVQ	$-1, %R8
+	MOVQ	$0, %R9
+	MOVQ	$9, %RAX
+	SYSCALL
+    CMPQ    $1, %RAX
+    JL     runtime_exit
+	RETQ
+
+runtime_exit:
+    movq %rax,%rbx   # 参数一：退出代码
+    movl $1,%eax     # 系统调用号(sys_exit)
+    int  $0x80       # 调用内核功能
