@@ -468,8 +468,44 @@
 <li>cat /proc/&#x8FDB;&#x7A0B;ID/maps&#xFF0C;vvar&#x662F;&#x5185;&#x6838;&#x548C;&#x8FDB;&#x7A0B;&#x5171;&#x4EAB;&#x7684;&#x6570;&#x636E;&#xFF0C;vdso&#x662F;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x4EE3;&#x7801;&#x5B9E;&#x73B0;</li>
 </ul>
 </li>
+<li><a href="https://liam.page/2020/07/17/memory-stat-in-TOP/" target="_blank">Linux top &#x547D;&#x4EE4;&#x91CC;&#x7684;&#x5185;&#x5B58;&#x76F8;&#x5173;&#x5B57;&#x6BB5;</a><ul>
+<li>&#x76F8;&#x5173;&#x82F1;&#x6587;&#x6587;&#x7AE0;&#x524D;&#x4E09;&#x7AE0;&#x8282;&#xFF0C;<a href="https://techtalk.intersec.com/2013/07/memory-part-1-memory-types/" target="_blank">Memory - Part 1: Memory Types</a></li>
+<li>VIRT&#xFF1A;&#x6240;&#x6709;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x4E4B;&#x548C;</li>
+<li>RES&#xFF1A;&#x6240;&#x6709;&#x7269;&#x7406;&#x5185;&#x5B58;&#x4E4B;&#x548C;&#xFF0C;&#x4E0D;&#x5305;&#x542B;&#x4EA4;&#x6362;&#x533A;&#x7684;</li>
+<li>SHR&#xFF1A;&#x6240;&#x6709;&#x7269;&#x7406;&#x5185;&#x5B58;&#x4E2D;&#xFF0C;&#x5171;&#x4EAB;&#x5185;&#x5B58;&#x90E8;&#x5206;</li>
+<li>CODE&#xFF1A;&#x6240;&#x6709;&#x7269;&#x7406;&#x5185;&#x5B58;&#x4E2D;&#xFF0C;&#x53EF;&#x6267;&#x884C;&#x4EE3;&#x7801;&#x90E8;&#x5206;</li>
+<li>DATA&#xFF1A;&#x6240;&#x6709;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x4E2D;&#xFF0C;&#x53BB;&#x9664;&#x5171;&#x4EAB;&#x533A;&#x57DF;&#x90E8;&#x5206;&#x5269;&#x4E0B;&#x7684;</li>
+<li>ANON = RES - SHR</li>
+</ul>
+</li>
 </ul>
 <p><img src="../images/interview/runtime.Memstats.png" alt="Pointer"></p>
+<h4 id="&#x7B2C;2&#x7AE0;-&#x5EF6;&#x8FDF;&#x8BED;&#x53E5;">&#x7B2C;2&#x7AE0; &#x5EF6;&#x8FDF;&#x8BED;&#x53E5;</h4>
+<ul>
+<li>defer&#x7684;&#x6267;&#x884C;&#x8FC7;&#x7A0B;<ul>
+<li>&#x8FD4;&#x56DE;&#x503C;=xxx</li>
+<li>&#x8C03;&#x7528;defer&#x51FD;&#x6570;</li>
+<li>&#x7A7A;&#x7684;return</li>
+</ul>
+</li>
+<li><a href="https://www.luozhiyun.com/archives/627" target="_blank">&#x63A2;&#x7A76; Go &#x6E90;&#x7801;&#x4E2D; panic &amp; recover &#x6709;&#x54EA;&#x4E9B;&#x5751;</a></li>
+<li>&#x65E0;&#x6CD5;&#x6355;&#x83B7;&#x7684;&#x5F02;&#x5E38;&#xFF1A;<ul>
+<li>&#x5185;&#x5B58;&#x6EA2;&#x51FA;&#xFF1A;_ = make([]int64, 1&lt;&lt;40)</li>
+<li>map &#x5E76;&#x53D1;&#x8BFB;&#x5199;</li>
+<li>&#x6808;&#x5185;&#x5B58;&#x8017;&#x5C3D;&#xFF0C;&#x6808;&#x6700;&#x5927;&#x662F;1G</li>
+<li>&#x5F00;&#x542F;&#x4E00;&#x4E2A;nil&#x534F;&#x7A0B;&#xFF1A;var f func() &amp;&amp; go f</li>
+<li>&#x6240;&#x6709;&#x534F;&#x7A0B;&#x90FD;&#x4F11;&#x7720;&#x4E86;</li>
+</ul>
+</li>
+<li>&#x53EF;&#x4EE5;&#x6355;&#x83B7;&#x7684;&#x5F02;&#x5E38;&#xFF1A;<ul>
+<li>&#x6570;&#x7EC4;&#x8BBF;&#x95EE;&#x8D8A;&#x754C;</li>
+<li>&#x8BBF;&#x95EE;&#x5730;&#x5740;&#x65E0;&#x6548;</li>
+<li>&#x5199;nil&#x7684;map</li>
+<li>&#x5199;&#x5DF2;&#x7ECF;&#x5173;&#x95ED;&#x7684;channel</li>
+<li>&#x7C7B;&#x578B;&#x65AD;&#x8A00;&#x9519;&#x8BEF;</li>
+</ul>
+</li>
+</ul>
 
                                 
                                 </section>
@@ -509,7 +545,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Go 程序员面试","level":"1.2.4","depth":2,"next":{"title":"零散知识","level":"1.3","depth":1,"ref":"","articles":[{"title":"dlv调试","level":"1.3.1","depth":2,"path":"docs/go-dlv.md","ref":"docs/go-dlv.md","articles":[]},{"title":"汇编相关","level":"1.3.2","depth":2,"path":"docs/go-compilation.md","ref":"docs/go-compilation.md","articles":[]},{"title":"汇编+Syscall","level":"1.3.3","depth":2,"path":"docs/go-compilation-syscall.md","ref":"docs/go-compilation-syscall.md","articles":[]},{"title":"并发模式","level":"1.3.4","depth":2,"path":"docs/go-concurrency-patterns.md","ref":"docs/go-concurrency-patterns.md","articles":[]},{"title":"DDD 学习","level":"1.3.5","depth":2,"path":"docs/go-ddd.md","ref":"docs/go-ddd.md","articles":[]},{"title":"pprof 工具","level":"1.3.6","depth":2,"path":"docs/go-pprof.md","ref":"docs/go-pprof.md","articles":[]},{"title":"细节原理","level":"1.3.7","depth":2,"path":"docs/go-principle-of-detail.md","ref":"docs/go-principle-of-detail.md","articles":[]},{"title":"Go 坑之math/rand","level":"1.3.8","depth":2,"path":"docs/hole-rand.md","ref":"docs/hole-rand.md","articles":[]},{"title":"内存泄漏","level":"1.3.9","depth":2,"path":"docs/memory-leak.md","ref":"docs/memory-leak.md","articles":[]}]},"previous":{"title":"Go 语言设计与实现","level":"1.2.3","depth":2,"path":"docs/go-language-design-and-implementation.md","ref":"docs/go-language-design-and-implementation.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-interview.md","mtime":"2022-05-15T07:31:30.295Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-05-15T07:32:05.239Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Go 程序员面试","level":"1.2.4","depth":2,"next":{"title":"零散知识","level":"1.3","depth":1,"ref":"","articles":[{"title":"dlv调试","level":"1.3.1","depth":2,"path":"docs/go-dlv.md","ref":"docs/go-dlv.md","articles":[]},{"title":"汇编相关","level":"1.3.2","depth":2,"path":"docs/go-compilation.md","ref":"docs/go-compilation.md","articles":[]},{"title":"汇编+Syscall","level":"1.3.3","depth":2,"path":"docs/go-compilation-syscall.md","ref":"docs/go-compilation-syscall.md","articles":[]},{"title":"并发模式","level":"1.3.4","depth":2,"path":"docs/go-concurrency-patterns.md","ref":"docs/go-concurrency-patterns.md","articles":[]},{"title":"DDD 学习","level":"1.3.5","depth":2,"path":"docs/go-ddd.md","ref":"docs/go-ddd.md","articles":[]},{"title":"pprof 工具","level":"1.3.6","depth":2,"path":"docs/go-pprof.md","ref":"docs/go-pprof.md","articles":[]},{"title":"细节原理","level":"1.3.7","depth":2,"path":"docs/go-principle-of-detail.md","ref":"docs/go-principle-of-detail.md","articles":[]},{"title":"Go 坑之math/rand","level":"1.3.8","depth":2,"path":"docs/hole-rand.md","ref":"docs/hole-rand.md","articles":[]},{"title":"内存泄漏","level":"1.3.9","depth":2,"path":"docs/memory-leak.md","ref":"docs/memory-leak.md","articles":[]}]},"previous":{"title":"Go 语言设计与实现","level":"1.2.3","depth":2,"path":"docs/go-language-design-and-implementation.md","ref":"docs/go-language-design-and-implementation.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-interview.md","mtime":"2022-05-16T09:25:36.213Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-05-16T09:25:58.804Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
