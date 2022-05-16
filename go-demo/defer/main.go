@@ -1,15 +1,18 @@
 package main
 
-func main() {
-	defer println("1 in main")
-	defer func() {
-		defer func() {
-			println("2")
-			panic("panic again and again")
-		}()
-		println("3")
-		panic("panic again")
-	}()
+type name int
 
-	panic("panic once")
+func (n name) print() {
+	println("print", n)
+}
+
+func (n *name) pprint() {
+	println("pprint", *n)
+}
+
+func main() {
+	var n name
+	defer n.print()
+	defer n.pprint()
+	n = 3
 }

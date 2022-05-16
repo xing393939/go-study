@@ -28,6 +28,32 @@
 * [A deep dive into the OS memory use of a simple Go program](https://utcc.utoronto.ca/~cks/space/blog/programming/GoProgramMemoryUse)
   * pmap -p 进程ID后，前四个内存段分别是：text、rodata(常量)、data(全局变量)、bss(未初始化)
   * cat /proc/进程ID/maps，vvar是内核和进程共享的数据，vdso是系统调用代码实现
+* [Linux top 命令里的内存相关字段](https://liam.page/2020/07/17/memory-stat-in-TOP/)
+  * 相关英文文章前三章节，[Memory - Part 1: Memory Types](https://techtalk.intersec.com/2013/07/memory-part-1-memory-types/)
+  * VIRT：所有虚拟内存之和
+  * RES：所有物理内存之和，不包含交换区的
+  * SHR：所有物理内存中，共享内存部分
+  * CODE：所有物理内存中，可执行代码部分
+  * DATA：所有虚拟内存中，去除共享区域部分剩下的
+  * ANON = RES - SHR
 
 ![Pointer](../images/interview/runtime.Memstats.png)
 
+#### 第2章 延迟语句
+* defer的执行过程
+  * 返回值=xxx
+  * 调用defer函数
+  * 空的return
+* [探究 Go 源码中 panic & recover 有哪些坑](https://www.luozhiyun.com/archives/627)
+* 无法捕获的异常：
+  * 内存溢出：_ = make([]int64, 1<<40)
+  * map 并发读写
+  * 栈内存耗尽，栈最大是1G
+  * 开启一个nil协程：var f func() && go f
+  * 所有协程都休眠了
+* 可以捕获的异常：
+  * 数组访问越界
+  * 访问地址无效
+  * 写nil的map
+  * 写已经关闭的channel
+  * 类型断言错误
