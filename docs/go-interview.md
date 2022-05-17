@@ -57,3 +57,17 @@
   * 写nil的map
   * 写已经关闭的channel
   * 类型断言错误
+  
+#### 第3章 数据容器
+* make和new的区别
+  * make只能初始化map、slice、chan；new都能
+  * make返回值，new返回值的指针
+  * PS：用new初始化map、slice、chan后值是nil，所以禁止用来初始化map和chan
+* make系列函数：必定在堆上分配
+  * makechan：最终调用mallocgc，当make(chan int)时必定在堆上分配
+  * makeslice：最终调用mallocgc
+  * makemap：因为makemap函数返回值是*hmap，所以new(hmap)会执行newobject
+* map只有扩容，没有缩容。如果桶过于稀疏，则迁移到新桶重新排列(内存不变)
+* map在赋值的时候检查是否需要扩容，调用growWork来扩容。
+  * 在赋值和删除时进行渐进式搬迁
+  * 每次搬迁2个根bucket
