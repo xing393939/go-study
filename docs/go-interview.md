@@ -71,3 +71,21 @@
 * map在赋值的时候检查是否需要扩容，调用growWork来扩容。
   * 在赋值和删除时进行渐进式搬迁
   * 每次搬迁2个根bucket
+
+#### 第4章 通道
+* 如何优雅的关闭通道：
+  * 1个sender，1个receiver：sender端关闭
+  * 1个sender，N个receiver：sender端关闭
+  * N个sender，1个receiver：receiver端通过closeChan通知sender们退出，不关闭通道(GC来回收)
+  * N个sender，N个receiver：receiver端通过closeChan通知sender们退出，不关闭通道(GC来回收)
+
+
+
+
+
+
+
+
+
+
+
