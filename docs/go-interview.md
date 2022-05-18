@@ -78,7 +78,7 @@
   * 1个sender，N个receiver：sender端关闭
   * N个sender，1个receiver：receiver端通过closeChan通知sender们退出，不关闭通道(GC来回收)
   * N个sender，N个receiver：receiver端通过closeChan通知sender们退出，不关闭通道(GC来回收)
-
+* 读写一个nil通道将永久挂起，即使这个通道后续初始化了，设计缘由见[链接](https://groups.google.com/g/golang-nuts/c/QltQ0nd9HvE/m/VvDhLO07Oq4J)
 
 
 
