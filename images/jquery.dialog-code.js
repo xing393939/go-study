@@ -11,10 +11,10 @@ gitbook.push(function() {
 function getSourceCode(word, parent) {
     let keywords = [
         'newproc', 'newproc1', 'runqput', 'wakep', 'startm',
-        'mainPC',
+        'mainPC', '`type.``.Myintinterface`', '```.(-Myint).fun`',
     ];
     $.get(`../docs/go1.16.10/${word}.html`, function (text) {
-        $('#DialogCodeTemp').html(text);
+        $('#DialogCodeTemp').html(text.replace('(*', '(-').replace('"".', '``.'));
         let newElem = $('#DialogCodeTemp').find('.highlighter-rouge');
         let spans = newElem.find('span');
         spans.each(function (k, span) {
