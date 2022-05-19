@@ -80,6 +80,15 @@
   * N个sender，N个receiver：receiver端通过closeChan通知sender们退出，不关闭通道(GC来回收)
 * 读写一个nil通道将永久挂起，即使这个通道后续初始化了，设计缘由见[链接](https://groups.google.com/g/golang-nuts/c/QltQ0nd9HvE/m/VvDhLO07Oq4J)
 
+#### 第5章 接口
+* 默认所有类型都实现了空接口
+* 具体类型转空接口：_type复制具体类型的type，复制值到一块新内存，data指向新内存
+* 具体类型转非空接口：itab值在编译期间已经生成，复制值到一块新内存，tab指向itab，data指向新内存
+* 接口转接口：
+  * 空接口eface转非空接口iface：eface.(iface)
+  * 非空接口iface转空接口eface：eface._type=iface.tab._type
+  * 非空接口转非空接口：runtime.convI2I：func getitab(inter \*interfacetype, typ \*_type) \*itab修改tab即可
+
 
 
 
