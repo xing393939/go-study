@@ -14,7 +14,7 @@ function getSourceCode(word, parent) {
         'mainPC', '`type.``.Myintinterface`', '```.(-Myint).fun`',
     ];
     $.get(`../docs/go1.16.10/${word}.html`, function (text) {
-        $('#DialogCodeTemp').html(text.replace('(*', '(-').replace('"".', '``.'));
+        $('#DialogCodeTemp').html(text.replaceAll('(*', '(-').replaceAll('"".', '``.'));
         let newElem = $('#DialogCodeTemp').find('.highlighter-rouge');
         let spans = newElem.find('span');
         spans.each(function (k, span) {
