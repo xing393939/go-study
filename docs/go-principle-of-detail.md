@@ -13,7 +13,6 @@
 * [在线测试代码](https://go.dev/play/p/25Pr9TmqW-C)
 
 #### 如何高效地拼接字符串
-* 
 * var b strings.Builder && b.WriteString("asong") && b.string()
 
 <div class="DialogCode" data-code="strings/WriteString"></div>

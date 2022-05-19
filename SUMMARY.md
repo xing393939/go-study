@@ -19,5 +19,6 @@
 * 源码分析
   1. [全局变量](docs/source-code-global-variable.md)
   1. [核心函数](docs/source-code-core-functions.md)
+  1. [接口类型](docs/source_interface.md)
   1. [GC 分析](docs/source-code-gc.md)
   1. [启动main协程](docs/source-code-main-goroutine.md)
