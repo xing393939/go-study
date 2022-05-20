@@ -1,4 +1,4 @@
-```go
+```asm
 "".test1 STEXT nosplit size=79 args=0x0 locals=0x28 funcid=0x0
 	0x0000 00000 (test.go:12)	TEXT	"".test1(SB), NOSPLIT|ABIInternal, $40-0
 	0x0000 00000 (test.go:12)	SUBQ	$40, SP
