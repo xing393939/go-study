@@ -86,9 +86,9 @@
 * 具体类型转空接口：_type复制具体类型的type，复制值到一块新内存，data指向新内存
 * 具体类型转非空接口：itab值在编译期间已经生成，复制值到一块新内存，tab指向itab，data指向新内存
 * 接口转接口：
-  * 空接口eface转非空接口iface：eface.(iface)
-  * 非空接口iface转空接口eface：eface._type=iface.tab._type
-  * 非空接口转非空接口：runtime.convI2I：func getitab(inter \*interfacetype, typ \*_type) \*itab修改tab即可
+  * 空接口转非空接口：调用runtime.assertE2I，[见](https://go.godbolt.org/z/v1bf8co97)
+  * 非空接口转空接口：eface._type = iface.tab._type，[见](https://go.godbolt.org/z/TezcajzP7)
+  * 非空接口转非空接口：调用runtime.convI2I修改tab即可
 
 #### 第6章 unsafe包
 * [聊一个string和[]byte转换问题](https://blog.huoding.com/2021/10/14/964)
