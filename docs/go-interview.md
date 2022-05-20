@@ -89,6 +89,7 @@
   * 空接口转非空接口：调用runtime.assertE2I，[见](https://go.godbolt.org/z/v1bf8co97)
   * 非空接口转空接口：eface._type = iface.tab._type，[见](https://go.godbolt.org/z/TezcajzP7)
   * 非空接口转非空接口：调用runtime.convI2I修改tab即可
+* 动态派发(多态)：根据interfacetype.imethod\[i]找到tab.fun\[i]，然后执行[CALL AX](https://go.godbolt.org/z/xsv9Mj8fr)
 
 #### 第6章 unsafe包
 * [聊一个string和[]byte转换问题](https://blog.huoding.com/2021/10/14/964)
