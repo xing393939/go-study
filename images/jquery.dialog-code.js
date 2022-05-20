@@ -14,12 +14,13 @@ function getSourceCode(word, parent) {
         'mainPC', '`type.``.Myintinterface`', '```.(-Myint).fun`',
     ];
     $.get(`../docs/go1.16.10/${word}.html`, function (text) {
-        $('#DialogCodeTemp').html(text.replaceAll('(*', '(-').replaceAll('"".', '``.'));
+        $('#DialogCodeTemp').html(text);
         let newElem = $('#DialogCodeTemp').find('.highlighter-rouge');
         let spans = newElem.find('span');
         spans.each(function (k, span) {
             if (keywords.includes(span.innerText) && word != span.innerText) {
-                spans.eq(k).html(`<a onclick="getSourceCode('${span.innerText}');">${span.innerText}</a>`)
+                let subWord = span.innerText.replaceAll('(*', '(-').replaceAll('"".', '``.')
+                spans.eq(k).html(`<a onclick="getSourceCode('${subWord}');">${span.innerText}</a>`)
             }
         });
         if (parent) {

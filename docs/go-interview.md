@@ -71,6 +71,7 @@
 * map在赋值的时候检查是否需要扩容，调用growWork来扩容。
   * 在赋值和删除时进行渐进式搬迁
   * 每次搬迁2个根bucket
+* copy方法：copy(dst, src \[]Type)，如果dst容量小于src，容量不会变大
 
 #### 第4章 通道
 * 如何优雅的关闭通道：
@@ -89,8 +90,15 @@
   * 非空接口iface转空接口eface：eface._type=iface.tab._type
   * 非空接口转非空接口：runtime.convI2I：func getitab(inter \*interfacetype, typ \*_type) \*itab修改tab即可
 
+#### 第6章 unsafe包
+* [聊一个string和[]byte转换问题](https://blog.huoding.com/2021/10/14/964)
+* string转\[]byte：
+  * `[]byte(string)`：最终调用runtime.stringtoslicebyte和copy，内存拷贝了一份
+  * `*(*[]byte)(unsafe.Pointer(&s))`：内存零拷贝
+* \[]byte转string：
+  * `*(*string)(unsafe.Pointer(&b))`：内存零拷贝
 
-
+#### 第7章 context包
 
 
 
