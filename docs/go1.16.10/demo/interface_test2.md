@@ -1,11 +1,11 @@
-```nasm
+```go
 "".test2 STEXT nosplit size=247 args=0x0 locals=0x60 funcid=0x0
 	0x0000 00000 (test.go:23)	TEXT	"".test2(SB), NOSPLIT|ABIInternal, $96-0
 	0x0000 00000 (test.go:23)	SUBQ	$96, SP
 	0x0004 00004 (test.go:23)	MOVQ	BP, 88(SP)
 	0x0009 00009 (test.go:23)	LEAQ	88(SP), BP
 	// ...
-	0x000e 00014 (test.go:28)	LEAQ	go.itab."".Myint,"".Myintinterface(SB), AX
+	0x000e 00014 (test.go:28)	LEAQ	`go.itab."".Myint,"".Myintinterface`(SB), AX
 	0x0015 00021 (test.go:28)	MOVQ	AX, "".mii+72(SP)         // mii.tab = go.itab."".Myint,"".Myintinterface
 	0x001a 00026 (test.go:28)	LEAQ	""..stmp_0(SB), AX        // stmp_0在data段
 	0x0021 00033 (test.go:28)	MOVQ	AX, "".mii+80(SP)         // mii.data = &stmp_0
@@ -23,7 +23,7 @@
 	0x005b 00091 (test.go:35)	MOVQ	$0, ""..autotmp_4+32(SP)
 	0x0064 00100 (test.go:35)	LEAQ	""..autotmp_4+32(SP), AX
 	0x0069 00105 (test.go:35)	MOVQ	AX, ""..autotmp_3+48(SP)
-	0x006e 00110 (test.go:35)	LEAQ	go.itab.*"".Myint,"".Myintinterface(SB), CX
+	0x006e 00110 (test.go:35)	LEAQ	`go.itab.*"".Myint,"".Myintinterface`(SB), CX
 	0x0075 00117 (test.go:35)	MOVQ	CX, "".mii2+56(SP)         // mii2.tab = go.itab.*"".Myint,"".Myintinterface
 	0x007a 00122 (test.go:35)	MOVQ	AX, "".mii2+64(SP)         // mii2.data = &autotmp_4
 	0x007f 00127 (test.go:36)	MOVQ	"".mii2+56(SP), AX

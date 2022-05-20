@@ -35,3 +35,7 @@ func test2() {
 ####  test1函数对应汇编
 
 <div class="DialogCode" data-code="demo/interface_test1"></div>
+
+####  test2函数对应汇编
+
+<div class="DialogCode" data-code="demo/interface_test2"></div>
