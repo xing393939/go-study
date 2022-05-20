@@ -6,10 +6,12 @@ type Myintinterface interface {
 
 type Myint int
 
-func (m Myint) fun() {}
+func (m Myint) fun() {
+	m++
+}
 
 //go:nosplit
-func test() {
+func test1() {
 	m := Myint(1) // CALL "".Myint.fun(SB)
 	m.fun()
 
