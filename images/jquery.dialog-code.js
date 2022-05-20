@@ -12,6 +12,7 @@ function getSourceCode(word, parent) {
     let keywords = [
         'newproc', 'newproc1', 'runqput', 'wakep', 'startm',
         'mainPC', '`type."".Myintinterface`', '`"".(*Myint).fun`',
+        '`go.itab."".Myint,"".Myintinterface`', '`go.itab.*"".Myint,"".Myintinterface`',
     ];
     $.get(`../docs/go1.16.10/${word}.html`, function (text) {
         $('#DialogCodeTemp').html(text);
@@ -19,7 +20,7 @@ function getSourceCode(word, parent) {
         let spans = newElem.find('span');
         spans.each(function (k, span) {
             if (keywords.includes(span.innerText) && word != span.innerText) {
-                let subWord = span.innerText.replaceAll('(*', '(-').replaceAll('"".', '``.')
+                let subWord = span.innerText.replaceAll('*', '-').replaceAll('"".', '``.')
                 spans.eq(k).html(`<a onclick="getSourceCode('${subWord}');">${span.innerText}</a>`)
             }
         });
