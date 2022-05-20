@@ -11,7 +11,7 @@ gitbook.push(function() {
 function getSourceCode(word, parent) {
     let keywords = [
         'newproc', 'newproc1', 'runqput', 'wakep', 'startm',
-        'mainPC', '`type."".Myintinterface`', '`"".(*Myint).fun`',
+        'mainPC', '`type."".Myintinterface`', '`"".(*Myint).fun`', '`"".Myint.fun`',
         '`go.itab."".Myint,"".Myintinterface`', '`go.itab.*"".Myint,"".Myintinterface`',
     ];
     $.get(`../docs/go1.16.10/${word}.html`, function (text) {

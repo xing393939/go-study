@@ -6,9 +6,7 @@ type Myintinterface interface {
 
 type Myint int
 
-func (m Myint) fun() {
-	m++
-}
+func (m Myint) fun() {}
 
 //go:nosplit
 func test1() {
