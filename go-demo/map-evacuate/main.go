@@ -19,6 +19,18 @@ type hmap struct {
 	extra uintptr // optional fields
 }
 
+type hmapPointer struct {
+	count      int // # live cells == size of map.  Must be first (used by len() builtin)
+	flags      uint8
+	B          uint8          // log_2 of # of buckets (can hold up to loadFactor * 2^B items)
+	noverflow  uint16         // approximate number of overflow buckets; see incrnoverflow for details
+	hash0      uint32         // hash seed
+	buckets    unsafe.Pointer // array of 2^B Buckets. may be nil if count==0.
+	oldbuckets unsafe.Pointer // previous bucket array of half the size, non-nil only when growing
+	nevacuate  uintptr        // progress counter for evacuation (buckets less than this have been evacuated)
+	extra      uintptr        // optional fields
+}
+
 type bmap struct {
 	topbits  [8]uint8
 	keys     [8]uint8
@@ -43,8 +55,13 @@ func main() {
 	m[3] = 3
 	m[4] = 4
 	hm := (*hmap)(getPointer(m))
-	b0 := (*bmap)(unsafe.Pointer(hm.buckets))
-	b1 := (*bmap)(unsafe.Pointer(hm.buckets + unsafe.Sizeof(bmap{})))
+	/*
+		// 不要用临时变量存uintptr：https://blog.51cto.com/steed/2399853
+		b0 := (*bmap)(unsafe.Pointer(hm.buckets))
+	*/
+	hmPointer := (*hmapPointer)(getPointer(m))
+	b0 := (*bmap)(hmPointer.buckets)
+	b1 := (*bmap)(unsafe.Pointer(uintptr(hmPointer.buckets) + unsafe.Sizeof(bmap{})))
 	fmt.Printf("%#v\n", hm)
 	fmt.Printf("%#v\n", b0)
 	fmt.Printf("%#v\n", b1)

@@ -1,6 +1,6 @@
 #include "textflag.h"
 
-TEXT ·ZzzPrintTrace(SB), NOSPLIT, $32-32
+TEXT ·ZzzPrintTrace(SB), NOSPLIT, $32-1
     MOVQ	(TLS), AX   // AX=g
     MOVQ	(AX), R9    // R9=g.stack.lo
     MOVQ	8(AX), R10  // R10=g.stack.hi
@@ -22,7 +22,7 @@ ok111:
 	MOVQ	hi-24(SP), R10
 	JMP	ok111
 exit000:
-    MOVQ	arg+0(FP), SI
+    MOVB	b+0(FP), SI
     MOVQ	SI, i-32(SP)
     CALL	·zzzPrintB(SB)
 	RET
