@@ -1,6 +1,7 @@
 package main
 
 import (
+	"C"
 	"os"
 	"runtime/pprof"
 )
@@ -21,6 +22,8 @@ func mapMemoryUse(num int) {
 }
 
 func main() {
+	println(C.int(0))
+
 	num := 1024 * 1024
 	mapMemoryUse(num)
 

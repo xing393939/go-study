@@ -26,7 +26,7 @@ func test() []byte {
 }
 
 // 将reflect.SliceHeader强制转成[]byte，r.Data是uintptr，它指向的内存是unused，所以被GC回收了
-func StringToSliceByte(s string) []byte {
+/*func StringToSliceByte(s string) []byte {
 	l := len(s)
 	r := *(*[]byte)(unsafe.Pointer(&reflect.SliceHeader{
 		Data: (*(*reflect.StringHeader)(unsafe.Pointer(&s))).Data,
@@ -34,7 +34,7 @@ func StringToSliceByte(s string) []byte {
 		Cap:  l,
 	}))
 	return r
-}
+}*/
 
 // 将reflect.SliceHeader的Data指向reflect.StringHeader的Data，编译器特殊处理过，标记指向的内存是used
 func StringToSliceByteOk(s string) []byte {
