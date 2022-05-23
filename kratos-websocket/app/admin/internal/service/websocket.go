@@ -23,7 +23,7 @@ func (s *AdminService) OnWebsocketMessage(connectionId string, message *websocke
 	var proto v1.WebsocketProto
 
 	if err := json.Unmarshal(message.Body, &proto); err != nil {
-		s.log.Error("Error unmarshalling proto json %v", err)
+		s.log.Errorf("Error unmarshalling proto json %v", err)
 		return nil, nil
 	}
 
@@ -31,7 +31,7 @@ func (s *AdminService) OnWebsocketMessage(connectionId string, message *websocke
 	case "viewport":
 		var msg v1.Viewport
 		if err := json.Unmarshal([]byte(proto.Payload), &msg); err != nil {
-			s.log.Error("Error unmarshalling payload json %v", err)
+			s.log.Errorf("Error unmarshalling payload json %v", err)
 			return nil, nil
 		}
 

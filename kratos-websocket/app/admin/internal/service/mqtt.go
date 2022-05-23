@@ -22,7 +22,7 @@ func (s *AdminService) TransitPostTelemetry(event broker.Event) error {
 	var msg hfp.Event
 
 	if err := json.Unmarshal(event.Message().Body, &msg); err != nil {
-		s.log.Error("Error unmarshalling json %v", err)
+		s.log.Errorf("Error unmarshalling json %v", err)
 	} else {
 
 		msg.OperatorId = topicInfo.OperatorId
