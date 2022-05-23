@@ -9,7 +9,13 @@
 
 long long ccc[4];
 
-int main(int ac,char**av) {
+#ifdef _WIN32
+void *mmap(void *addr, size_t length, int protect, int flags, int fd, off_t offset) {
+    return 0;
+}
+#endif
+
+int main2(int ac,char**av) {
 	char*fp=(char*)mmap(NULL,1024*1024*200,PROT_READ,MAP_SHARED|MAP_ANONYMOUS,-1,0);
 	char c;
 	int i=0;
