@@ -91,6 +91,12 @@
   * 非空接口转非空接口：调用runtime.convI2I修改tab即可
 * 动态派发(多态)：根据interfacetype.imethod\[i]找到tab.fun\[i]，然后执行[CALL AX](https://go.godbolt.org/z/xsv9Mj8fr)
 
+| 用法 | 说明 |
+| --- | --- |
+| 接口A嵌入接口B    | A具有B的接口 |
+| 结构体A嵌入结构体B| A具有B的属性和方法，强耦合 | 
+| 结构体A嵌入接口B  | A可以使用B的方法，且[松耦合](https://blog.csdn.net/raoxiaoya/article/details/109998888) |
+
 #### 第6章 unsafe包
 * [聊一个string和[]byte转换问题](https://blog.huoding.com/2021/10/14/964)
 * string转\[]byte：
@@ -100,6 +106,26 @@
   * `*(*string)(unsafe.Pointer(&b))`：内存零拷贝
 
 #### 第7章 context包
+* 因为valueCtx、cancelCtx结构体嵌入了Context接口，实现了松耦合：
+  * 所以用WithValue()可以传入一个cancelCtx实例进而拥有cancelCtx能力，相反同理
+* WithCancel(ctx) (childCtx, cancel)：
+  * 如果ctx是cancelCtx类型，或者父级中有一个是cancelCtx类型，那么cancel后，childCtx.Done收到通知
+  * 如果ctx是自定义ctx类型，那么内部额外维护一个协程监听ctx.Done和childCtx.Done
+  
+#### 第8章 error
+* 包装错误：fmt.Errorf("%w", err)
+* 解包错误：errors.Unwrap(err)，如果err包含Unwrap方法就执行，否则返回nil(只解一层)
+* 断言错误：errors.As(err, &dst)
+* 检查错误IsFrom原始错误：errors.Is(err, io.EOF)
+
+#### 第9章 定时器
+* time.NewTimer和time.NewTicker都会生成一个timer挂在P上
+* runtime包下：checkTimers检查已到时的timer，schedule会调用checkTimers
+  * schedule的调度时机[见](https://xing393939.github.io/go-study/docs/go-language-design-and-implementation.html#%E7%AC%AC%E5%85%AD%E7%AB%A0-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B)
+  * checkTimers发现timer已到时，执行timer.f(timer.arg, timer.seq)
+  * [go1.14基于netpoll优化timer定时器实现原理](https://xiaorui.cc/archives/6483) 
+  * 每次添加/修改timer的时候，发现netpoll的pollerPollUntil>timer.when，调用netpollBreak打断netpoll
+
 
 
 
