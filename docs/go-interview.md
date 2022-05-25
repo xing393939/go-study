@@ -126,7 +126,11 @@
   * [go1.14基于netpoll优化timer定时器实现原理](https://xiaorui.cc/archives/6483) 
   * 每次添加/修改timer的时候，发现netpoll的pollerPollUntil>timer.when，调用netpollBreak打断netpoll
 
-
+#### 第10章 反射
+* [反射三大定律](https://go.dev/blog/laws-of-reflection)
+  1. 可以把值转变成反射对象：reflect.ValueOf(i any) Value
+  1. 可以把反射对象转变成值：func (v Value) Interface() (i any)
+  1. 值是指针类型，则转变成反射对象后是CanSet的
 
 
 
