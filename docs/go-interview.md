@@ -132,8 +132,19 @@
   1. 可以把反射对象转变成值：func (v Value) Interface() (i any)
   1. 值是指针类型，则转变成反射对象后是CanSet的
 
-
-
+#### 第11章 同步
+* sync.Mutex：
+  * [go sync.Mutex 源码阅读](https://fuweid.com/post/2020-go-sync-mutex-insight/)
+  * state int32：28b表示阻塞的G的个数，4b表示锁的状态
+  * sema uint32：维护阻塞的G的队列
+  * Lock：如果加锁失败，那么调用runtime_SemacquireMutex(sema)休眠
+  * Unlock：解锁后，调用runtime_Semrelease唤醒第一个休眠的协程
+* sync.WaitGroup：
+  * Add：如果运行计数v==0，那么调用runtime_Semrelease唤醒休眠的协程
+  * Wait：如果运行计数v>0，那么调用runtime_Semacquire(semap)休眠
+* [runtime_Semacquire和runtime_Semrelease的分析](https://www.qetool.com/scripts/view/4193.html)
+* sync.Pool：
+  
 
 
 
