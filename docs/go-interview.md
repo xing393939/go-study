@@ -153,7 +153,13 @@
   * [无锁化编程](https://www.cnblogs.com/luozhiyun/p/14194872.html)
     * poolLocal.shared：本地的P可以pushHead/popHead，其他P只能popTail
     * poolDequeue：单生产者可以pushHead/popHead，多消费者只能popTail
-
-
+* sync.Map：
+  * [sync.Map源码分析](https://developer.aliyun.com/article/741441)
+  * 1、空间换时间。通过冗余的两个数据结构(read、dirty)，减少加锁对性能的影响。
+  * 2、使用只读数据(read)，避免读写冲突。
+  * 3、动态调整，miss次数多了之后，将dirty数据提升为read。
+  * 4、double-checking（双重检测）。
+  * 5、延迟删除。删除一个键值只是打标记，只有在提升dirty的时候才清理删除的数据。
+  * 6、优先从read读取、更新、删除，因为对read的读取不需要锁。
 
 
