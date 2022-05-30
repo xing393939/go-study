@@ -116,7 +116,7 @@
 * 包装错误：fmt.Errorf("%w", err)
 * 解包错误：errors.Unwrap(err)，如果err包含Unwrap方法就执行，否则返回nil(只解一层)
 * 断言错误：errors.As(err, &dst)
-* 检查错误IsFrom原始错误：errors.Is(err, io.EOF)
+* 检查错误源自原始错误：errors.Is(err, io.EOF)
 
 #### 第9章 定时器
 * time.NewTimer和time.NewTicker都会生成一个timer挂在P上
@@ -133,6 +133,7 @@
   1. 值是指针类型，则转变成反射对象后是CanSet的
 
 #### 第11章 同步
+* [runtime_Semacquire和runtime_Semrelease的分析](https://www.qetool.com/scripts/view/4193.html)
 * sync.Mutex：
   * [go sync.Mutex 源码阅读](https://fuweid.com/post/2020-go-sync-mutex-insight/)
   * state int32：28b表示阻塞的G的个数，4b表示锁的状态
@@ -142,9 +143,16 @@
 * sync.WaitGroup：
   * Add：如果运行计数v==0，那么调用runtime_Semrelease唤醒休眠的协程
   * Wait：如果运行计数v>0，那么调用runtime_Semacquire(semap)休眠
-* [runtime_Semacquire和runtime_Semrelease的分析](https://www.qetool.com/scripts/view/4193.html)
 * sync.Pool：
-  
+  * [golang的对象池sync.pool源码解读](https://zhuanlan.zhihu.com/p/99710992)
+  * 取当前P：pool.Get()->pool.pin()：
+    * 调用runtime_procPin()禁止P被抢占
+    * pool没有初始化，调用pool.pinSlow()初始化
+  * 取当前P本地的private或shared
+  * 取其它P的shared
+  * [无锁化编程](https://www.cnblogs.com/luozhiyun/p/14194872.html)
+    * poolLocal.shared：本地的P可以pushHead/popHead，其他P只能popTail
+    * poolDequeue：单生产者可以pushHead/popHead，多消费者只能popTail
 
 
 
