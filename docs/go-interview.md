@@ -162,4 +162,21 @@
   * 5、延迟删除。删除一个键值只是打标记，只有在提升dirty的时候才清理删除的数据。
   * 6、优先从read读取、更新、删除，因为对read的读取不需要锁。
 
+#### 第12章 调度机制
+* G ⇆ M ⇆ P
+* 调度循环中如何让出CPU：[从源码角度看 Golang 的调度](https://www.infoq.cn/article/nuvrpz1cpk9cw0hp3bky)
+  * 系统调用：有些系统调用会插入代码：
+    * 执行syscall之前插入runtime.entersyscall：分离M和P
+    * 执行syscall之后插入runtime.exitsyscall：寻找可用P，没有则分离M和G
+  * 正常让出CPU：runtime.newproc->newproc1
+    * 在协程退出的地方加上指令：CALL runtime.goexit1
+  * 抢占让出CPU：通过信号打断M的运行，[6.8.2 抢占式调度](https://golang.design/under-the-hood/zh-cn/part2runtime/ch06sched/preemption/#682-)
+  * 主动让出CPU：
+    * time.Sleep：[time.Sleep(time.second)后发生了什么](https://zhuanlan.zhihu.com/p/269561870)
+    * sync.Mutex：调用runtime_SemacquireMutex休眠，调用runtime_Semrelease唤醒
+    * channel：buf存储元素，sendq是等待发送队列，recv是等待接收队列
+    * netpoll：
+
+
+
 
