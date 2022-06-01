@@ -17,6 +17,7 @@
   1. [Go 坑之math/rand](docs/hole-rand.md)
   1. [内存泄漏](docs/memory-leak.md)
 * 源码分析
+  1. [runtime/HACKING](docs/source-code-runtime-hacking.md)
   1. [全局变量](docs/source-code-global-variable.md)
   1. [核心函数](docs/source-code-core-functions.md)
   1. [接口类型](docs/source_interface.md)

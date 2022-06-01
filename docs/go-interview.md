@@ -174,9 +174,34 @@
   * 主动让出CPU：
     * time.Sleep：[time.Sleep(time.second)后发生了什么](https://zhuanlan.zhihu.com/p/269561870)
     * sync.Mutex：调用runtime_SemacquireMutex休眠，调用runtime_Semrelease唤醒
-    * channel：buf存储元素，sendq是等待发送队列，recv是等待接收队列
-    * netpoll：
-
-
-
-
+    * channel：buf存储元素，sendq是等待发送队列，recvq是等待接收队列
+    * netpoll：每个fd对应一个poolDesc，poolDesc.rg=可读的G，poolDesc.wg=可写的G
+* G的几种暂停方式：
+  * notesleep：不会让出GMP，直接让线程休眠直到notewakeup，该方式更快，适用于gcMark、stopm
+  * notetsleepg：GM绑定，释放P
+  * runtime.Gosched->runtime.gosched_m->runtime.goschedImpl：G放入全局队列，无需唤醒
+  * goexit：立即终止G，终止前保证defer正确运行
+  * gopark：需要通过goready唤醒，G会放在某个等待队列：
+    * channel的sendq或recvq
+    * sync.Mutex：semroot(&sema)下的队列
+    * timer：在每个P的四叉堆中
+    * netpool：poolDesc.rg=可读的G，poolDesc.wg=可写的G
+* netpool：[Go netpoller 原生网络模型之源码全面揭秘](https://strikefreedom.top/go-netpoll-io-multiplexing-reactor)
+  * linux内核epool相关三函数：
+    * int epoll_create(int size)
+    * int epoll_ctl(int epfd, int op, int fd, struct epoll_event *event)
+    * int epoll_wait(int epfd, struct epoll_event *events, int maxevents, int timeout)
+  * Golang对应epool的三函数：
+    * func netpollinit() // 全局的epfd = epollcreate1()
+    * func netpollopen(fd uintptr, pd *pollDesc) int32 // 创建事件并加入监听
+    * func netpoll(delta int64) gList // 调用epoll_wait获取已准备好的fd，进而找到G
+  * 以go-demo/net.serverTCP()为例：
+    * net.ListenTCP->sl.listenTCP->internetSocket->socket->fd.listenStream->fd.init->fd.pfd.Init->fd.pd.init
+      * 会执行runtime_pollServerInit->netpollGenericInit->netpollinit
+    * 调用netpollopen的三个地方：[Go 网络调用 netpoll](https://github.com/LeoYang90/Golang-Internal-Notes/blob/master/Go%20%E7%BD%91%E7%BB%9C%E8%B0%83%E7%94%A8%20netpoll.md)
+      * listener.AcceptTCP：listener.AcceptTCP->l.accept->ln.fd.accept
+        * 调用accept得到connFd：fd.pfd.Accept->accept->Accept4Func
+        * 调用netpollopen：netfd.init->fd.pfd.Init->fd.pd.init->runtime_pollOpen->poll_runtime_pollOpen
+      * conn.Read：c.fd.Read->fd.pfd.Read->fd.pd.waitRead->pd.wait->runtime_pollWait
+      * conn.Write：c.fd.Write->fd.pfd.Write->fd.pd.waitWrite->pd.wait->runtime_pollWait
+    * 调用netpoll的两个地方：runtime.schedule和系统监控runtime.sysmon
