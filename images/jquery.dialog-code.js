@@ -13,6 +13,7 @@ function getSourceCode(word, parent) {
         'newproc', 'newproc1', 'runqput', 'wakep', 'startm', 'mstart', 'releasep', 'acquirep',
         'mainPC', '`type."".Myintinterface`', '`"".(*Myint).fun`', '`"".Myint.fun`', 'schedule',
         '`go.itab."".Myint,"".Myintinterface`', '`go.itab.*"".Myint,"".Myintinterface`',
+        'newm', 'newosproc', 'acquirem', 'releasem', 'notewakeup', 'notesleep',
     ];
     $.get(`../docs/go1.16.10/${word}.html`, function (text) {
         $('#DialogCodeTemp').html(text);
