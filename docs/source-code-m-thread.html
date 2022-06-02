@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>启动main协程 · GitBook</title>
+        <title>M的管理 · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,8 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="source-code-m-thread.html" />
     
-    
-    <link rel="prev" href="source-code-gc.html" />
+    <link rel="prev" href="source-code-main-goroutine.html" />
     
 
     </head>
@@ -390,7 +388,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.4.6" data-path="source-code-main-goroutine.html">
+        <li class="chapter " data-level="1.4.6" data-path="source-code-main-goroutine.html">
             
                 <a href="source-code-main-goroutine.html">
             
@@ -403,7 +401,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.7" data-path="source-code-m-thread.html">
+        <li class="chapter active" data-level="1.4.7" data-path="source-code-m-thread.html">
             
                 <a href="source-code-m-thread.html">
             
@@ -451,7 +449,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >启动main协程</a>
+        <a href=".." >M的管理</a>
     </h1>
 </div>
 
@@ -466,15 +464,20 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h3 id="&#x542F;&#x52A8;main&#x534F;&#x7A0B;">&#x542F;&#x52A8;main&#x534F;&#x7A0B;</h3>
+                                <h3 id="m&#x7684;&#x7BA1;&#x7406;">M&#x7684;&#x7BA1;&#x7406;</h3>
 <p><link rel="stylesheet" type="text/css" href="../images/jquery.dialog.css"></p>
 <script type="text/javascript" src="../images/jquery.dialog-code.js"></script>
 
+<h4 id="m&#x7684;&#x521B;&#x5EFA;">M&#x7684;&#x521B;&#x5EFA;</h4>
+<ul>
+<li><a href="https://www.cnblogs.com/abozhang/p/10916701.html" target="_blank">&#x5DE5;&#x4F5C;&#x7EBF;&#x7A0B;&#x7684;&#x5524;&#x9192;&#x53CA;&#x521B;&#x5EFA;(19)</a></li>
+<li>&#x5728;ready()&#x548C;newproc()&#x65F6;&#x4F1A;&#x8C03;&#x7528;wakep()</li>
+</ul>
 <h4 id="go&#x7684;&#x542F;&#x52A8;&#x8FC7;&#x7A0B;">Go&#x7684;&#x542F;&#x52A8;&#x8FC7;&#x7A0B;</h4>
-<pre><code>runtime/rt0_linux_amd64.s&#x7684;_rt0_amd64_linux()   JMP    _rt0_amd64(SB)
-runtime/asm_amd64.s&#x7684;_rt0_amd64()               JMP    runtime&#xB7;rt0_go(SB)
-runtime/asm_amd64.s&#x7684;rt0_go()
-</code></pre><h4 id="runtimert0go">runtime.rt0_go</h4>
+<ul>
+<li><a href="https://zboya.github.io/post/go_scheduler/#m%E7%9A%84%E7%AE%A1%E7%90%86" target="_blank">&#x6DF1;&#x5165;golang runtime&#x7684;&#x8C03;&#x5EA6;</a>    </li>
+</ul>
+<h4 id="runtimert0go">runtime.rt0_go</h4>
 <div class="DialogCode" data-code="rt0_go"></div>
 
 
@@ -506,14 +509,10 @@ runtime/asm_amd64.s&#x7684;rt0_go()
 
             
                 
-                <a href="source-code-gc.html" class="navigation navigation-prev " aria-label="Previous page: GC 分析">
+                <a href="source-code-main-goroutine.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 启动main协程">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="source-code-m-thread.html" class="navigation navigation-next " aria-label="Next page: M的管理">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -522,7 +521,7 @@ runtime/asm_amd64.s&#x7684;rt0_go()
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"启动main协程","level":"1.4.6","depth":2,"next":{"title":"M的管理","level":"1.4.7","depth":2,"path":"docs/source-code-m-thread.md","ref":"docs/source-code-m-thread.md","articles":[]},"previous":{"title":"GC 分析","level":"1.4.5","depth":2,"path":"docs/source-code-gc.md","ref":"docs/source-code-gc.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/source-code-main-goroutine.md","mtime":"2022-06-02T04:02:13.900Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-06-02T04:02:36.496Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"M的管理","level":"1.4.7","depth":2,"previous":{"title":"启动main协程","level":"1.4.6","depth":2,"path":"docs/source-code-main-goroutine.md","ref":"docs/source-code-main-goroutine.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/source-code-m-thread.md","mtime":"2022-06-02T04:02:13.900Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-06-02T04:02:36.496Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
