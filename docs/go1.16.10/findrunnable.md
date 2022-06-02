@@ -10,7 +10,6 @@ top:
 	
 	// 省略...
 
-	// local runq
 	// 再尝试从本地队列中获取G
 	if gp, inheritTime := runqget(_p_); gp != nil {
 		return gp, inheritTime
