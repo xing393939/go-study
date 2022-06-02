@@ -54,7 +54,7 @@ func mstart1() {
 		fn()
 	}
 
-	// 当前不是m0，// 绑定p
+	// 当前不是m0，绑定p
 	if _g_.m != &m0 {
 		acquirep(_g_.m.nextp.ptr())
 		_g_.m.nextp = 0
