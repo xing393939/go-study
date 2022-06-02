@@ -23,3 +23,4 @@
   1. [接口类型](docs/source_interface.md)
   1. [GC 分析](docs/source-code-gc.md)
   1. [启动main协程](docs/source-code-main-goroutine.md)
+  1. [M的管理](docs/source-code-m-thread.md)
