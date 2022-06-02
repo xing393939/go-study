@@ -14,6 +14,7 @@ function getSourceCode(word, parent) {
         'mainPC', '`type."".Myintinterface`', '`"".(*Myint).fun`', '`"".Myint.fun`', 'schedule',
         '`go.itab."".Myint,"".Myintinterface`', '`go.itab.*"".Myint,"".Myintinterface`',
         'newm', 'newosproc', 'acquirem', 'releasem', 'notewakeup', 'notesleep', 'clone',
+        'findrunnable',
     ];
     $.get(`../docs/go1.16.10/${word}.html`, function (text) {
         $('#DialogCodeTemp').html(text);

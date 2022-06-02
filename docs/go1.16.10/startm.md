@@ -56,8 +56,7 @@ func startm(_p_ *p, spinning bool) {
 			fn = mspinning
 		}
 		newm(fn, _p_, id)
-		// Ownership transfer of _p_ committed by start in newm.
-		// Preemption is now safe.
+		// Ownership transfer of _p_ committed by start in newm. Preemption is now safe.
 		releasem(mp)
 		return
 	}
@@ -75,8 +74,7 @@ func startm(_p_ *p, spinning bool) {
 	nmp.spinning = spinning
 	nmp.nextp.set(_p_)
 	notewakeup(&nmp.park)
-	// Ownership transfer of _p_ committed by wakeup. Preemption is now
-	// safe.
+	// Ownership transfer of _p_ committed by wakeup. Preemption is now safe.
 	releasem(mp)
 }
 ```
