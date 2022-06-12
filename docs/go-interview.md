@@ -205,3 +205,25 @@
       * conn.Read：c.fd.Read->fd.pfd.Read->fd.pd.waitRead->pd.wait->runtime_pollWait
       * conn.Write：c.fd.Write->fd.pfd.Write->fd.pd.waitWrite->pd.wait->runtime_pollWait
     * 调用netpoll的两个地方：runtime.schedule和系统监控runtime.sysmon
+* 系统监控线程的五项工作：
+  * 检查死锁
+  * 运行计时器 — 获取下一个需要被触发的计时器；
+  * 轮询网络 — 获取需要处理的到期文件描述符；
+  * 抢占处理器 — 抢占运行时间较长的或者处于系统调用的协程；
+  * 垃圾回收 — 在满足条件时触发垃圾收集回收内存
+  
+#### 第13章 内存分配
+* 内存管理的四个层级：
+  * 页分配器：mheap
+  * 对象分配器：mallocgc->mcache->mcentral
+  * 垃圾回收器：GC
+  * 拾荒器：Scavenger
+* [虚拟地址空间的四种状态](https://cache-missing.gitbook.io/golang-nei-cun-guan-li-yu-la-ji-hui-shou/nei-cun-fen-pei/di-ceng-chou-xiang)
+  * `None`-sysReserve->`Reserved`-sysMap->`Prepared`-sysUsed|sysUnused->`Ready`
+  * sysReserve: `mmap(v, n, _PROT_NONE, _MAP_ANON|_MAP_PRIVATE, -1, 0)`
+  * sysMap: `mmap(v, n, _PROT_READ|_PROT_WRITE, _MAP_ANON|_MAP_FIXED|_MAP_PRIVATE, -1, 0)`
+  * sysUsed: `madvise(unsafe.Pointer(beg), end-beg, _MADV_HUGEPAGE)`
+  * sysUnused: `madvise(v, n, _MADV_DONTNEED)`
+  * sysFree: `munmap(v, n)`，Ready|Prepared->None
+  * sysAlloc: `mmap(nil, n, _PROT_READ|_PROT_WRITE, _MAP_ANON|_MAP_PRIVATE, -1, 0)`，None->Ready
+  
