@@ -493,7 +493,15 @@
                                 <section class="normal markdown-section">
                                 
                                 <h3 id="&#x5BF9;&#x8C61;&#x5206;&#x914D;&#x5668;">&#x5BF9;&#x8C61;&#x5206;&#x914D;&#x5668;</h3>
+<p><link rel="stylesheet" type="text/css" href="../images/jquery.dialog.css"></p>
+<script type="text/javascript" src="../images/jquery.dialog-code.js"></script>
+
 <h4 id="mallocgc">mallocgc</h4>
+<ul>
+<li>&#x5FAE;&#x5BF9;&#x8C61;&#x5206;&#x914D;&#xFF08;0~16B&#xFF0C;noscan&#xFF09;</li>
+<li>&#x5C0F;&#x5BF9;&#x8C61;&#x5206;&#x914D;&#xFF08;16B~32KB&#xFF09;&#xFF1A;&#x4F9D;&#x6B21;&#x4ECE;mcache&#x3001;mcentral&#x3001;mheap&#x53D6;span</li>
+<li>&#x5927;&#x5BF9;&#x8C61;&#x5206;&#x914D;&#xFF08;&#x5927;&#x4E8E;32KB&#xFF09;&#xFF1A;&#x76F4;&#x63A5;&#x4ECE;mheap&#x53D6;span</li>
+</ul>
 <div class="DialogCode" data-code="mallocgc"></div>
 
                                 
@@ -538,7 +546,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"对象分配器","level":"1.4.8","depth":2,"next":{"title":"页分配器","level":"1.4.9","depth":2,"path":"docs/source-code-mheap.md","ref":"docs/source-code-mheap.md","articles":[]},"previous":{"title":"M的管理","level":"1.4.7","depth":2,"path":"docs/source-code-m-thread.md","ref":"docs/source-code-m-thread.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/source-code-mallocgc.md","mtime":"2022-06-14T07:44:03.733Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-06-14T07:44:31.417Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"对象分配器","level":"1.4.8","depth":2,"next":{"title":"页分配器","level":"1.4.9","depth":2,"path":"docs/source-code-mheap.md","ref":"docs/source-code-mheap.md","articles":[]},"previous":{"title":"M的管理","level":"1.4.7","depth":2,"path":"docs/source-code-m-thread.md","ref":"docs/source-code-m-thread.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/source-code-mallocgc.md","mtime":"2022-06-14T08:57:39.379Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-06-14T08:58:09.206Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

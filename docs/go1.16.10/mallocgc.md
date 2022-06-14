@@ -60,7 +60,7 @@ func mallocgc(size uintptr, typ *_type, needzero bool) unsafe.Pointer {
 	noscan := typ == nil || typ.ptrdata == 0
 	if size <= maxSmallSize {
 		if noscan && size < maxTinySize {
-			// 微对象分配（0~16B），省略代码...
+			// 微对象分配（0~16B，noscan），省略代码...
 		} else {
 			// 小对象分配（16B~32KB）
 			var sizeclass uint8
