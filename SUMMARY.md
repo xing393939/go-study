@@ -24,3 +24,5 @@
   1. [GC 分析](docs/source-code-gc.md)
   1. [启动main协程](docs/source-code-main-goroutine.md)
   1. [M的管理](docs/source-code-m-thread.md)
+  1. [对象分配器](docs/source-code-mallocgc.md)
+  1. [页分配器](docs/source-code-mheap.md)

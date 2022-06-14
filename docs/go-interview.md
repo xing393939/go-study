@@ -225,5 +225,6 @@
   * sysUsed: `madvise(unsafe.Pointer(beg), end-beg, _MADV_HUGEPAGE)`
   * sysUnused: `madvise(v, n, _MADV_DONTNEED)`
   * sysFree: `munmap(v, n)`，Ready|Prepared->None
-  * sysAlloc: `mmap(nil, n, _PROT_READ|_PROT_WRITE, _MAP_ANON|_MAP_PRIVATE, -1, 0)`，None->Ready
+  * sysAlloc: `mmap(nil, n, _PROT_READ|_PROT_WRITE, _MAP_ANON|_MAP_PRIVATE, -1, 0)`
+
   
