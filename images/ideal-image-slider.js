@@ -406,7 +406,7 @@ var IdealImageSlider = (function() {
 			maxHeight: null, // for "auto" and aspect ratio
 			interval: 4000,
 			transitionDuration: 700,
-			effect: 'slide',
+			effect: 'fade',
 			disableNav: false,
 			keyboardNav: true,
 			previousNavSelector: '',
