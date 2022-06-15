@@ -2,7 +2,7 @@
 func (c *mcache) nextFree(spc spanClass) (v gclinkptr, s *mspan, shouldhelpgc bool) {
 	s = c.alloc[spc]
 	shouldhelpgc = false
-	freeIndex := s.nextFreeIndex() // 没看懂nextFreeIndex
+	freeIndex := s.nextFreeIndex()
 	if freeIndex == s.nelems {
 		// span已经用完了
 		if uintptr(s.allocCount) != s.nelems {
