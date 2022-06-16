@@ -6,7 +6,7 @@ type Conn struct{}
 type Result struct{}
 
 func (c *Conn) DoQuery(str string) Result {
-	println(&c, "start")
+	println(c, "start")
 	time.Sleep(time.Millisecond)
 	return Result{}
 }
@@ -23,7 +23,7 @@ func Query(conns []Conn, query string) Result {
 		go func(c Conn) {
 			select {
 			case ch <- c.DoQuery(query):
-				println(&c)
+				println("passed")
 			default:
 				println("default")
 			}
