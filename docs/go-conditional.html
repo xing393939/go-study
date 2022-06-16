@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>runtime/HACKING · GitBook</title>
+        <title>编译条件 · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,8 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="source-code-global-variable.html" />
+    <link rel="next" href="go-compilation.html" />
     
+    
+    <link rel="prev" href="go-dlv.html" />
     
 
     </head>
@@ -200,7 +202,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.2" data-path="go-conditional.html">
+        <li class="chapter active" data-level="1.3.2" data-path="go-conditional.html">
             
                 <a href="go-conditional.html">
             
@@ -336,7 +338,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter active" data-level="1.4.1" data-path="source-code-runtime-hacking.html">
+        <li class="chapter " data-level="1.4.1" data-path="source-code-runtime-hacking.html">
             
                 <a href="source-code-runtime-hacking.html">
             
@@ -488,7 +490,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >runtime/HACKING</a>
+        <a href=".." >编译条件</a>
     </h1>
 </div>
 
@@ -503,18 +505,34 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <p><link rel="stylesheet" href="../images/ideal-image-slider.css"></p>
-<p><link rel="stylesheet" href="../images/ideal-default-theme.css"></p>
-<script src="../images/ideal-image-slider.js"></script>
-<script src="../images/ideal-iis-bullet-nav.js"></script>
-
-<h3 id="runtimehacking">runtime/HACKING</h3>
+                                <h3 id="&#x7F16;&#x8BD1;&#x6761;&#x4EF6;">&#x7F16;&#x8BD1;&#x6761;&#x4EF6;</h3>
 <h4 id="&#x53C2;&#x8003;&#x8D44;&#x6599;">&#x53C2;&#x8003;&#x8D44;&#x6599;</h4>
 <ul>
-<li><a href="https://github.com/golang/go/blob/master/src/runtime/HACKING.md" target="_blank">runtime/HACKING.md</a></li>
-<li><a href="https://www.purewhite.io/2019/11/28/runtime-hacking-translate/" target="_blank">Golang &#x5728; runtime &#x4E2D;&#x7684;&#x4E00;&#x4E9B;&#x9A9A;&#x4E1C;&#x897F;</a></li>
+<li><a href="https://linkscue.com/posts/2018-06-18-golang-build-constraints/" target="_blank">&#x4F60;&#x4E00;&#x76F4;&#x5728;&#x5BFB;&#x627E;&#x7684;GO&#x8BED;&#x8A00;&#x6761;&#x4EF6;&#x7F16;&#x8BD1;</a></li>
+<li><a href="https://pkg.go.dev/cmd/go#hdr-Build_constraints" target="_blank">Build constraints</a></li>
 </ul>
+<h4 id="&#x5E38;&#x7528;&#x89C4;&#x5219;">&#x5E38;&#x7528;&#x89C4;&#x5219;</h4>
+<pre><code>1.&#x7F16;&#x8BD1;&#x6807;&#x7B7E;
+// +build windows &#x76F8;&#x5F53;&#x4E8E;go build -tags GOOS
+//go:build !cgo   &#x82E5;CGO_ENABLED=0&#x5219;&#x7F16;&#x8BD1;
 
+2.&#x6587;&#x4EF6;&#x540E;&#x7F00;
+mypkg_linux.go         &#x53EA;&#x5728; linux &#x7CFB;&#x7EDF;&#x7F16;&#x8BD1;
+mypkg_windows_amd64.go &#x53EA;&#x5728; windows amd64 &#x5E73;&#x53F0;&#x7F16;&#x8BD1;
+
+3.&#x6307;&#x5B9A;&#x914D;&#x7F6E;&#x65B9;&#x6CD5;&#x4E00;&#xFF1A;./myServer release 
+serverMode := os.Args[1] 
+
+4.&#x6307;&#x5B9A;&#x914D;&#x7F6E;&#x65B9;&#x6CD5;&#x4E8C;&#xFF1A;export SERVER_MODE=debug
+os.Getenv(&quot;SERVER_MODE&quot;)
+
+5.&#x6307;&#x5B9A;&#x914D;&#x7F6E;&#x65B9;&#x6CD5;&#x4E09;&#xFF1A;go build -ldflags &apos;-X main.mode=debug&apos; main.go
+var mode string &amp;&amp; print(mode)
+
+6.&#x6307;&#x5B9A;&#x914D;&#x7F6E;&#x65B9;&#x6CD5;&#x56DB;&#xFF1A;go build -tags debug -o main
+config_release.go //+build release
+config_debug.go   //+build debug
+</code></pre>
                                 
                                 </section>
                             
@@ -541,8 +559,12 @@
 
             
                 
+                <a href="go-dlv.html" class="navigation navigation-prev " aria-label="Previous page: dlv调试">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="source-code-global-variable.html" class="navigation navigation-next navigation-unique" aria-label="Next page: 全局变量">
+                
+                <a href="go-compilation.html" class="navigation navigation-next " aria-label="Next page: 汇编相关">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -553,7 +575,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"runtime/HACKING","level":"1.4.1","depth":2,"next":{"title":"全局变量","level":"1.4.2","depth":2,"path":"docs/source-code-global-variable.md","ref":"docs/source-code-global-variable.md","articles":[]},"previous":{"title":"源码分析","level":"1.4","depth":1,"ref":"","articles":[{"title":"runtime/HACKING","level":"1.4.1","depth":2,"path":"docs/source-code-runtime-hacking.md","ref":"docs/source-code-runtime-hacking.md","articles":[]},{"title":"全局变量","level":"1.4.2","depth":2,"path":"docs/source-code-global-variable.md","ref":"docs/source-code-global-variable.md","articles":[]},{"title":"核心函数","level":"1.4.3","depth":2,"path":"docs/source-code-core-functions.md","ref":"docs/source-code-core-functions.md","articles":[]},{"title":"接口类型","level":"1.4.4","depth":2,"path":"docs/source_interface.md","ref":"docs/source_interface.md","articles":[]},{"title":"GC 分析","level":"1.4.5","depth":2,"path":"docs/source-code-gc.md","ref":"docs/source-code-gc.md","articles":[]},{"title":"启动main协程","level":"1.4.6","depth":2,"path":"docs/source-code-main-goroutine.md","ref":"docs/source-code-main-goroutine.md","articles":[]},{"title":"M的管理","level":"1.4.7","depth":2,"path":"docs/source-code-m-thread.md","ref":"docs/source-code-m-thread.md","articles":[]},{"title":"对象分配器","level":"1.4.8","depth":2,"path":"docs/source-code-mallocgc.md","ref":"docs/source-code-mallocgc.md","articles":[]},{"title":"页分配器","level":"1.4.9","depth":2,"path":"docs/source-code-mheap.md","ref":"docs/source-code-mheap.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/source-code-runtime-hacking.md","mtime":"2022-06-16T02:16:09.717Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-06-16T02:16:45.837Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"编译条件","level":"1.3.2","depth":2,"next":{"title":"汇编相关","level":"1.3.3","depth":2,"path":"docs/go-compilation.md","ref":"docs/go-compilation.md","articles":[]},"previous":{"title":"dlv调试","level":"1.3.1","depth":2,"path":"docs/go-dlv.md","ref":"docs/go-dlv.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-conditional.md","mtime":"2022-06-16T02:16:09.713Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-06-16T02:16:45.837Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
