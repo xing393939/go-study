@@ -11,7 +11,7 @@
 * [堆内存分配：mallocgc函数 - B站视频](https://www.bilibili.com/video/BV1gT4y1o7H1)
 * 题1：已知一个堆内存p，求p在第几个arena？
   * arena编号 = (p - arenaBaseOffset) / heapArenaBytes
-* 题2：在linux_amd64下，arena大小和对齐边界都是64M，线性寻址地址有48b，求可以划分多少arena？
+* 题2：在linux_amd64下，arena大小和对齐边界都是64M，线性地址有48b，求可划分多少arena？
   * arena总数 = 2 ^ 48 / 2 ^ 26 = 4M
 * 题3：已知一个堆内存p，求p在第几个page？
   * page编号 = (p / pageSize) % pagesPerArena
