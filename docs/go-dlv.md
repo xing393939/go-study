@@ -56,6 +56,23 @@ c
 第3个8B是stringStruct.length
 ```
 
+#### 在windows上远程调试
+```
+// 1.在windows上交叉编译linux二进制包
+SET GOOS=linux
+SET GOARCH=amd64
+go build -gcflags "all=-N -l" go-study/go-demo/memstats-math
+
+// 2.在linux运行这个二进制包
+dlv debug go-study/go-demo/memstats-math --listen=:2345 --headless=true --api-version=2 --accept-multiclient
+
+// 3.在windows上的IDEA配置go remote。
+
+// 4.在windows上的代码处设置断点，运行go remote
+
+// PS：每次debug跑完后需要重复步骤2，参考http://hbchen.com/post/go/2021-03-19-delve/
+```
+
 #### slice的内存结构
 ```
 func main() {
