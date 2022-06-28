@@ -8,12 +8,16 @@
   * 请求2：writeDB(v2)->delCache
 * 缓存模式2：
   * 请求1：cacheMiss->读v1->setNX
-  * 请求2：writeDB(v2)->setEX  
-  * binlog异步任务补偿cache(假设不会早于请求2的setEX)
+  * 请求2：writeDB(v2)->set
+  * binlog异步任务补偿cache(写写场景可能会有ABA问题)
 * 缓存模式3：facebook的方案
-  * 请求1：cacheMiss->读v1->setCache(v1)，若存在v2版本set失败
-  * 请求2：writeDB(v2)->delCache  
-  * binlog异步任务补偿setCache(v2)
+  * 请求1：cacheMiss->读v1->setCache(v1)
+  * 请求2：writeDB(v2)->delCache
+  * binlog异步任务补偿delCache
+* 缓存模式3：facebook的方案的规则：
+  1. 第一个线程cacheMiss的时候会分配leaseId(10s过期)，后续线程没有leaseId(等待并重试)
+  1. setCache的时候必须带leaseId，且是有效的
+  1. delCache的时候之前发的leaseId失效，后续线程cacheMiss的时候可分配leaseId
 * 缓存模式-多级缓存：
   * 写数据时，上游服务先把下游服务delCache，再自己delCache
   * 设置缓存时间，下游服务的缓存时间要大于上游
@@ -22,7 +26,7 @@
   * 框架层面，用大顶堆维护请求频繁的key，并转为小表localCache模式
   * 框架层面，用key+后缀请求到不同的节点
 * 缓存模式-缓存穿透：
-  * 通过哈希key保证一定访问service的某节点，节点上用singlefly保证只有一个请求回源  
+  * 节点上用singleflight保证只有一个请求回源  
 * 缓存技巧：
   * 大的hash key拆成多个key
   * 避免超大value
