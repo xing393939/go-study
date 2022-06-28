@@ -3,13 +3,27 @@ package channel_waitgroup_singleflight
 import (
 	"golang.org/x/sync/errgroup"
 	"golang.org/x/sync/singleflight"
+	"io"
+	"os"
+	"runtime/pprof"
 	"sync"
 	"sync/atomic"
 	"testing"
 	"time"
 )
 
+func getAFile(filename string) io.WriteCloser {
+	f1, err := os.Create(filename)
+	if err != nil {
+		return nil
+	}
+	return f1
+}
+
 func BenchmarkChannel(b *testing.B) {
+	_ = pprof.StartCPUProfile(getAFile("./cpu.o"))
+	defer pprof.StopCPUProfile()
+
 	for i := 0; i < b.N; i++ {
 		ch := make(chan struct{})
 		go func() {
@@ -20,6 +34,9 @@ func BenchmarkChannel(b *testing.B) {
 }
 
 func BenchmarkWaitGroup(b *testing.B) {
+	_ = pprof.StartCPUProfile(getAFile("./cpu2.o"))
+	defer pprof.StopCPUProfile()
+
 	for i := 0; i < b.N; i++ {
 		wg := sync.WaitGroup{}
 		wg.Add(1)
