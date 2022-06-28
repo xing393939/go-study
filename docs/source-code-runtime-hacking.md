@@ -28,6 +28,16 @@
 * goready恢复一个被挂起的goroutine
 * STW期间不会有写操作，因此读操作不需要是原子的
 
+#### 堆外内存
+* sysAlloc 直接从操作系统获取内存，申请的内存必须是系统页表长度的整数倍。
+* persistentalloc 将小的内存申请合并为一个大的sysAlloc，申请的内存是无法被释放的
+* fixalloc 是类SLAB内存分配器，分配固定大小的内存，通过fixalloc分配的对象可以被释放
+* 在堆外内存所分配的对象不应该包含堆内内存的指针对象，除非：
+  1. 指向的是GC的根对象，或者用runtime.markroot标记
+  1. 如果堆内内存被重用了，在标记为根对象之前要先对内存0初始化
+* memclrNoHeapPointers不会触发写屏障
+* typedmemclr和memclrHasPointers写入零值，会触发写屏障
+
 #### Runtime-only 编译指令
 * go:systemstack 表明一个函数必须在系统栈上运行
 * go:nowritebarrier 告知编译器如果以下函数包含了写屏障，触发一个错误
