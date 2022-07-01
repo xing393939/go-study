@@ -13,6 +13,7 @@ require (
 	github.com/go-redis/redis/v8 v8.11.4
 	github.com/gogf/gf/v2 v2.0.6
 	github.com/golang/glog v1.0.0 // indirect
+	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/google/wire v0.5.0
 	github.com/gorilla/handlers v1.5.1
 	github.com/kellydunn/golang-geo v0.7.0
