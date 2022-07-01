@@ -5,7 +5,6 @@ import (
 	"golang.org/x/sync/singleflight"
 	"io"
 	"os"
-	"runtime/pprof"
 	"sync"
 	"sync/atomic"
 	"testing"
@@ -21,29 +20,23 @@ func getAFile(filename string) io.WriteCloser {
 }
 
 func BenchmarkChannel(b *testing.B) {
-	_ = pprof.StartCPUProfile(getAFile("./cpu.o"))
-	defer pprof.StopCPUProfile()
-
 	for i := 0; i < b.N; i++ {
 		ch := make(chan struct{})
 		go func() {
 			<-ch
 		}()
-		ch <- struct{}{}
+		close(ch)
 	}
 }
 
 func BenchmarkWaitGroup(b *testing.B) {
-	_ = pprof.StartCPUProfile(getAFile("./cpu2.o"))
-	defer pprof.StopCPUProfile()
-
 	for i := 0; i < b.N; i++ {
 		wg := sync.WaitGroup{}
 		wg.Add(1)
 		go func() {
-			wg.Done()
+			wg.Wait()
 		}()
-		wg.Wait()
+		wg.Done()
 	}
 }
 
