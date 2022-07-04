@@ -3,74 +3,58 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/go-kratos/kratos/v2/transport/http"
 	"go-study/grpc-server/proto"
 	"google.golang.org/grpc"
-	"io"
+	"google.golang.org/protobuf/types/known/structpb"
 	"net"
 )
 
-type server struct {
+type service struct {
 	proto.HelloServiceServer
 }
 
+type MyStruct struct {
+	A int
+	B string
+}
+
 // 正常模式
-func (s *server) HelloWorld(ctx context.Context, req *proto.HelloRequest) (*proto.HelloResponse, error) {
+func (s *service) HelloWorld(ctx context.Context, req *proto.HelloRequest) (*proto.HelloResponse, error) {
+	m := map[string]interface{}{
+		"a": 1,
+		"b": []interface{}{
+			map[string]interface{}{
+				"type":   "home",
+				"number": "212 555-1234",
+			},
+			map[string]interface{}{
+				"type":   "office",
+				"number": "646 555-4567",
+			},
+		},
+		"c": map[string]interface{}{
+			"c": "ccc",
+		},
+		// "d": MyStruct{A: 1, B: "b"}, 不能用自定义的结构体
+	}
+	mys, _ := structpb.NewStruct(m)
 	res := &proto.HelloResponse{
 		Response: req.Request,
+		Data:     mys,
 	}
 	return res, nil
 }
 
-// 一个服务器端流式rpc
-func (s *server) HelloWorldServerStream(req *proto.HelloRequest, srv proto.HelloService_HelloWorldServerStreamServer) error {
-	res := &proto.HelloResponse{
-		Response: req.Request,
-	}
-	_ = srv.Send(res)
-	_ = srv.Send(res)
-	return nil
-}
-
-// 一个客户端流式rpc
-func (s *server) HelloWorldClientStream(srv proto.HelloService_HelloWorldClientStreamServer) error {
-	str := ""
-	for {
-		req, err := srv.Recv()
-		if err != nil {
-			if err == io.EOF {
-				break
-			}
-			panic("unknown error")
-		}
-		str += req.Request
-	}
-	res := &proto.HelloResponse{
-		Response: str,
-	}
-	return srv.SendAndClose(res)
-}
-
-// 一个客户端和服务器端双向流式rpc
-func (s *server) HelloWorldClientAndServerStream(srv proto.HelloService_HelloWorldClientAndServerStreamServer) error {
-	for {
-		req, err := srv.Recv()
-		if err != nil {
-			if err == io.EOF {
-				break
-			}
-			panic("unknown error")
-		}
-		res := &proto.HelloResponse{
-			Response: req.Request,
-		}
-		_ = srv.Send(res)
-	}
-	return nil
-}
-
 func main() {
-	lis, _ := net.Listen("tcp", fmt.Sprintf(":%d", 8080))
+	lis, _ := net.Listen("tcp", fmt.Sprintf(":%d", 8081))
 	s := grpc.NewServer()
-	proto.RegisterHelloServiceServer(s, &server{})
+	proto.RegisterHelloServiceServer(s, &service{})
+	go func() {
+		lis, _ := net.Listen("tcp", fmt.Sprintf(":%d", 8080))
+		s := http.NewServer()
+		proto.RegisterHelloServiceHTTPServer(s, &service{})
+		_ = s.Serve(lis)
+	}()
 	_ = s.Serve(lis)
 }
