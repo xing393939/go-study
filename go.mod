@@ -7,6 +7,7 @@ require (
 	github.com/envoyproxy/protoc-gen-validate v0.6.7
 	github.com/erikstmartin/go-testdb v0.0.0-20160219214506-8d10e4a1bae5 // indirect
 	github.com/felixge/httpsnoop v1.0.2 // indirect
+	github.com/gin-gonic/gin v1.8.1 // indirect
 	github.com/go-kratos/kratos/v2 v2.2.1
 	github.com/go-kratos/swagger-api v1.0.1
 	github.com/go-redis/redis/extra/redisotel v0.3.0

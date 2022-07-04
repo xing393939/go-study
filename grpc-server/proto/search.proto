@@ -2,19 +2,28 @@ syntax = "proto3";
 
 package proto;
 option go_package = ".;proto";
+import "google/api/annotations.proto";
+import "google/protobuf/struct.proto";
 
 //接口请求入参
 message HelloRequest{
     string request = 1;
 }
+
 //接口返回出参
 message HelloResponse{
     string response = 1;
+    google.protobuf.Struct data = 2;
 }
+
 //定义接口
 service HelloService{
     //一个简单的rpc
-    rpc HelloWorld(HelloRequest) returns (HelloResponse){}
+    rpc HelloWorld(HelloRequest) returns (HelloResponse){
+        option (google.api.http) = {
+            get: "/v1/HelloWorld"
+        };
+    }
     //一个服务器端流式rpc
     rpc HelloWorldServerStream(HelloRequest) returns (stream HelloResponse){}
     //一个客户端流式rpc
