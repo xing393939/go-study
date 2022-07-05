@@ -39,7 +39,7 @@ func TestInsertionSort(t *testing.T) {
 	t.Log(targetArr)
 }
 
-func quickPartition(targetArr []int, p, r int) {
+func quickSort(targetArr []int, p, r int) {
 	if p >= r {
 		return
 	}
@@ -55,8 +55,8 @@ func quickPartition(targetArr []int, p, r int) {
 	temp := targetArr[i]
 	targetArr[i] = targetArr[j]
 	targetArr[j] = temp
-	quickPartition(targetArr, p, i-1)
-	quickPartition(targetArr, i+1, r)
+	quickSort(targetArr, p, i-1)
+	quickSort(targetArr, i+1, r)
 }
 
 // 快速排序
@@ -64,7 +64,7 @@ func TestQuickSort(t *testing.T) {
 	targetLen := len(sourceArr)
 	targetArr := make([]int, targetLen)
 	copy(targetArr, sourceArr)
-	quickPartition(targetArr, 0, targetLen-1)
+	quickSort(targetArr, 0, targetLen-1)
 	t.Log(targetArr)
 }
 
