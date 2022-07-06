@@ -22,13 +22,15 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type HelloServiceClient interface {
-	//一个简单的rpc
+	// 一个简单的rpc
 	HelloWorld(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloResponse, error)
-	//一个服务器端流式rpc
+	// post form
+	PostForm(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloResponse, error)
+	// 一个服务器端流式rpc
 	HelloWorldServerStream(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (HelloService_HelloWorldServerStreamClient, error)
-	//一个客户端流式rpc
+	// 一个客户端流式rpc
 	HelloWorldClientStream(ctx context.Context, opts ...grpc.CallOption) (HelloService_HelloWorldClientStreamClient, error)
-	//一个客户端和服务器端双向流式rpc
+	// 一个客户端和服务器端双向流式rpc
 	HelloWorldClientAndServerStream(ctx context.Context, opts ...grpc.CallOption) (HelloService_HelloWorldClientAndServerStreamClient, error)
 }
 
@@ -43,6 +45,15 @@ func NewHelloServiceClient(cc grpc.ClientConnInterface) HelloServiceClient {
 func (c *helloServiceClient) HelloWorld(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloResponse, error) {
 	out := new(HelloResponse)
 	err := c.cc.Invoke(ctx, "/proto.HelloService/HelloWorld", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *helloServiceClient) PostForm(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloResponse, error) {
+	out := new(HelloResponse)
+	err := c.cc.Invoke(ctx, "/proto.HelloService/PostForm", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -150,13 +161,15 @@ func (x *helloServiceHelloWorldClientAndServerStreamClient) Recv() (*HelloRespon
 // All implementations must embed UnimplementedHelloServiceServer
 // for forward compatibility
 type HelloServiceServer interface {
-	//一个简单的rpc
+	// 一个简单的rpc
 	HelloWorld(context.Context, *HelloRequest) (*HelloResponse, error)
-	//一个服务器端流式rpc
+	// post form
+	PostForm(context.Context, *HelloRequest) (*HelloResponse, error)
+	// 一个服务器端流式rpc
 	HelloWorldServerStream(*HelloRequest, HelloService_HelloWorldServerStreamServer) error
-	//一个客户端流式rpc
+	// 一个客户端流式rpc
 	HelloWorldClientStream(HelloService_HelloWorldClientStreamServer) error
-	//一个客户端和服务器端双向流式rpc
+	// 一个客户端和服务器端双向流式rpc
 	HelloWorldClientAndServerStream(HelloService_HelloWorldClientAndServerStreamServer) error
 	mustEmbedUnimplementedHelloServiceServer()
 }
@@ -167,6 +180,9 @@ type UnimplementedHelloServiceServer struct {
 
 func (UnimplementedHelloServiceServer) HelloWorld(context.Context, *HelloRequest) (*HelloResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method HelloWorld not implemented")
+}
+func (UnimplementedHelloServiceServer) PostForm(context.Context, *HelloRequest) (*HelloResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PostForm not implemented")
 }
 func (UnimplementedHelloServiceServer) HelloWorldServerStream(*HelloRequest, HelloService_HelloWorldServerStreamServer) error {
 	return status.Errorf(codes.Unimplemented, "method HelloWorldServerStream not implemented")
@@ -204,6 +220,24 @@ func _HelloService_HelloWorld_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(HelloServiceServer).HelloWorld(ctx, req.(*HelloRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _HelloService_PostForm_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(HelloRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(HelloServiceServer).PostForm(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.HelloService/PostForm",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(HelloServiceServer).PostForm(ctx, req.(*HelloRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -291,6 +325,10 @@ var HelloService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "HelloWorld",
 			Handler:    _HelloService_HelloWorld_Handler,
+		},
+		{
+			MethodName: "PostForm",
+			Handler:    _HelloService_PostForm_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
