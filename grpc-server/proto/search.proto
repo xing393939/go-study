@@ -5,29 +5,39 @@ option go_package = ".;proto";
 import "google/api/annotations.proto";
 import "google/protobuf/struct.proto";
 
-//接口请求入参
+// 接口请求入参
 message HelloRequest{
     string request = 1;
 }
 
-//接口返回出参
+// 接口返回出参
 message HelloResponse{
     string response = 1;
     google.protobuf.Struct data = 2;
 }
 
-//定义接口
+// 定义接口
+// protoc --go_out=. --go_opt=paths=source_relative *.proto
+// protoc --go-grpc_out=. --go-grpc_opt=paths=source_relative *.proto
+// protoc --go-http_out=. --go-http_opt=paths=source_relative *.proto
 service HelloService{
-    //一个简单的rpc
+    // 一个简单的rpc
     rpc HelloWorld(HelloRequest) returns (HelloResponse){
         option (google.api.http) = {
             get: "/v1/HelloWorld"
         };
     }
-    //一个服务器端流式rpc
+    // post form
+    rpc PostForm(HelloRequest) returns (HelloResponse){
+        option (google.api.http) = {
+            post: "/v1/PostForm"
+            body: "*"
+        };
+    }
+    // 一个服务器端流式rpc
     rpc HelloWorldServerStream(HelloRequest) returns (stream HelloResponse){}
-    //一个客户端流式rpc
+    // 一个客户端流式rpc
     rpc HelloWorldClientStream(stream HelloRequest) returns (HelloResponse){}
-    //一个客户端和服务器端双向流式rpc
+    // 一个客户端和服务器端双向流式rpc
     rpc HelloWorldClientAndServerStream(stream HelloRequest) returns (stream HelloResponse){}
 }
