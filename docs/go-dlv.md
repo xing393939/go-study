@@ -61,10 +61,10 @@ c
 // 1.在windows上交叉编译linux二进制包
 SET GOOS=linux
 SET GOARCH=amd64
-go build -gcflags "all=-N -l" go-study/go-demo/memstats-math
+go build -gcflags "all=-N -l" demo
 
 // 2.在linux运行这个二进制包
-dlv debug go-study/go-demo/memstats-math --listen=:2345 --headless=true --api-version=2 --accept-multiclient
+dlv --listen=:2345 --headless=true --api-version=2 --accept-multiclient exec ./demo
 
 // 3.在windows上的IDEA配置go remote。
 
