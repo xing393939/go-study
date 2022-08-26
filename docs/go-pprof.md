@@ -42,20 +42,32 @@
 * [pprof性能调优](https://www.topgoer.com/%E5%85%B6%E4%BB%96/pprof%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98.html)
 * [你不知道的 Go 之 pprof](https://darjun.github.io/2021/06/09/youdontknowgo/pprof/)
 * cpu指标：每隔10ms会中断一次，记录每个协程当前执行的堆栈
+  * 采样频率是写死的，不能更改，官方通过测试认为是合理的
+  * 采样范围是采样开始~采样结束
+  * 先注册定时器，10ms发送一个SIGPROF信号给进程，开启一个写缓冲协程来收集堆栈数据
   * flat：真正消耗cpu的函数，比如函数a、函数b
   * cum：如果函数c调用了a和b，那么c的时间就是a+b
+* Goroutine和ThreadCreate
+  * Groutine是用户创建的协程和main协程
+  * ThreadCreate是所有线程信息
+  * 两者都是先STW再收集
 * 内存指标：每分配512KB内存则打点当前对象，free打点对象时更新统计
   * [万字长文图解 Go 内存管理分析](https://mp.weixin.qq.com/s/rydO2JK-r8JjG9v_Uy7gXg)
   * [Go语言核心36讲51](https://itcn.blog/p/1648835511945839.html)
   * 默认程序是开启内存采样的，证明代码见：go-demo/pprof-test
-  * 默认采样率是512KB，可以在main函数启动时改采样率runtime.MemProfileRate
+  * 默认采样率是512KB，可以在main函数启动时改采样率runtime.MemProfileRate，为1表示收集所有
+  * 采样数据是程序启动以来到采样点时的内存情况
   * pprof.WriteHeapProfile收集的是内存快照，要实时数据用runtime.ReadMemStats(会STW)
+  * 局限性：只能记录在堆上分配且参与GC的内存，栈内存和CGO无法被记录
   * alloc_objects : 历史总分配的累计
   * alloc_space ：历史总分配累计
   * inuse_objects：当前正在使用的对象数，包括业务没有使用但未GC的
   * inuse_space：当前正在使用的内存  
+* Block和Mutex
+  * Block：阻塞耗时超过阈值则记录，设置为1则每次都记录
+  * Mutex：只记录固定比例的锁操作，设置为1则每次都记录
 * 三种收集方式：
   * 直接使用runtime包
   * 使用net/http/pprof暴露http服务
   * 使用go test -bench . -cpuprofile=cpu.pprof
-  
+   
