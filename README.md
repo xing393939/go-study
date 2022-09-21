@@ -23,6 +23,7 @@
 * [Go夜读-欧长坤](https://blog.changkun.de/)
 * [Go夜读-煎鱼](https://eddycjy.com/posts/)
 * [茶歇驿站-杨文](https://maiyang.me/)
+* [编程沉思录](https://www.cyhone.com/articles/think-in-sync-pool/)
 * [luozhiyun-腾讯](https://www.luozhiyun.com/)
 * [蒙卓-腾讯](https://mzh.io/)，go源码贡献者
 * [MARATRIX BLOG](https://maratrix.cn/)，go源码阅读有6篇
