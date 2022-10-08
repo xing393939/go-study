@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>内存泄漏 · GitBook</title>
+        <title>coredump · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,8 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
+    <link rel="next" href="go-conditional.html" />
     
-    <link rel="prev" href="hole-rand.html" />
+    
+    <link rel="prev" href="go-dlv.html" />
     
 
     </head>
@@ -200,7 +202,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.2" data-path="core-dump.html">
+        <li class="chapter active" data-level="1.3.2" data-path="core-dump.html">
             
                 <a href="core-dump.html">
             
@@ -317,7 +319,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.3.11" data-path="memory-leak.html">
+        <li class="chapter " data-level="1.3.11" data-path="memory-leak.html">
             
                 <a href="memory-leak.html">
             
@@ -501,7 +503,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >内存泄漏</a>
+        <a href=".." >coredump</a>
     </h1>
 </div>
 
@@ -516,33 +518,23 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h3 id="&#x5185;&#x5B58;&#x6CC4;&#x6F0F;">&#x5185;&#x5B58;&#x6CC4;&#x6F0F;</h3>
-<h4 id="&#x53C2;&#x8003;&#x8D44;&#x6599;">&#x53C2;&#x8003;&#x8D44;&#x6599;</h4>
+                                <h3 id="coredump">coredump</h3>
+<h4 id="&#x751F;&#x6210;core-dump&#x6587;&#x4EF6;">&#x751F;&#x6210;core dump&#x6587;&#x4EF6;</h4>
 <ul>
-<li><a href="https://colobu.com/2019/08/28/go-memory-leak-i-dont-think-so/" target="_blank">Go&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#xFF1F;&#x4E0D;&#x662F;&#x90A3;&#x4E48;&#x7B80;&#x5355;</a></li>
-<li><a href="https://gfw.go101.org/article/memory-leaking.html" target="_blank">&#x4E00;&#x4E9B;&#x53EF;&#x80FD;&#x7684;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x573A;&#x666F;</a></li>
+<li><a href="https://blog.csdn.net/chengqiuming/article/details/90142476" target="_blank">&#x7528;gdb&#x5206;&#x6790;coredump&#x6587;&#x4EF6;</a></li>
+<li>sysctl -w kernel.core_pattern = core // &#x5728;&#x5F53;&#x524D;&#x8FDB;&#x7A0B;&#x76EE;&#x5F55;&#x4E0B;&#x751F;&#x6210;core&#x6587;&#x4EF6;</li>
+<li>ulimit -c unlimited                  // coredump&#x6587;&#x4EF6;&#x5927;&#x5C0F;&#x662F;unlimited</li>
 </ul>
-<h4 id="&#x534F;&#x7A0B;&#x6CC4;&#x6F0F;&#x5BFC;&#x81F4;&#x7684;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;">&#x534F;&#x7A0B;&#x6CC4;&#x6F0F;&#x5BFC;&#x81F4;&#x7684;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;</h4>
-<ol>
-<li>&#x8BFB;&#x5199;channel&#x963B;&#x585E;&#x4E86;</li>
-<li>httpServer&#x7EF4;&#x62A4;&#x4E86;&#x5927;&#x91CF;&#x8FDE;&#x63A5;&#xFF0C;<a href="https://mp.weixin.qq.com/s/W4eRiTw1Hbo4MkMZTgWbag" target="_blank">&#x94FE;&#x63A5;</a></li>
-</ol>
-<h4 id="&#x975E;&#x534F;&#x7A0B;&#x6CC4;&#x6F0F;&#x5BFC;&#x81F4;&#x7684;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;">&#x975E;&#x534F;&#x7A0B;&#x6CC4;&#x6F0F;&#x5BFC;&#x81F4;&#x7684;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;</h4>
-<ol>
-<li>&#x5B50;&#x5B57;&#x7B26;&#x4E32;&#xFF1A;s0 = s1[:50]&#xFF08;s0&#x662F;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#xFF0C;s1&#x662F;&#x4E34;&#x65F6;&#x53D8;&#x91CF;&#xFF09;<ul>
-<li>&#x6B63;&#x786E;&#x505A;&#x6CD5;&#xFF1A;s0 = (strings.Builder{}).WriteString(s1[:50])</li>
-</ul>
-</li>
-<li>&#x5B50;&#x5207;&#x7247;&#xFF1A;  s0 = s1[:50]&#xFF08;s0&#x662F;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#xFF0C;s1&#x662F;&#x4E34;&#x65F6;&#x53D8;&#x91CF;&#xFF09;<ul>
-<li>&#x6B63;&#x786E;&#x505A;&#x6CD5;&#xFF1A;copy(s0, s1[:50])</li>
-</ul>
-</li>
-<li>&#x5728;s1[1:3]&#x524D;&#x672A;&#x91CD;&#x7F6E;&#x5207;&#x7247;&#x5185;&#x7684;&#x6307;&#x9488;&#x5143;&#x7D20;</li>
-<li>time.Ticker&#x4E0D;&#x518D;&#x4F7F;&#x7528;&#x4F46;&#x662F;&#x6CA1;&#x6709;&#x505C;&#x6B62;&#x5B83;</li>
-<li>time.Ticker&#x5728;for&#x5FAA;&#x73AF;&#x4E2D;&#x4E0D;&#x65AD;&#x521B;&#x5EFA;&#xFF0C;&#x89C1;go-demos/leak-timeTicker</li>
-<li>&#x5EF6;&#x8FDF;&#x8C03;&#x7528;&#x5BFC;&#x81F4;&#x7684;&#x6682;&#x65F6;&#x6027;&#x5185;&#x5B58;&#x6CC4;&#x9732;&#xFF0C;&#x89C1;<a href="https://gfw.go101.org/article/defer-more.html#kind-of-resource-leaking" target="_blank">&#x94FE;&#x63A5;</a></li>
-</ol>
+<h4 id="&#x67E5;&#x770B;core-dump&#x6587;&#x4EF6;">&#x67E5;&#x770B;core dump&#x6587;&#x4EF6;</h4>
+<pre><code>C&#x8BED;&#x8A00;&#xFF1A;
+gdb a.out core
+(gdb) layout split           // &#x67E5;&#x770B;&#x62A5;&#x9519;&#x5904;&#x7684;&#x4EE3;&#x7801;&#xFF0C;gcc&#x7F16;&#x8BD1;&#x65F6;&#x52A0;-g&#x53C2;&#x6570;&#x53EF;&#x4EE5;&#x770B;&#x5230;c&#x4EE3;&#x7801;
 
+Go&#x8BED;&#x8A00;&#xFF1A;
+&#x8FD0;&#x884C;main&#x8FDB;&#x7A0B;&#x9700;&#x8981;&#xFF1A;GOTRACEBACK=crash ./main
+dlv core main core
+(gdb) bt
+</code></pre>
                                 
                                 </section>
                             
@@ -569,10 +561,14 @@
 
             
                 
-                <a href="hole-rand.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Go 坑之math/rand">
+                <a href="go-dlv.html" class="navigation navigation-prev " aria-label="Previous page: dlv调试">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
+                
+                <a href="go-conditional.html" class="navigation navigation-next " aria-label="Next page: 编译条件">
+                    <i class="fa fa-angle-right"></i>
+                </a>
                 
             
         
@@ -581,7 +577,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"内存泄漏","level":"1.3.11","depth":2,"next":{"title":"源码分析","level":"1.4","depth":1,"ref":"","articles":[{"title":"runtime/HACKING","level":"1.4.1","depth":2,"path":"docs/source-code-runtime-hacking.md","ref":"docs/source-code-runtime-hacking.md","articles":[]},{"title":"全局变量","level":"1.4.2","depth":2,"path":"docs/source-code-global-variable.md","ref":"docs/source-code-global-variable.md","articles":[]},{"title":"核心函数","level":"1.4.3","depth":2,"path":"docs/source-code-core-functions.md","ref":"docs/source-code-core-functions.md","articles":[]},{"title":"接口类型","level":"1.4.4","depth":2,"path":"docs/source_interface.md","ref":"docs/source_interface.md","articles":[]},{"title":"GC 分析","level":"1.4.5","depth":2,"path":"docs/source-code-gc.md","ref":"docs/source-code-gc.md","articles":[]},{"title":"启动main协程","level":"1.4.6","depth":2,"path":"docs/source-code-main-goroutine.md","ref":"docs/source-code-main-goroutine.md","articles":[]},{"title":"M的管理","level":"1.4.7","depth":2,"path":"docs/source-code-m-thread.md","ref":"docs/source-code-m-thread.md","articles":[]},{"title":"对象分配器","level":"1.4.8","depth":2,"path":"docs/source-code-mallocgc.md","ref":"docs/source-code-mallocgc.md","articles":[]},{"title":"页分配器","level":"1.4.9","depth":2,"path":"docs/source-code-mheap.md","ref":"docs/source-code-mheap.md","articles":[]}]},"previous":{"title":"Go 坑之math/rand","level":"1.3.10","depth":2,"path":"docs/hole-rand.md","ref":"docs/hole-rand.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/memory-leak.md","mtime":"2022-10-08T01:39:24.136Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-08T01:39:48.468Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"coredump","level":"1.3.2","depth":2,"next":{"title":"编译条件","level":"1.3.3","depth":2,"path":"docs/go-conditional.md","ref":"docs/go-conditional.md","articles":[]},"previous":{"title":"dlv调试","level":"1.3.1","depth":2,"path":"docs/go-dlv.md","ref":"docs/go-dlv.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/core-dump.md","mtime":"2022-10-08T01:39:24.132Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-10-08T01:39:48.468Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
