@@ -8,6 +8,7 @@
   1. [Go 程序员面试](docs/go-interview.md)
 * 零散知识
   1. [dlv调试](docs/go-dlv.md)
+  1. [coredump](docs/core-dump.md)
   1. [编译条件](docs/go-conditional.md)
   1. [汇编相关](docs/go-compilation.md)
   1. [汇编+Syscall](docs/go-compilation-syscall.md)
