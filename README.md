@@ -5,7 +5,6 @@
 * [开源包的UML图](https://www.dumels.com)
 
 #### Go论坛
-* [公众号每日推荐](https://studygolang.com/go/godaily)
 * [Go周刊](https://studygolang.com/go/weekly)
 * [Go夜读](https://talkgo.org/latest)
 * [GoCN](https://gocn.vip/topics)
