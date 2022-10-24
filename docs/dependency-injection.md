@@ -3,6 +3,7 @@
 #### 参考
 * [Fx: Golang中的依赖注入](http://ishare.site/post/2020/01/simple-dependency-injection-in-go/)
 * [Golang依赖注入提升开发效率](https://mp.weixin.qq.com/s/Mj-EqwYWZBMr8XNIHxUqDA)
+* [简洁代码之道（2）：避免全局可变状态](https://blog.xiaohansong.com/avoid-global-state.html)
 * Go依赖注入的开源库
   * facebook的inject基于反射，运行时注入(功能有点弱，也不维护了)。
   * google的wire基于AST，编译期注入。
