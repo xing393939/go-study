@@ -18,6 +18,7 @@
   1. [细节原理](docs/go-principle-of-detail.md)
   1. [Go 坑之math/rand](docs/hole-rand.md)
   1. [内存泄漏](docs/memory-leak.md)
+  1. [依赖注入](docs/dependency-injection.md)
 * 源码分析
   1. [runtime/HACKING](docs/source-code-runtime-hacking.md)
   1. [全局变量](docs/source-code-global-variable.md)
