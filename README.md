@@ -9,7 +9,6 @@
 * [Go夜读](https://talkgo.org/latest)
 * [GoCN](https://gocn.vip/topics)
 * [GoFrame导航](https://goframe.org/pages/viewpage.action?pageId=3672756)
-* [Go导航](https://www.topgoer.cn/navigation)
 * [Go夜读-期刊作者](https://github.com/talkgo/night/)
 
 #### Go博客
