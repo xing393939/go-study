@@ -3,12 +3,12 @@
 <script src="../images/ideal-image-slider.js"></script>
 <script src="../images/ideal-iis-bullet-nav.js"></script>
 
-### GC 分析
+### GC 流程图
 
 #### GC 全流程
 * [曹大-Go 语言的 GC](https://time.geekbang.org/column/article/484271)
 
-![dlv](../images/gc-alltime.jpg)
+![dlv](../images/gc-alltime.png)
 
 #### 后台标记worker的工作过程
 

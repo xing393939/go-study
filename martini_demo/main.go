@@ -9,6 +9,10 @@ import (
 	"martini_demo/models"
 )
 
+var a int = 1
+
+const name *int = a
+
 func readEnv(key string) string {
 	file, err := ioutil.ReadFile("./env.json")
 	if err != nil {
