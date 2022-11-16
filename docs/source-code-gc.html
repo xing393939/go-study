@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>GC 分析 · GitBook</title>
+        <title>GC 流程图 · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,7 +57,7 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="source-code-main-goroutine.html" />
+    <link rel="next" href="source-code-gc2.html" />
     
     
     <link rel="prev" href="source_interface.html" />
@@ -421,6 +421,19 @@
                 <a href="source-code-gc.html">
             
                     
+                    GC 流程图
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="source-code-gc2.html">
+            
+                <a href="source-code-gc2.html">
+            
+                    
                     GC 分析
             
                 </a>
@@ -429,7 +442,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.6" data-path="source-code-main-goroutine.html">
+        <li class="chapter " data-level="1.4.7" data-path="source-code-main-goroutine.html">
             
                 <a href="source-code-main-goroutine.html">
             
@@ -442,7 +455,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.7" data-path="source-code-m-thread.html">
+        <li class="chapter " data-level="1.4.8" data-path="source-code-m-thread.html">
             
                 <a href="source-code-m-thread.html">
             
@@ -455,7 +468,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.8" data-path="source-code-mallocgc.html">
+        <li class="chapter " data-level="1.4.9" data-path="source-code-mallocgc.html">
             
                 <a href="source-code-mallocgc.html">
             
@@ -468,7 +481,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.9" data-path="source-code-mheap.html">
+        <li class="chapter " data-level="1.4.10" data-path="source-code-mheap.html">
             
                 <a href="source-code-mheap.html">
             
@@ -516,7 +529,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >GC 分析</a>
+        <a href=".." >GC 流程图</a>
     </h1>
 </div>
 
@@ -536,12 +549,12 @@
 <script src="../images/ideal-image-slider.js"></script>
 <script src="../images/ideal-iis-bullet-nav.js"></script>
 
-<h3 id="gc-&#x5206;&#x6790;">GC &#x5206;&#x6790;</h3>
+<h3 id="gc-&#x6D41;&#x7A0B;&#x56FE;">GC &#x6D41;&#x7A0B;&#x56FE;</h3>
 <h4 id="gc-&#x5168;&#x6D41;&#x7A0B;">GC &#x5168;&#x6D41;&#x7A0B;</h4>
 <ul>
 <li><a href="https://time.geekbang.org/column/article/484271" target="_blank">&#x66F9;&#x5927;-Go &#x8BED;&#x8A00;&#x7684; GC</a></li>
 </ul>
-<p><img src="../images/gc-alltime.jpg" alt="dlv"></p>
+<p><img src="../images/gc-alltime.png" alt="dlv"></p>
 <h4 id="&#x540E;&#x53F0;&#x6807;&#x8BB0;worker&#x7684;&#x5DE5;&#x4F5C;&#x8FC7;&#x7A0B;">&#x540E;&#x53F0;&#x6807;&#x8BB0;worker&#x7684;&#x5DE5;&#x4F5C;&#x8FC7;&#x7A0B;</h4>
 <div class="IdealImageSlider">
     <img src="../images/gc-mark/1649752192-1.jpg">
@@ -662,7 +675,7 @@
                 </a>
                 
                 
-                <a href="source-code-main-goroutine.html" class="navigation navigation-next " aria-label="Next page: 启动main协程">
+                <a href="source-code-gc2.html" class="navigation navigation-next " aria-label="Next page: GC 分析">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -673,7 +686,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"GC 分析","level":"1.4.5","depth":2,"next":{"title":"启动main协程","level":"1.4.6","depth":2,"path":"docs/source-code-main-goroutine.md","ref":"docs/source-code-main-goroutine.md","articles":[]},"previous":{"title":"接口类型","level":"1.4.4","depth":2,"path":"docs/source_interface.md","ref":"docs/source_interface.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/source-code-gc.md","mtime":"2022-11-08T08:21:17.710Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-11-08T08:21:42.971Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"GC 流程图","level":"1.4.5","depth":2,"next":{"title":"GC 分析","level":"1.4.6","depth":2,"path":"docs/source-code-gc2.md","ref":"docs/source-code-gc2.md","articles":[]},"previous":{"title":"接口类型","level":"1.4.4","depth":2,"path":"docs/source_interface.md","ref":"docs/source_interface.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/source-code-gc.md","mtime":"2022-11-16T02:24:01.747Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-11-16T02:24:37.119Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
