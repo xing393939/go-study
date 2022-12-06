@@ -7,6 +7,7 @@
 
 #### 服务端
 ```go
+func main() {
     addr := ":803"
     server := http.Server{
         Addr: addr,
@@ -18,10 +19,12 @@
     listener, _ := net.Listen("tcp", addr)
     // 每accept一个连接就会起一个协程
     _ = server.Serve(listener)
+}
 ```
 
 #### 客户端
 ```go
+func main() {
     client := http.Client{
         Timeout: 10 * time.Second,
     }
@@ -29,6 +32,7 @@
     resp, _ := client.Get("http://httpbin.org/get?a=1")
     body, _ := io.ReadAll(resp.Body)
     println(string(body))
+}
 ```
 
 net.http.Transport.roundTrip(req)的代码：
