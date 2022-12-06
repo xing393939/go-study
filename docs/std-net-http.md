@@ -84,71 +84,77 @@ func (t *Transport) getConn(treq *transportRequest, cm connectMethod) (pc *persi
 
 t.queueForDial(w)会执行`go t.dialConnFor(w)`，里面执行`t.dialConn(w.ctx, w.cm)`，其中关键的三步是：
 ```go
+func (t *Transport) dialConn(ctx context.Context, cm connectMethod) (pconn *persistConn, err error) {
     conn, err := t.dial(ctx, "tcp", cm.addr())  // 关键一：会执行t.DialContext(ctx, network, addr)
                                                 // 接着执行c, err = sd.dialSerial(ctx, primaries)
                                                 // 接着执行系统调用socket、connnect
                                                 
     go pconn.readLoop()                         // 关键二，新协程代码如下：
-    alive := true
-	for alive {
-		rc := <-pc.reqch
-		resp, err = pc.readResponse(rc, trace)
-		if err != nil {
-			select {
-			case rc.ch <- responseAndError{err: err}:
-			case <-rc.callerGone:
-				return
-			}
-			return
-		}
-		select {
-		case rc.ch <- responseAndError{res: resp}:
-		case <-rc.callerGone:
-			return
-		}
-		select {
-		case bodyEOF := <-waitForBodyRead:          // caller协程已读完  
-			alive = alive &&
-				bodyEOF &&
-				!pc.sawEOF &&
-				pc.wroteRequest() &&
-				replaced && tryPutIdleConn(trace)
-			if bodyEOF {
-				eofc <- struct{}{}
-			}
-		case <-rc.req.Cancel:                       // Deprecated，其它业务可以通过此channel终止请求
-			alive = false
-			pc.t.CancelRequest(rc.req)
-		case <-rc.req.Context().Done():             // 通过context来终止请求 
-			alive = false
-			pc.t.cancelRequest(rc.cancelKey, err)
-		case <-pc.closech:                          // 连接关闭
-			alive = false
-		}
-	}
+    func (pc *persistConn) readLoop() {
+        alive := true
+        for alive {
+            rc := <-pc.reqch
+            resp, err = pc.readResponse(rc, trace)
+            if err != nil {
+                select {
+                case rc.ch <- responseAndError{err: err}:
+                case <-rc.callerGone:
+                    return
+                }
+                return
+            }
+            select {
+            case rc.ch <- responseAndError{res: resp}:
+            case <-rc.callerGone:
+                return
+            }
+            select {
+            case bodyEOF := <-waitForBodyRead:          // caller协程已读完  
+                alive = alive &&
+                    bodyEOF &&
+                    !pc.sawEOF &&
+                    pc.wroteRequest() &&
+                    replaced && tryPutIdleConn(trace)
+                if bodyEOF {
+                    eofc <- struct{}{}
+                }
+            case <-rc.req.Cancel:                       // Deprecated，其它业务可以通过此channel终止请求
+                alive = false
+                pc.t.CancelRequest(rc.req)
+            case <-rc.req.Context().Done():             // 通过context来终止请求 
+                alive = false
+                pc.t.cancelRequest(rc.cancelKey, err)
+            case <-pc.closech:                          // 连接关闭
+                alive = false
+            }
+        }
+    }
     
     go pconn.writeLoop()                            // 关键三，新协程代码如下
-    for {
-		select {
-		case wr := <-pc.writech:
-			startBytesWritten := pc.nwrite
-			err := wr.req.Request.write(pc.bw, pc.isProxy, wr.req.extra, pc.waitForContinue(wr.continueCh))
-			if bre, ok := err.(requestBodyReadError); ok {
-				wr.req.setError(bre.error)
-			}
-			if err == nil {
-				err = pc.bw.Flush()
-			}
-			pc.writeErrCh <- err
-			wr.ch <- err
-			if err != nil {
-				pc.close(err)
-				return
-			}
-		case <-pc.closech:
-			return
-		}
-	}
+    func (pc *persistConn) writeLoop() {
+        for {
+            select {
+            case wr := <-pc.writech:
+                startBytesWritten := pc.nwrite
+                err := wr.req.Request.write(pc.bw, pc.isProxy, wr.req.extra, pc.waitForContinue(wr.continueCh))
+                if bre, ok := err.(requestBodyReadError); ok {
+                    wr.req.setError(bre.error)
+                }
+                if err == nil {
+                    err = pc.bw.Flush()
+                }
+                pc.writeErrCh <- err
+                wr.ch <- err
+                if err != nil {
+                    pc.close(err)
+                    return
+                }
+            case <-pc.closech:
+                return
+            }
+        }
+    }
+}
 ```
 
 pconn.roundTrip(treq)的代码：
