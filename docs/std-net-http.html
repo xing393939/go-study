@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>编译条件 · GitBook</title>
+        <title>net/http包 · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,6 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="go-compilation.html" />
-    
-    
-    <link rel="prev" href="core-dump.html" />
     
 
     </head>
@@ -189,7 +185,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.3.1" data-path="std-net-http.html">
+        <li class="chapter active" data-level="1.3.1" data-path="std-net-http.html">
             
                 <a href="std-net-http.html">
             
@@ -247,7 +243,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.4.3" data-path="go-conditional.html">
+        <li class="chapter " data-level="1.4.3" data-path="go-conditional.html">
             
                 <a href="go-conditional.html">
             
@@ -561,7 +557,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >编译条件</a>
+        <a href=".." >net/http包</a>
     </h1>
 </div>
 
@@ -576,34 +572,166 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h3 id="&#x7F16;&#x8BD1;&#x6761;&#x4EF6;">&#x7F16;&#x8BD1;&#x6761;&#x4EF6;</h3>
+                                <h3 id="nethttp&#x5305;">net/http&#x5305;</h3>
 <h4 id="&#x53C2;&#x8003;&#x8D44;&#x6599;">&#x53C2;&#x8003;&#x8D44;&#x6599;</h4>
 <ul>
-<li><a href="https://linkscue.com/posts/2018-06-18-golang-build-constraints/" target="_blank">&#x4F60;&#x4E00;&#x76F4;&#x5728;&#x5BFB;&#x627E;&#x7684;GO&#x8BED;&#x8A00;&#x6761;&#x4EF6;&#x7F16;&#x8BD1;</a></li>
-<li><a href="https://pkg.go.dev/cmd/go#hdr-Build_constraints" target="_blank">Build constraints</a></li>
+<li><a href="https://mp.weixin.qq.com/s/IelVDnMzGtT5y7hGSb_OxA" target="_blank">net/http&#x5E93;&#x77E5;&#x9053;&#x5417;&#xFF1F;&#x80FD;&#x8BF4;&#x8BF4;&#x4F18;&#x7F3A;&#x70B9;&#x5417;&#xFF1F;</a></li>
+<li><a href="https://mp.weixin.qq.com/s/HPzoclfCB3UxLScXm4J83w" target="_blank">Go HttpClient &#x8D85;&#x65F6;&#x673A;&#x5236;</a></li>
+<li><a href="https://two.github.io/2018/06/01/golang-http-client-connection-pool/" target="_blank">golang http client &#x8FDE;&#x63A5;&#x6C60;</a></li>
 </ul>
-<h4 id="&#x5E38;&#x7528;&#x89C4;&#x5219;">&#x5E38;&#x7528;&#x89C4;&#x5219;</h4>
-<pre><code>1.&#x7F16;&#x8BD1;&#x6807;&#x7B7E;
-// +build windows &#x76F8;&#x5F53;&#x4E8E;go build -tags GOOS
-//go:build !cgo   &#x82E5;CGO_ENABLED=0&#x5219;&#x7F16;&#x8BD1;
-
-2.&#x6587;&#x4EF6;&#x540E;&#x7F00;
-mypkg_linux.go         &#x53EA;&#x5728; linux &#x7CFB;&#x7EDF;&#x7F16;&#x8BD1;
-mypkg_windows_amd64.go &#x53EA;&#x5728; windows amd64 &#x5E73;&#x53F0;&#x7F16;&#x8BD1;
-
-3.&#x6307;&#x5B9A;&#x914D;&#x7F6E;&#x65B9;&#x6CD5;&#x4E00;&#xFF1A;./myServer release 
-serverMode := os.Args[1] 
-
-4.&#x6307;&#x5B9A;&#x914D;&#x7F6E;&#x65B9;&#x6CD5;&#x4E8C;&#xFF1A;export SERVER_MODE=debug
-os.Getenv(&quot;SERVER_MODE&quot;)
-
-5.&#x6307;&#x5B9A;&#x914D;&#x7F6E;&#x65B9;&#x6CD5;&#x4E09;&#xFF1A;go build -ldflags &apos;-X main.mode=debug&apos; main.go
-var mode string &amp;&amp; print(mode)
-
-6.&#x6307;&#x5B9A;&#x914D;&#x7F6E;&#x65B9;&#x6CD5;&#x56DB;&#xFF1A;go build -tags debug -o main
-config_release.go //+build release
-config_debug.go   //+build debug
+<h4 id="&#x670D;&#x52A1;&#x7AEF;">&#x670D;&#x52A1;&#x7AEF;</h4>
+<pre><code class="lang-go">    addr := <span class="hljs-string">&quot;:803&quot;</span>
+    server := http.Server{
+        Addr: addr,
+    }
+    http.HandleFunc(<span class="hljs-string">&quot;/&quot;</span>, <span class="hljs-keyword">func</span>(writer http.ResponseWriter, request *http.Request) {
+        _, _ = writer.Write([]<span class="hljs-keyword">byte</span>(<span class="hljs-string">&quot;hello&quot;</span>))
+    })
+    <span class="hljs-comment">// net.Listen&#x6700;&#x7EC8;&#x4F1A;&#x6267;&#x884C;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;socket&#x3001;bind&#x3001;listen</span>
+    listener, _ := net.Listen(<span class="hljs-string">&quot;tcp&quot;</span>, addr)
+    <span class="hljs-comment">// &#x6BCF;accept&#x4E00;&#x4E2A;&#x8FDE;&#x63A5;&#x5C31;&#x4F1A;&#x8D77;&#x4E00;&#x4E2A;&#x534F;&#x7A0B;</span>
+    _ = server.Serve(listener)
 </code></pre>
+<h4 id="&#x5BA2;&#x6237;&#x7AEF;">&#x5BA2;&#x6237;&#x7AEF;</h4>
+<pre><code class="lang-go">    client := http.Client{
+        Timeout: <span class="hljs-number">10</span> * time.Second,
+    }
+    <span class="hljs-comment">// &#x6700;&#x7EC8;&#x6267;&#x884C;net.http.Transport.roundTrip(req)</span>
+    resp, _ := client.Get(<span class="hljs-string">&quot;http://httpbin.org/get?a=1&quot;</span>)
+    body, _ := io.ReadAll(resp.Body)
+    <span class="hljs-built_in">println</span>(<span class="hljs-keyword">string</span>(body))
+</code></pre>
+<p>net.http.Transport.roundTrip(req)&#x7684;&#x4EE3;&#x7801;&#xFF1A;</p>
+<pre><code class="lang-go">    <span class="hljs-keyword">for</span> {
+        <span class="hljs-keyword">select</span> {
+        <span class="hljs-keyword">case</span> &lt;-req.Context().Done():
+            req.closeBody()
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, ctx.Err()
+        <span class="hljs-keyword">default</span>:
+        }
+        treq := &amp;transportRequest{Request: req, cancelKey: cancelKey}
+        pconn, err := t.getConn(treq, cm)
+        resp, err = pconn.roundTrip(treq)
+    }
+</code></pre>
+<p>t.getConn(treq, cm)&#x7684;&#x4EE3;&#x7801;&#xFF1A;</p>
+<pre><code class="lang-go">    w := &amp;wantConn{
+        cm:         cm,
+        key:        cm.key(),
+    }
+    <span class="hljs-comment">// &#x6709;&#x7A7A;&#x95F2;&#x8FDE;&#x63A5;&#xFF0C;&#x76F4;&#x63A5;&#x7528;</span>
+    <span class="hljs-keyword">if</span> delivered := t.queueForIdleConn(w); delivered {
+        pc := w.pc
+        <span class="hljs-keyword">return</span> pc, <span class="hljs-literal">nil</span>
+    }
+    <span class="hljs-comment">// &#x6CA1;&#x6709;&#x5219;&#x6392;&#x53F7;</span>
+    t.queueForDial(w)
+    <span class="hljs-keyword">select</span> {
+    <span class="hljs-keyword">case</span> &lt;-w.ready:                         <span class="hljs-comment">// &#x8FDE;&#x63A5;&#x5EFA;&#x7ACB;&#x597D;&#x4E86;</span>
+        <span class="hljs-keyword">return</span> w.pc, w.err
+    <span class="hljs-keyword">case</span> &lt;-req.Cancel:                      <span class="hljs-comment">// Deprecated&#xFF0C;&#x5176;&#x5B83;&#x4E1A;&#x52A1;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x6B64;channel&#x7EC8;&#x6B62;&#x8BF7;&#x6C42;</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, errRequestCanceledConn
+    <span class="hljs-keyword">case</span> &lt;-req.Context().Done():            <span class="hljs-comment">// &#x901A;&#x8FC7;context&#x6765;&#x7EC8;&#x6B62;&#x8BF7;&#x6C42; </span>
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, req.Context().Err()
+    <span class="hljs-keyword">case</span> err := &lt;-cancelc:                  <span class="hljs-comment">// Deprecated&#xFF0C;&#x7EC8;&#x6B62;&#x8BF7;&#x6C42;</span>
+        <span class="hljs-keyword">if</span> err == errRequestCanceled {
+            err = errRequestCanceledConn
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err
+    }
+</code></pre>
+<p>t.queueForDial(w)&#x4F1A;&#x6267;&#x884C;<code>go t.dialConnFor(w)</code>&#xFF0C;&#x91CC;&#x9762;&#x6267;&#x884C;<code>t.dialConn(w.ctx, w.cm)</code>&#xFF1A;</p>
+<pre><code>    conn, err := t.dial(ctx, &quot;tcp&quot;, cm.addr())  // &#x4F1A;&#x6267;&#x884C;t.DialContext(ctx, network, addr)
+                                                // &#x63A5;&#x7740;&#x6267;&#x884C;c, err = sd.dialSerial(ctx, primaries)
+                                                // &#x63A5;&#x7740;&#x6267;&#x884C;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;socket&#x3001;connnect
+    go pconn.readLoop()
+    alive := true
+    for alive {
+        rc := &lt;-pc.reqch
+        resp, err = pc.readResponse(rc, trace)
+        if err != nil {
+            select {
+            case rc.ch &lt;- responseAndError{err: err}:
+            case &lt;-rc.callerGone:
+                return
+            }
+            return
+        }
+        select {
+        case rc.ch &lt;- responseAndError{res: resp}:
+        case &lt;-rc.callerGone:
+            return
+        }
+        select {
+        case bodyEOF := &lt;-waitForBodyRead:          // caller&#x534F;&#x7A0B;&#x5DF2;&#x8BFB;&#x5B8C;  
+            alive = alive &amp;&amp;
+                bodyEOF &amp;&amp;
+                !pc.sawEOF &amp;&amp;
+                pc.wroteRequest() &amp;&amp;
+                replaced &amp;&amp; tryPutIdleConn(trace)
+            if bodyEOF {
+                eofc &lt;- struct{}{}
+            }
+        case &lt;-rc.req.Cancel:                       // Deprecated&#xFF0C;&#x5176;&#x5B83;&#x4E1A;&#x52A1;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x6B64;channel&#x7EC8;&#x6B62;&#x8BF7;&#x6C42;
+            alive = false
+            pc.t.CancelRequest(rc.req)
+        case &lt;-rc.req.Context().Done():             // &#x901A;&#x8FC7;context&#x6765;&#x7EC8;&#x6B62;&#x8BF7;&#x6C42; 
+            alive = false
+            pc.t.cancelRequest(rc.cancelKey, err)
+        case &lt;-pc.closech:                          // &#x8FDE;&#x63A5;&#x5173;&#x95ED;
+            alive = false
+        }
+    }
+    go pconn.writeLoop()
+    for {
+        select {
+        case wr := &lt;-pc.writech:
+            startBytesWritten := pc.nwrite
+            err := wr.req.Request.write(pc.bw, pc.isProxy, wr.req.extra, pc.waitForContinue(wr.continueCh))
+            if bre, ok := err.(requestBodyReadError); ok {
+                wr.req.setError(bre.error)
+            }
+            if err == nil {
+                err = pc.bw.Flush()
+            }
+            pc.writeErrCh &lt;- err
+            wr.ch &lt;- err
+            if err != nil {
+                pc.close(err)
+                return
+            }
+        case &lt;-pc.closech:
+            return
+        }
+    }
+</code></pre><p>pconn.roundTrip(treq)&#x7684;&#x4EE3;&#x7801;&#xFF1A;</p>
+<pre><code class="lang-go">    pc.writech &lt;- writeRequest{req, writeErrCh, continueCh} <span class="hljs-comment">// writeLoop&#x534F;&#x7A0B;&#x6765;&#x5904;&#x7406;</span>
+    pc.reqch &lt;- requestAndChan{                             <span class="hljs-comment">// readLoop&#x534F;&#x7A0B;&#x6765;&#x5904;&#x7406;</span>
+        req:        req.Request,
+        cancelKey:  req.cancelKey,
+        ch:         resc,
+        addedGzip:  requestedGzip,
+        continueCh: continueCh,
+        callerGone: gone,
+    }
+    <span class="hljs-keyword">for</span> {
+        <span class="hljs-keyword">select</span> {
+        <span class="hljs-keyword">case</span> err := &lt;-writeErrCh:        <span class="hljs-comment">// &#x5199;&#x51FA;&#x9519; </span>
+            <span class="hljs-keyword">return</span>
+        <span class="hljs-keyword">case</span> &lt;-pc.closech:               <span class="hljs-comment">// &#x8FDE;&#x63A5;&#x5173;&#x95ED;</span>
+            <span class="hljs-keyword">return</span>
+        <span class="hljs-keyword">case</span> &lt;-respHeaderTimer:          <span class="hljs-comment">// &#x5199;response&#x8D85;&#x65F6;</span>
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, errTimeout
+        <span class="hljs-keyword">case</span> re := &lt;-resc:               <span class="hljs-comment">// &#x8BFB;&#x5230;response</span>
+            <span class="hljs-keyword">return</span> re.res, <span class="hljs-literal">nil</span>
+        <span class="hljs-keyword">case</span> &lt;-req.Request.Cancel:       <span class="hljs-comment">// Deprecated&#xFF0C;&#x5176;&#x5B83;&#x4E1A;&#x52A1;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x6B64;channel&#x7EC8;&#x6B62;&#x8BF7;&#x6C42;</span>
+            <span class="hljs-keyword">return</span>
+        <span class="hljs-keyword">case</span> &lt;-req.Context().Done():     <span class="hljs-comment">// &#x901A;&#x8FC7;context&#x6765;&#x7EC8;&#x6B62;&#x8BF7;&#x6C42;     </span>
+            <span class="hljs-keyword">return</span>
+        }
+    }
+</code></pre>
+
                                 
                                 </section>
                             
@@ -630,14 +758,6 @@ config_debug.go   //+build debug
 
             
                 
-                <a href="core-dump.html" class="navigation navigation-prev " aria-label="Previous page: coredump">
-                    <i class="fa fa-angle-left"></i>
-                </a>
-                
-                
-                <a href="go-compilation.html" class="navigation navigation-next " aria-label="Next page: 汇编相关">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -646,7 +766,7 @@ config_debug.go   //+build debug
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"编译条件","level":"1.4.3","depth":2,"next":{"title":"汇编相关","level":"1.4.4","depth":2,"path":"docs/go-compilation.md","ref":"docs/go-compilation.md","articles":[]},"previous":{"title":"coredump","level":"1.4.2","depth":2,"path":"docs/core-dump.md","ref":"docs/core-dump.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/go-conditional.md","mtime":"2022-12-06T08:19:13.849Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-12-06T08:19:37.525Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"net/http包","level":"1.3.1","depth":2,"next":{"title":"零散知识","level":"1.4","depth":1,"ref":"","articles":[{"title":"dlv调试","level":"1.4.1","depth":2,"path":"docs/go-dlv.md","ref":"docs/go-dlv.md","articles":[]},{"title":"coredump","level":"1.4.2","depth":2,"path":"docs/core-dump.md","ref":"docs/core-dump.md","articles":[]},{"title":"编译条件","level":"1.4.3","depth":2,"path":"docs/go-conditional.md","ref":"docs/go-conditional.md","articles":[]},{"title":"汇编相关","level":"1.4.4","depth":2,"path":"docs/go-compilation.md","ref":"docs/go-compilation.md","articles":[]},{"title":"汇编+Syscall","level":"1.4.5","depth":2,"path":"docs/go-compilation-syscall.md","ref":"docs/go-compilation-syscall.md","articles":[]},{"title":"并发模式","level":"1.4.6","depth":2,"path":"docs/go-concurrency-patterns.md","ref":"docs/go-concurrency-patterns.md","articles":[]},{"title":"DDD 学习","level":"1.4.7","depth":2,"path":"docs/go-ddd.md","ref":"docs/go-ddd.md","articles":[]},{"title":"pprof 工具","level":"1.4.8","depth":2,"path":"docs/go-pprof.md","ref":"docs/go-pprof.md","articles":[]},{"title":"细节原理","level":"1.4.9","depth":2,"path":"docs/go-principle-of-detail.md","ref":"docs/go-principle-of-detail.md","articles":[]},{"title":"Go 坑之math/rand","level":"1.4.10","depth":2,"path":"docs/hole-rand.md","ref":"docs/hole-rand.md","articles":[]},{"title":"内存泄漏","level":"1.4.11","depth":2,"path":"docs/memory-leak.md","ref":"docs/memory-leak.md","articles":[]},{"title":"依赖注入","level":"1.4.12","depth":2,"path":"docs/dependency-injection.md","ref":"docs/dependency-injection.md","articles":[]}]},"previous":{"title":"标准库","level":"1.3","depth":1,"ref":"","articles":[{"title":"net/http包","level":"1.3.1","depth":2,"path":"docs/std-net-http.md","ref":"docs/std-net-http.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/std-net-http.md","mtime":"2022-12-06T08:19:13.853Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-12-06T08:19:37.525Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
