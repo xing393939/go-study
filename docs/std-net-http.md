@@ -33,6 +33,7 @@
 
 net.http.Transport.roundTrip(req)的代码：
 ```go
+func (t *Transport) roundTrip(req *Request) (*Response, error) {
     for {
         select {
         case <-req.Context().Done():
@@ -44,10 +45,12 @@ net.http.Transport.roundTrip(req)的代码：
         pconn, err := t.getConn(treq, cm)
         resp, err = pconn.roundTrip(treq)
     }
+}
 ```
 
 t.getConn(treq, cm)的代码：
 ```go
+func (t *Transport) getConn(treq *transportRequest, cm connectMethod) (pc *persistConn, err error) {
     w := &wantConn{
         cm:         cm,
         key:        cm.key(),
@@ -72,14 +75,16 @@ t.getConn(treq, cm)的代码：
         }
         return nil, err
     }
+}
 ```
 
-t.queueForDial(w)会执行`go t.dialConnFor(w)`，里面执行`t.dialConn(w.ctx, w.cm)`：
-```
-    conn, err := t.dial(ctx, "tcp", cm.addr())  // 会执行t.DialContext(ctx, network, addr)
+t.queueForDial(w)会执行`go t.dialConnFor(w)`，里面执行`t.dialConn(w.ctx, w.cm)`，其中关键的三步是：
+```go
+    conn, err := t.dial(ctx, "tcp", cm.addr())  // 关键一：会执行t.DialContext(ctx, network, addr)
                                                 // 接着执行c, err = sd.dialSerial(ctx, primaries)
                                                 // 接着执行系统调用socket、connnect
-    go pconn.readLoop()
+                                                
+    go pconn.readLoop()                         // 关键二，新协程代码如下：
     alive := true
 	for alive {
 		rc := <-pc.reqch
@@ -117,7 +122,8 @@ t.queueForDial(w)会执行`go t.dialConnFor(w)`，里面执行`t.dialConn(w.ctx,
 			alive = false
 		}
 	}
-    go pconn.writeLoop()
+    
+    go pconn.writeLoop()                            // 关键三，新协程代码如下
     for {
 		select {
 		case wr := <-pc.writech:
@@ -143,6 +149,7 @@ t.queueForDial(w)会执行`go t.dialConnFor(w)`，里面执行`t.dialConn(w.ctx,
 
 pconn.roundTrip(treq)的代码：
 ```go
+func (pc *persistConn) roundTrip(req *transportRequest) (resp *Response, err error) {
     pc.writech <- writeRequest{req, writeErrCh, continueCh} // writeLoop协程来处理
     pc.reqch <- requestAndChan{                             // readLoop协程来处理
         req:        req.Request,
@@ -168,4 +175,5 @@ pconn.roundTrip(treq)的代码：
             return
         }
     }
+}
 ```
