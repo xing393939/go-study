@@ -6,6 +6,8 @@
   1. [Go 语言从入门到实战](docs/go-from-entry-to-practice.md)
   1. [Go 语言设计与实现](docs/go-language-design-and-implementation.md)
   1. [Go 程序员面试](docs/go-interview.md)
+* 标准库
+  1. [net/http包](docs/std-net-http.md)  
 * 零散知识
   1. [dlv调试](docs/go-dlv.md)
   1. [coredump](docs/core-dump.md)
