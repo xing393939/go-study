@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"net"
 	"time"
 )
@@ -28,15 +29,17 @@ func serve(conn1 net.Conn, conn2 net.Conn) {
 }
 
 func main() {
-	listener, _ := net.Listen("tcp", "localhost:3307")
+	listener, _ := net.Listen("tcp", "172.30.28.130:3307")
 	for {
-		time.Sleep(time.Second * 10) // sleep 10秒再才连接上
-		upstream, _ := listener.Accept()
-		downstream, err := net.Dial("tcp", "172.27.178.39:3306")
+		upstream, _ := listener.Accept() // accept之前三次握手已经完成
+		downstream, err := net.Dial("tcp", "172.30.28.130:3306")
 		if err != nil {
-			panic("mysql error")
+			println(err.Error())
+			continue
+		} else {
+			println(downstream.LocalAddr().String() + " -> " + downstream.RemoteAddr().String())
 		}
-		go serve(upstream, downstream)
-		go serve(downstream, upstream)
+		go io.Copy(upstream, downstream)
+		go io.Copy(downstream, upstream)
 	}
 }
