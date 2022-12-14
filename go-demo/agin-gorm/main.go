@@ -105,5 +105,6 @@ func main() {
 	// 五，服务运行一段时间后，mysql不能响应PSH，exec卡住导致占用了连接，而后mysql即使恢复了也没有用
 	// iptables -I OUTPUT -p tcp --sport 3306 --tcp-flags PSH PSH -j DROP
 	// mysql恢复了后是可用的，但是要等到之前的mysqlConn.readPacket()报错connection reset by peer
+	// connection reset by peer产生的原因：https://www.jianshu.com/p/6ce9598d61fb
 	// runWhileBlockPsh()
 }
