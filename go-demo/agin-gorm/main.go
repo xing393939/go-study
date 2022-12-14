@@ -30,25 +30,17 @@ func ConnectDatabase(dsn string, maxIdleConns int, maxOpenConns int) (*gorm.DB, 
 	return gormDB, sqlDB
 }
 
-func testExecTimeout2() {
-	dsn := "root:123456@tcp(localhost:3306)/test?timeout=1s"
-	db, sqlDb := ConnectDatabase(dsn, 1, 2)
-
+func httpServer(db *gorm.DB, sqlDb *sql.DB) {
 	http.HandleFunc("/stats", func(w http.ResponseWriter, r *http.Request) {
 		stats := sqlDb.Stats()
 		str := fmt.Sprintf("%+v", stats)
 		w.Write([]byte(str))
 	})
 	http.HandleFunc("/db", func(w http.ResponseWriter, r *http.Request) {
-		var a int64
+		var a string
 		db.Debug().Raw("SELECT version()").Scan(&a)
-		w.Write([]byte("db"))
+		w.Write([]byte(a))
 	})
-	go func() {
-		for {
-			db.Debug().Exec("SELECT sleep(60)")
-		}
-	}()
 	http.ListenAndServe("0.0.0.0:6060", nil)
 }
 
@@ -65,6 +57,34 @@ func testExecTimeout() {
 	sqlDb.Stats()
 }
 
+func runWhileBlockSyn() {
+	dsn := "root:123456@tcp(69.230.198.106:3306)/test"
+	db, sqlDb := ConnectDatabase(dsn, 1, 3)
+	go func() {
+		for {
+			db.Debug().Exec("SELECT sleep(60)")
+		}
+	}()
+	httpServer(db, sqlDb)
+}
+
+func runWhileBlockPsh() {
+	dsn := "root:123456@tcp(69.230.198.106:3306)/test"
+	db, sqlDb := ConnectDatabase(dsn, 1, 3)
+	go func() {
+		for {
+			db.Debug().Exec("SELECT sleep(60)")
+		}
+	}()
+	httpServer(db, sqlDb)
+}
+
+/*
+systemctl start mariadb
+mysql -uroot -p
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '123456' WITH GRANT OPTION;
+flush privileges;
+*/
 func main() {
 	// 一，i/o timeout错误：iptables -I OUTPUT -p tcp --sport 3306 --tcp-flags SYN SYN -j DROP
 	// 3306端口没有响应
@@ -76,4 +96,14 @@ func main() {
 
 	// 三，执行sql的超时时间，readTimeout和writeTimeout
 	// testExecTimeout()
+
+	// 四，服务运行一段时间后，mysql不能响应syn，导致OpenConnections满了，而后mysql即使恢复也没有用
+	// windows并没有出现，20秒后connect timeout
+	// linux并没有出现，30秒后connect timeout
+	// runWhileBlockSyn()
+
+	// 五，服务运行一段时间后，mysql不能响应PSH，exec卡住导致占用了连接，而后mysql即使恢复了也没有用
+	// iptables -I OUTPUT -p tcp --sport 3306 --tcp-flags PSH PSH -j DROP
+	// mysql恢复了后是可用的
+	runWhileBlockPsh()
 }
