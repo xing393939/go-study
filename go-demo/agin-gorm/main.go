@@ -73,7 +73,7 @@ func runWhileBlockPsh() {
 	db, sqlDb := ConnectDatabase(dsn, 1, 3)
 	go func() {
 		for {
-			db.Debug().Exec("SELECT sleep(60)")
+			db.Debug().Exec("SELECT sleep(1)")
 		}
 	}()
 	httpServer(db, sqlDb)
@@ -88,7 +88,7 @@ flush privileges;
 func main() {
 	// 一，i/o timeout错误：iptables -I OUTPUT -p tcp --sport 3306 --tcp-flags SYN SYN -j DROP
 	// 3306端口没有响应
-	// testConnTimeout("tcp(43.192.68.64:3306)", 3, "")
+	// testConnTimeout("tcp(69.230.198.106:3306)", 3, "")
 
 	// 二，bad connection错误：stop mysql && ncat --broker --listen -p 3306
 	// 3306端口虽然可以连接，但是不是mysql协议
@@ -104,6 +104,6 @@ func main() {
 
 	// 五，服务运行一段时间后，mysql不能响应PSH，exec卡住导致占用了连接，而后mysql即使恢复了也没有用
 	// iptables -I OUTPUT -p tcp --sport 3306 --tcp-flags PSH PSH -j DROP
-	// mysql恢复了后是可用的
-	runWhileBlockPsh()
+	// mysql恢复了后是可用的，但是要等到之前的mysqlConn.readPacket()报错connection reset by peer
+	// runWhileBlockPsh()
 }
