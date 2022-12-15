@@ -15,6 +15,7 @@ require (
 	github.com/goccy/go-json v0.9.7 // indirect
 	github.com/gogf/gf/v2 v2.0.6
 	github.com/golang/glog v1.0.0 // indirect
+	github.com/gomodule/redigo v1.8.9 // indirect
 	github.com/google/wire v0.5.0
 	github.com/gorilla/handlers v1.5.1
 	github.com/gorilla/websocket v1.5.0
