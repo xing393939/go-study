@@ -2,27 +2,32 @@ package main
 
 import (
 	"fmt"
-	"net/http"
 	_ "net/http/pprof"
 )
 
-var m = map[[12]byte]int{}
+type A struct {
+	name string
+}
 
-//var m = map[string]int{}
-
-func init() {
-	for i := 0; i < 1000000; i++ {
-		var arr [12]byte
-		copy(arr[:], fmt.Sprint(i))
-		m[arr] = i
-
-		//m[fmt.Sprint(i)] = i
-	}
+func deleteSlice(a []A, i int) []A {
+	return append(a[:i], a[i+1:]...)
 }
 
 func main() {
-	err := http.ListenAndServe(":8080", nil)
-	if err != nil {
-		fmt.Println(err)
+	a := []A{
+		{"a"}, {"b"}, {"c"},
 	}
+	fmt.Println(a)
+	k := 0
+	for _, row := range a {
+		a[k] = row
+
+		k++
+		if row.name == "c" {
+			k--
+		}
+		fmt.Println(k, row)
+	}
+	a = a[:k]
+	fmt.Println(a)
 }
