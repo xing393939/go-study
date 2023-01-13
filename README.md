@@ -25,6 +25,7 @@
 * [蒙卓-腾讯](https://mzh.io/)，go源码贡献者
 * [MARATRIX BLOG](https://maratrix.cn/)，go源码阅读有6篇
 * [码农桃花源-饶全成](https://www.qcrao.com/)，饶大
+* [Alliot's blog](https://www.iots.vip/post/mind/love-mentality.html)
 * [Go 从源码到应用](https://gocn.vip/column/L4RWxzHVQO)，曹大
 * [小林Coding-图解网络](https://xiaolincoding.com/)，图解网络+图解系统
 * [22种设计模式](https://refactoringguru.cn/design-patterns/catalog)
