@@ -1,0 +1,9 @@
+syntax="proto3";
+package main;
+option go_package = "go-study/protobuf-test;main";
+
+message Student {
+  string user_name=1;              // 1是标号，唯一即可（相当于数据库中的Id，不一定要从1、2的顺序依次排列）
+  optional int64 favorite_number=2;
+  repeated string interests=3;
+}
