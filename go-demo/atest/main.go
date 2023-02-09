@@ -3,44 +3,19 @@
 package main
 
 import (
-	"database/sql"
-	"log"
-	"time"
-
 	_ "github.com/go-sql-driver/mysql"
+	"net/http"
+	"time"
 )
 
-var DB *sql.DB
-var dataBase = "root:Aa123456@tcp(192.168.0.101:3306)/?timeout=5s&readTimeout=6s"
-
-func mysqlInit() {
-	var err error
-	DB, err = sql.Open("mysql", dataBase)
-	if err != nil {
-		log.Fatalln("open db fail:", err)
-	}
-
-	DB.SetMaxOpenConns(3)
-	DB.SetMaxIdleConns(3)
-}
-
 func main() {
-	mysqlInit()
-
-	for {
-		log.Println("start")
-		execSql()
-		time.Sleep(3 * time.Second)
+	a := http.Client{
+		Timeout: time.Millisecond * 10,
 	}
-}
-
-func execSql() {
-	var value int
-	err := DB.QueryRow("select 1").Scan(&value)
+	res, err := a.Get("http://192.168.2.119:8008/answerfun/activityInfo?actuniqid=769e5c883b56")
 	if err != nil {
-		log.Println("query failed:", err)
+		println(err.Error())
 		return
 	}
-
-	log.Println("value:", value)
+	println(res.StatusCode)
 }
