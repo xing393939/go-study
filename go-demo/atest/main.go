@@ -13,7 +13,16 @@ import (
 )
 
 var list = [][3]string{
+	{"华润医药控股有限公司", "微刊", "30088"},
 	//{"华润医药控股有限公司", "微刊", "47865"},
+}
+
+var logger *log.Logger
+
+func init() {
+	logFile, _ := os.Create("error.log")
+	logTime := time.Now().Format("2006-01-02 15:04:05 ")
+	logger = log.New(logFile, logTime, log.Llongfile)
 }
 
 func main() {
@@ -27,7 +36,7 @@ func main() {
 
 	var buf []byte
 	for _, row := range list {
-		file := day + "/" + row[0] + "_" + row[1] + "_" + row[2] + "_" + day + ".png"
+		file := day + "/" + row[0] + "_" + row[2] + "_" + day + ".png"
 		if PathExists(file) {
 			log.Println(file + " exists")
 			continue
@@ -38,7 +47,7 @@ func main() {
 			getZq(row[2], &buf, ctx)
 		}
 		if err := ioutil.WriteFile(file, buf, 0644); err != nil {
-			log.Fatal(err)
+			logger.Fatal(err)
 		} else {
 			log.Println(file)
 		}
@@ -73,7 +82,7 @@ func getWk(id string, res *[]byte, ctx context.Context) {
 			cdp.FullScreenshot(res, 90),
 		}),
 	); err != nil {
-		log.Fatal(err)
+		logger.Fatal(err)
 	}
 }
 
@@ -94,7 +103,7 @@ func getZq(id string, res *[]byte, ctx context.Context) {
 			cdp.FullScreenshot(res, 90),
 		}),
 	); err != nil {
-		log.Fatal(err)
+		logger.Fatal(err)
 	}
 }
 
