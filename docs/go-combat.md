@@ -21,3 +21,5 @@ Commit Message 规范：
   * Closes #1, #2。关闭了2个issue
 * 功能分支工作流，[三种合并代码方式的差别](https://www.chenshaowen.com/blog/the-difference-of-tree-ways-of-merging-code-in-github.html)
 * Git Flow工作流，介绍见[链接](https://blog.csdn.net/weixin_46674610/article/details/115396404)
+
+![img](../images/combat/pattern.png)
