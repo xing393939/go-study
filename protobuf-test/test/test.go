@@ -16,7 +16,7 @@ func bytesToDex(bytes []byte) string {
 	return result
 }
 
-// 当前目录下执行：protoc --go_out=../.. test.proto
+// 当前目录下执行：protoc --go_out=../../.. test.proto
 func main() {
 	fn := int64(1337)
 	ss := &Student{

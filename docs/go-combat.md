@@ -23,3 +23,6 @@ Commit Message 规范：
 * Git Flow工作流，介绍见[链接](https://blog.csdn.net/weixin_46674610/article/details/115396404)
 
 ![img](../images/combat/pattern.png)
+
+#### 第2站 基础功能
+
