@@ -1,6 +1,6 @@
 syntax="proto3";
 package main;
-option go_package = "go-study/protobuf-test;main";
+option go_package = "go-study/protobuf-test/test;main";
 
 message Student {
   string user_name=1;              // 1是标号，唯一即可（相当于数据库中的Id，不一定要从1、2的顺序依次排列）
