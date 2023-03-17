@@ -29,9 +29,11 @@ Commit Message 规范：
   * API版本，参考github的header头，X-GitHub-Api-Version: 2022-11-28
   * API命名，参考github的https://api.github.com/orgs/ORG/actions/permissions/selected-actions
 * GRPC
+  * [关于 protoc 工具的小疑惑](https://learnku.com/articles/64337)
   * go install google.golang.org/protobuf/cmd/protoc-gen-go
   * go install google.golang.org/grpc/cmd/protoc-gen-go-grpc
-  * https://github.com/grpc-ecosystem/grpc-gateway
+  * protoc -I. --go_out=. *.proto
+  * protoc -I. --go-grpc_out=. *.proto
 * 错误处理-http状态码
   * 200 - 表示请求成功执行。
   * 400 - 表示客户端出问题。
