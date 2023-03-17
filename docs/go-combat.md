@@ -25,4 +25,23 @@ Commit Message 规范：
 ![img](../images/combat/pattern.png)
 
 #### 第2站 基础功能
-
+* RESTful API
+  * API版本，参考github的header头，X-GitHub-Api-Version: 2022-11-28
+  * API命名，参考github的https://api.github.com/orgs/ORG/actions/permissions/selected-actions
+* GRPC
+  * go install google.golang.org/protobuf/cmd/protoc-gen-go
+  * go install google.golang.org/grpc/cmd/protoc-gen-go-grpc
+  * https://github.com/grpc-ecosystem/grpc-gateway
+* 错误处理-http状态码
+  * 200 - 表示请求成功执行。
+  * 400 - 表示客户端出问题。
+  * 500 - 表示服务端出问题。
+  * 401 - 表示认证失败。
+  * 403 - 表示授权失败。
+  * 404 - 表示资源找不到
+  * 405 - Method Not Allowed
+* 错误处理-业务错误码，以新浪的100101为例
+  * 10: 服务。
+  * 01: 服务下的某个模块。
+  * 01: 模块下的错误码序号
+* 错误处理-接口返回字段：code、message、reference、data
