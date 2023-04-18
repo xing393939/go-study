@@ -7,7 +7,7 @@
 #### Go论坛
 * [Go周刊](https://studygolang.com/go/weekly)
 * [Go夜读](https://talkgo.org/latest)
-* [GoCN](https://gocn.vip/topics)
+* [GoCN](https://gocn.vip)
 * [GoFrame导航](https://goframe.org/pages/viewpage.action?pageId=3672756)
 * [Go夜读-期刊作者](https://github.com/talkgo/night/#contributors-1)
 
