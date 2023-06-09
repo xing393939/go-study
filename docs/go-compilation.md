@@ -31,6 +31,8 @@ JMP -2(PC) // 以当前置顶为基础，PC-2
 JNZ target // 如果zero flag被set过，则跳转
 CMPQ SI CX 
 JLS 0x0185 // 如果SI<CX，则跳转到0x0185
+TEST AX, AX
+JE 0x0185  // 如果AX & AX==0，则跳转到0x0185(意思是判断AX是否等于0，它比CMP指令更快)
 TEST AX, BX
 JE 0x0185  // 如果AX & BX==0，则跳转到0x0185(TEST指令不会改变AX/BX)
 
