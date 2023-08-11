@@ -6,6 +6,7 @@
 
 #### Go论坛
 * [Go周刊](https://studygolang.com/go/weekly)
+* [GoForum](https://forum.golangbridge.org/)
 * [Go夜读](https://talkgo.org/latest)
 * [GoCN](https://gocn.vip/)
 * [GoFrame导航](https://goframe.org/pages/viewpage.action?pageId=3672756)
