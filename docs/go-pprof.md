@@ -41,6 +41,8 @@
 #### pprof指标
 * [pprof性能调优](https://www.topgoer.com/%E5%85%B6%E4%BB%96/pprof%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98.html)
 * [你不知道的 Go 之 pprof](https://darjun.github.io/2021/06/09/youdontknowgo/pprof/)
+* [golang性能分析及优化](https://qiankunli.github.io/2022/12/09/go_performance.html)
+* [分析Go程序的Off-CPU性能](https://colobu.com/2020/11/12/analyze-On-CPU-in-go/)
 * cpu指标：每隔10ms会中断一次，记录每个协程当前执行的堆栈
   * 采样频率是写死的，不能更改，官方通过测试认为是合理的
   * 采样范围是采样开始~采样结束
