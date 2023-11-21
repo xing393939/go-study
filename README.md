@@ -14,6 +14,7 @@
 
 #### Go博客
 * [潘少、潮汕人](https://strikefreedom.top/reading-list)
+* [鸟窝](https://colobu.com/)
 * [峰云就她了](http://xiaorui.cc/)
 * [曹大-曹春晖](https://xargin.com/readings/)
 * [Go夜读-欧长坤](https://blog.changkun.de/)
