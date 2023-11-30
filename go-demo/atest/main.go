@@ -4,7 +4,6 @@ import (
 	"context"
 	"github.com/chromedp/cdproto/runtime"
 	"github.com/chromedp/chromedp/device"
-	"io/ioutil"
 	"log"
 	"os"
 	"time"
@@ -13,8 +12,38 @@ import (
 )
 
 var list = [][3]string{
+	{"国家电网有限公司", "微刊", "762"},
+	{"国家电网有限公司", "微刊", "34241"},
+	{"国家电网有限公司", "微刊", "49154"},
+	{"国家电网有限公司", "微刊", "51227"},
+	{"中国民航工会", "专区", "22210"},
+	{"中国民航工会", "微刊", "21025"},
+	{"天津高速公路集团有限公司", "专区", "26293"},
+	{"天津高速公路集团有限公司", "微刊", "27476"},
+	{"中国煤炭科工集团有限公司", "专区", "26702"},
+	{"中国煤炭科工集团有限公司", "微刊", "26124"},
+	{"中国工商银行北京市分行", "专区", "41131"},
+	{"中国工商银行北京市分行", "微刊", "41133"},
+	{"中国铁建股份有限公司", "专区", "20927"},
+	{"中国铁建股份有限公司", "微刊", "17543"},
+	{"中国铁建股份有限公司", "微刊", "26175"},
+	{"中国铁建股份有限公司", "微刊", "26176"},
+	{"中国铁建股份有限公司", "微刊", "26177"},
+	{"中国铁建股份有限公司", "微刊", "26178"},
+	{"中国铁建股份有限公司", "微刊", "26179"},
+	{"中国铁建股份有限公司", "微刊", "26180"},
+	{"中国铁建股份有限公司", "微刊", "26181"},
+	{"中国铁建股份有限公司", "微刊", "26182"},
+	{"北京市发展和改革委员会", "专区", "26826"},
+	{"北京市发展和改革委员会", "微刊", "26823"},
+	{"北京城市副中心投资建设集团有限公司", "专区", "22527"},
+	{"北京城市副中心投资建设集团有限公司", "微刊", "22529"},
+	{"黑龙江省总工会", "微刊", "28526"},
+	{"中国北方化学研究院集团有限公司", "专区", "49696"},
+	{"中国北方化学研究院集团有限公司", "微刊", "25913"},
+	{"天津港(集团)有限公司", "专区", "21638"},
+	{"天津港(集团)有限公司", "微刊", "21634"},
 	{"华润医药控股有限公司", "微刊", "30088"},
-	//{"华润医药控股有限公司", "微刊", "47865"},
 }
 
 var logger *log.Logger
@@ -46,7 +75,7 @@ func main() {
 		} else {
 			getZq(row[2], &buf, ctx)
 		}
-		if err := ioutil.WriteFile(file, buf, 0644); err != nil {
+		if err := os.WriteFile(file, buf, 0644); err != nil {
 			logger.Fatal(err)
 		} else {
 			log.Println(file)
@@ -75,9 +104,22 @@ func getWk(id string, res *[]byte, ctx context.Context) {
 	if err := cdp.Run(
 		ctx,
 		cdp.Emulate(device.IPhone13ProMax),
-		RunWithTimeOut(&ctx, 5, cdp.Tasks{
+		RunWithTimeOut(&ctx, 50, cdp.Tasks{
 			cdp.Navigate(url),
-			cdp.WaitVisible("#app", cdp.ByID),
+			cdp.WaitVisible(".contentWrap", cdp.ByQuery),
+			cdp.ActionFunc(scroll("document.querySelector('.contentWrap').scrollTo(0, 600);")),
+			cdp.Sleep(time.Duration(3) * time.Second),
+			cdp.ActionFunc(scroll("document.querySelector('.contentWrap').scrollTo(0, 1000);")),
+			cdp.Sleep(time.Duration(3) * time.Second),
+			cdp.ActionFunc(scroll("document.querySelector('.contentWrap').scrollTo(0, 1400);")),
+			cdp.Sleep(time.Duration(3) * time.Second),
+			cdp.ActionFunc(scroll("document.querySelector('.contentWrap').scrollTo(0, 1800);")),
+			cdp.Sleep(time.Duration(3) * time.Second),
+			cdp.ActionFunc(scroll("document.querySelector('.contentWrap').scrollTo(0, 2200);")),
+			cdp.Sleep(time.Duration(3) * time.Second),
+			cdp.ActionFunc(scroll("document.querySelector('.contentWrap').scrollTo(0, 2600);")),
+			cdp.Sleep(time.Duration(3) * time.Second),
+			cdp.ActionFunc(scroll("document.querySelector('#app').style.height='auto';")),
 			cdp.Sleep(time.Duration(3) * time.Second),
 			cdp.FullScreenshot(res, 90),
 		}),
@@ -91,7 +133,7 @@ func getZq(id string, res *[]byte, ctx context.Context) {
 	if err := cdp.Run(
 		ctx,
 		cdp.Emulate(device.IPhone13ProMax),
-		RunWithTimeOut(&ctx, 12, cdp.Tasks{
+		RunWithTimeOut(&ctx, 20, cdp.Tasks{
 			cdp.Navigate(url),
 			cdp.WaitVisible("#app", cdp.ByID),
 			cdp.ActionFunc(scroll("window.scrollTo(0, 1200);")),
