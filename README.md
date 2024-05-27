@@ -39,8 +39,6 @@
 * [Go 语言101](https://gfw.go101.org/article/101.html)
 * [跟煎鱼学 Go](https://eddycjy.gitbook.io/golang/)
 * [码农桃花源-Go笔记](https://golang.design/go-questions)
-* [golang-notes](https://github.com/cch123/golang-notes)、[Go 语言笔记](https://go.xargin.com/)，曹大
-* [Golang面试题汇总](https://www.golangroadmap.com/interview/books/questions/golang/)，[去除弹窗](javascript:document.getElementsByClassName%28'v-dialog-container'%29[0].remove%28%29;)
+* [golang-notes](https://github.com/cch123/golang-notes)
 * [面试八股文](https://www.topgoer.cn/docs/gomianshiti/gomianshiti-1dd225t6esqld)
-* [面试专题](https://bytemode.github.io/interview/)，Go/操作系统/数据库/算法
 
