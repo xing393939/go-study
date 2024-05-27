@@ -33,7 +33,7 @@
 #### 阅读内容
 * [学习路线图、文章、规范](https://github.com/yongxinz/gopher)
 * [Gopher Reading List](https://github.com/qichengzx/gopher-reading-list-zh_CN)
-* [Go 语言设计与实现](https://draveness.me/golang/)，已读
+* [Go 语言设计与实现](https://draveness.me/golang/)，已看
 * [Go 进阶训练营大纲](https://shimo.im/docs/vX9YgCchV3XwgYTH/read)，已看
 * [Go 语言原本](https://golang.design/under-the-hood/)，欧长坤
 * [Go 语言101](https://gfw.go101.org/article/101.html)
