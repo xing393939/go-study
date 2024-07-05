@@ -7,9 +7,8 @@
   1. [Go 语言设计与实现](docs/go-language-design-and-implementation.md)
   1. [Go 程序员面试](docs/go-interview.md)
   2. [Go 语言项目开发实战](docs/go-combat.md)
-* 标准库
-  1. [net/http包](docs/std-net-http.md)  
 * 零散知识
+  1. [线程本地存储TLS](docs/go-tls.md)
   1. [dlv调试](docs/go-dlv.md)
   1. [coredump](docs/core-dump.md)
   1. [编译条件](docs/go-conditional.md)
@@ -24,6 +23,7 @@
   1. [依赖注入](docs/dependency-injection.md)
 * 源码分析
   1. [runtime/HACKING](docs/source-code-runtime-hacking.md)
+  1. [net/http包](docs/std-net-http.md)
   1. [全局变量](docs/source-code-global-variable.md)
   1. [核心函数](docs/source-code-core-functions.md)
   1. [接口类型](docs/source_interface.md)
