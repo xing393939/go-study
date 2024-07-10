@@ -13,6 +13,7 @@ MOVD $1, DX      // 4 bytes
 MOVL $1, DX      // 4 bytes
 MOVQ $-10, AX    // 8 bytes
 XCHG DST,SRC     // 交换DST,SRC的值，DST,SRC不能同时是内存
+LOCK             // 指令前缀，其后必须跟一条读-改-写的指令，比如XADDQ、XCHG、CMPXCHG等
 
 //SIMD
 movups: 把(16B)4个不对准的单精度值传送到xmm寄存器或者内存

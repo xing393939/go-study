@@ -22,12 +22,12 @@ func testUnnamed() int {
 	0x003e 00062 (main.go:28)	LEAQ	""..autotmp_2+16(SP), AX
 	0x0043 00067 (main.go:28)	MOVQ	AX, (SP)                         // arg0 = &_defer
 	0x0047 00071 (main.go:28)	CALL	runtime.deferprocStack(SB)       // 加入defer链 
-	0x004c 00076 (main.go:28)	TESTL	AX, AX
-	0x004e 00078 (main.go:28)	JNE	111
+	0x004c 00076 (main.go:28)	TESTL	AX, AX                           // 上一行会把AX置为0  
+	0x004e 00078 (main.go:28)	JNE	111                                  // 不为0则跳转到111行退出
 	0x0050 00080 (main.go:28)	JMP	82
-	0x0052 00082 (main.go:31)	MOVQ	"".i+8(SP), AX
+	0x0052 00082 (main.go:31)	MOVQ	"".i+8(SP), AX                   
 	0x0057 00087 (main.go:31)	MOVQ	AX, "".~r0+112(SP)               // r0 = i
-	0x005c 00092 (main.go:31)	XCHGL	AX, AX
+	0x005c 00092 (main.go:31)	XCHGL	AX, AX                           // 相当于NOP指令
 	0x005d 00093 (main.go:31)	NOP
 	0x0060 00096 (main.go:31)	CALL	runtime.deferreturn(SB)          // 执行defer链 
 	0x0065 00101 (main.go:31)	MOVQ	96(SP), BP                       // 恢复BP
