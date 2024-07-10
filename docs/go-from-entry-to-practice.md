@@ -80,7 +80,6 @@ func main() {
 	for i := 0; i < numWorkers; i++ {
 		go func() {
 			/*
-			 * atomic包对int的读写是两条指令，并不能保证原子性，那么它存在的意义是什么呢？
 			 * 参考https://studygolang.com/articles/29579
 			 * 1，兼容不同cpu架构，保证读的原子性
 			 * 2，避免编译器优化成寄存器，要保证是对内存的读写
