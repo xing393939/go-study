@@ -15,7 +15,6 @@
   1. [汇编相关](docs/go-compilation.md)
   1. [汇编+Syscall](docs/go-compilation-syscall.md)
   1. [并发模式](docs/go-concurrency-patterns.md)
-  1. [DDD 学习](docs/go-ddd.md)
   1. [pprof 工具](docs/go-pprof.md)
   1. [细节原理](docs/go-principle-of-detail.md)
   1. [Go 坑之math/rand](docs/hole-rand.md)
